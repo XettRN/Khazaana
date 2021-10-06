@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "459484525410",
+    "project_id": "khazaana-7d1e6",
+    "storage_bucket": "khazaana-7d1e6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:459484525410:android:445ade605c5106dc3f723b",
+        "android_client_info": {
+          "package_name": "com.example.khazaana"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "459484525410-c6doivi0b7793q8sla53kr82t0aqp625.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjoo4iI_HcGE8OTVwGViNENZn76P9RmLY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "459484525410-c6doivi0b7793q8sla53kr82t0aqp625.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
