@@ -9,6 +9,6 @@ public class IFARegistration extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.IFARegistration);
+        setContentView(R.layout.ifa_registration);
     }
 }
