@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".LoadScreen">
 
+    <ImageView
+        android:id="@+id/treasure_chest"
+        android:layout_width="223dp"
+        android:layout_height="190dp"
+        android:src="@drawable/treasure_chest"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.223" />
+
     <TextView
         android:id="@+id/loadScreen"
         android:layout_width="wrap_content"
@@ -70,13 +81,14 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/button"
+    <ImageView
+        android:id="@+id/sign_in"
         android:layout_width="143dp"
         android:layout_height="53dp"
-        android:backgroundTint="#FFFFFF"
+        app:srcCompat="@drawable/sign_in_button"
         android:shadowColor="#070707"
         android:text="Sign In"
+        android:clickable="true"
         android:textColor="@color/black"
         app:cornerRadius="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -101,7 +113,7 @@
         android:id="@+id/signup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sign Up?"
+        android:text="Sign Up"
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -109,7 +121,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.908" />
 
-<!--     android:onClick="onClick" set onclick -->
+    <!--     android:onClick="onClick" set onclick -->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

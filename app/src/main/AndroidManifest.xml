@@ -19,6 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".LoginScreen"></activity>
+        <activity android:name=".SignUpGeneral"></activity>
+
     </application>
 
 </manifest>

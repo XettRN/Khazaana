@@ -2,8 +2,10 @@ package com.example.khazaana;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 public class LoginScreen extends AppCompatActivity {
@@ -27,5 +29,12 @@ public class LoginScreen extends AppCompatActivity {
         password.setTypeface(mont);
         newuser.setTypeface(mont);
         signup.setTypeface(mont);
+
+        signup.setOnClickListener( new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginScreen.this, SignUpGeneral.class);
+                startActivity(intent);
+            }
+        });
     }
 }
