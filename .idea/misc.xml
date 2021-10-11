@@ -3,8 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/layout/IFARegistration.xml" value="0.30085470085470084" />
-        <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/layout/activity_main.xml" value="0.2957427536231884" />
+        <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/layout/ifa_registration.xml" value="0.2957427536231884" />
+        <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/layout/load_screen.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/layout/login_screen.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/layout/sign_up_general.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/layout/sign_up_options.xml" value="0.36666666666666664" />
       </map>
     </option>
   </component>
