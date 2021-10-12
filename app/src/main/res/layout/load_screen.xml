@@ -33,12 +33,11 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.863" />
 
-    <Button
+    <com.google.android.gms.common.SignInButton
         android:id="@+id/google_signin"
         android:layout_width="314dp"
         android:layout_height="62dp"
         android:backgroundTint="#00000000"
-        android:text="Sign In With Google"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.611"
