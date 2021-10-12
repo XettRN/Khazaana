@@ -3,6 +3,7 @@ package com.example.khazaana;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -38,6 +39,14 @@ public class IFARegistration extends AppCompatActivity {
         password = findViewById(R.id.passText);
         reEnterPass = findViewById(R.id.reEnterPass);
         nextScreen = findViewById(R.id.next);
+
+        fAuth = FirebaseAuth.getInstance();
+        fStore = FirebaseFirestore.getInstance();
+
+        if(fAuth.getCurrentUser() == null) {
+            startActivity(new Intent(getApplicationContext(), LoadScreen.class));
+            finish();
+        }
 
         nextScreen.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,7 +93,7 @@ public class IFARegistration extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             Toast.makeText(IFARegistration.this,"User Created", Toast.LENGTH_SHORT).show();
 
-                            uID = fAuth.getCurrentUser().getUid();
+                            /*uID = fAuth.getCurrentUser().getUid();
                             DocumentReference dRef = fStore.collection("Authorized IFAs").document(uID);
 
                             Map<String, Object> authorizedIFAs = new HashMap<>();
@@ -93,7 +102,18 @@ public class IFARegistration extends AppCompatActivity {
                             authorizedIFAs.put("Last Name", lName);
                             authorizedIFAs.put("Email Address", email);
 
-                            dRef.set(authorizedIFAs);
+                            dRef.set(authorizedIFAs);*/
+
+                            uID = fAuth.getCurrentUser().getUid();
+                            DocumentReference dRef = fStore.collection("Authorized Users").document(uID);
+
+                            Map<String, Object> authorizedUsers = new HashMap<>();
+
+                            authorizedUsers.put("First Name", fName);
+                            authorizedUsers.put("Last Name", lName);
+                            authorizedUsers.put("Email Address", email);
+
+                            dRef.set(authorizedUsers);
 
                         } else {
                             Toast.makeText(IFARegistration.this,"Error!!! "+task.getException().getMessage(), Toast.LENGTH_SHORT).show();

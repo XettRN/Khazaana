@@ -37,7 +37,8 @@ public class sign_up_options extends AppCompatActivity{
         email_signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), IFARegistration.class));
+                Intent intent = new Intent(sign_up_options.this, IFARegistration.class);
+                startActivity(intent);
             }
         });
 

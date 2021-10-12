@@ -38,7 +38,7 @@ public class SignUpGeneral extends AppCompatActivity {
         ifa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SignUpGeneral.this, IFARegistration.class);
+                Intent intent = new Intent(SignUpGeneral.this, sign_up_options.class);
                 startActivity(intent);
             }
         });
@@ -46,7 +46,7 @@ public class SignUpGeneral extends AppCompatActivity {
         client.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SignUpGeneral.this, IFARegistration.class);
+                Intent intent = new Intent(SignUpGeneral.this, sign_up_options.class);
                 startActivity(intent);
             }
         });
