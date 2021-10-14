@@ -30,7 +30,7 @@ public class SignUpGeneral extends AppCompatActivity {
 
         back.setOnClickListener( new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(SignUpGeneral.this, LoginScreen.class);
+                Intent intent = new Intent(SignUpGeneral.this, LoadScreen.class);
                 startActivity(intent);
             }
         });

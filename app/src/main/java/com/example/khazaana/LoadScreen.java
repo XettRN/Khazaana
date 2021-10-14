@@ -30,6 +30,8 @@ public class LoadScreen extends AppCompatActivity {
     private TextView title;
     private Button signIn;
     private SignInButton google_signIn;
+    TextView newuser;
+    TextView signup;
     public static final int RC_SIGN_IN = 1;
     private FirebaseAuth mAuth;
     private GoogleSignInClient mGoogleSignInClient;
@@ -48,13 +50,16 @@ public class LoadScreen extends AppCompatActivity {
         setContentView(R.layout.load_screen);
         title = findViewById(R.id.loadScreen);
         signIn = findViewById((R.id.sign_in));
+        newuser = findViewById(R.id.newuser);
+        signup = findViewById(R.id.signup);
 
         Typeface mont = Typeface.createFromAsset(getAssets(), "fonts/Montserrat-Light.otf");
         title.setTypeface(mont);
+        newuser.setTypeface(mont);
+        signup.setTypeface(mont);
 
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this,gso);
@@ -76,6 +81,13 @@ public class LoadScreen extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        signup.setOnClickListener( new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(LoadScreen.this, SignUpGeneral.class);
+                startActivity(intent);
+            }
+        });
     }
 
 
@@ -93,7 +105,7 @@ public class LoadScreen extends AppCompatActivity {
                 FirebaseGoogleAuth(account);
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
-                Toast.makeText(LoadScreen.this, "Sign In Failed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoadScreen.this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -116,6 +128,8 @@ public class LoadScreen extends AppCompatActivity {
                     }
                 });
     }
+
+
 
 
 }

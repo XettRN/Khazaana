@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -23,104 +23,96 @@ import java.util.Map;
 
 public class IFARegistration extends AppCompatActivity {
 
-    TextView firstName, lastName, emailAddress, password, reEnterPass;
+    EditText fName, lName, email, pass, repass;
     Button nextScreen;
-    FirebaseAuth fAuth;
+    FirebaseAuth fAuthorization;
     FirebaseFirestore fStore;
     String uID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.ifa_registration);
-        firstName = findViewById(R.id.firstName);
-        lastName = findViewById(R.id.lastName);
-        emailAddress = findViewById(R.id.email);
-        password = findViewById(R.id.passText);
-        reEnterPass = findViewById(R.id.reEnterPass);
-        nextScreen = findViewById(R.id.next);
+        setContentView(R.layout.activity_ifaregistration);
 
-        fAuth = FirebaseAuth.getInstance();
+        fName = findViewById(R.id.firstName);
+        lName = findViewById(R.id.lastName);
+        email = findViewById(R.id.email);
+        pass = findViewById(R.id.passText);
+        repass = findViewById(R.id.reEnterPass);
+        nextScreen = findViewById(R.id.next);
+        fAuthorization = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
 
-        if(fAuth.getCurrentUser() == null) {
-            startActivity(new Intent(getApplicationContext(), LoadScreen.class));
+        if(fAuthorization.getCurrentUser() != null) {
+            startActivity(new Intent(getApplicationContext(), ifaClientRegistrationDetails.class));
             finish();
         }
 
         nextScreen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String email = emailAddress.getText().toString();
-                String fName = firstName.getText().toString();
-                String lName = lastName.getText().toString();
-                String pass = password.getText().toString();
-                String rPass = reEnterPass.getText().toString();
+                String firstName = fName.getText().toString();
+                String lastName = lName.getText().toString();
+                String emailAdd = email.getText().toString();
+                String password = pass.getText().toString();
+                String passMatch = repass.getText().toString();
 
-                if (TextUtils.isEmpty(fName)) {
-                    firstName.setError("Please enter a first name");
+                if (TextUtils.isEmpty(firstName)) {
+                    fName.setError("Please enter a first name!!");
                     return;
                 }
 
-                if (TextUtils.isEmpty(lName)) {
-                    lastName.setError("Please enter a last name");
+                if (TextUtils.isEmpty(lastName)) {
+                    lName.setError("Please enter a last name!!");
                     return;
                 }
 
-                if (TextUtils.isEmpty(email)){
-                    emailAddress.setError("Please enter a valid email address");
+                if (TextUtils.isEmpty(emailAdd)){
+                    email.setError("Please enter a valid email address!!");
                     return;
                 }
 
-                if (TextUtils.isEmpty(pass)){
-                    password.setError("Please enter a valid password");
+                if (TextUtils.isEmpty(password)){
+                    pass.setError("Please enter a valid password!!");
                     return;
                 }
 
-                if (TextUtils.isEmpty(rPass)){
-                    password.setError("Re-entered password does not match");
+                if (password.length() < 6) {
+                    pass.setError("Password can only be >= 6 characters");
                     return;
                 }
 
-                if (pass.length() < 6) {
-                    password.setError("Password can only be >= 6 characters");
+                if (!TextUtils.equals(password, passMatch)) {
+                    repass.setError("Password does not match!!");
                     return;
                 }
 
-                fAuth.createUserWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                fAuthorization.createUserWithEmailAndPassword(emailAdd, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             Toast.makeText(IFARegistration.this,"User Created", Toast.LENGTH_SHORT).show();
-
-                            /*uID = fAuth.getCurrentUser().getUid();
-                            DocumentReference dRef = fStore.collection("Authorized IFAs").document(uID);
-
-                            Map<String, Object> authorizedIFAs = new HashMap<>();
-
-                            authorizedIFAs.put("First Name", fName);
-                            authorizedIFAs.put("Last Name", lName);
-                            authorizedIFAs.put("Email Address", email);
-
-                            dRef.set(authorizedIFAs);*/
-
-                            uID = fAuth.getCurrentUser().getUid();
-                            DocumentReference dRef = fStore.collection("Authorized Users").document(uID);
+                            uID = fAuthorization.getCurrentUser().getUid();
+                            DocumentReference d = fStore.collection("Authorized IFAs").document(uID);
 
                             Map<String, Object> authorizedUsers = new HashMap<>();
 
-                            authorizedUsers.put("First Name", fName);
-                            authorizedUsers.put("Last Name", lName);
-                            authorizedUsers.put("Email Address", email);
+                            authorizedUsers.put("First Name", firstName);
+                            authorizedUsers.put("Last Name", lastName);
+                            authorizedUsers.put("Email Address", emailAdd);
 
-                            dRef.set(authorizedUsers);
+                            d.set(authorizedUsers);
+                            startActivity(new Intent(getApplicationContext(), ifaClientRegistrationDetails.class));
 
                         } else {
-                            Toast.makeText(IFARegistration.this,"Error!!! "+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(IFARegistration.this,"User creation unsuccessful!!", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
+
+
             }
         });
+
     }
 }
