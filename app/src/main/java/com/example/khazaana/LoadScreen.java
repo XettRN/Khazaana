@@ -32,17 +32,18 @@ public class LoadScreen extends AppCompatActivity {
     private SignInButton google_signIn;
     TextView newuser;
     TextView signup;
-    public static final int RC_SIGN_IN = 1;
+    //public static final int RC_SIGN_IN = 1;
     private FirebaseAuth mAuth;
-    private GoogleSignInClient mGoogleSignInClient;
+    //private GoogleSignInClient mGoogleSignInClient;
 
+    /*
     @Override
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
-    }
+    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,19 +59,17 @@ public class LoadScreen extends AppCompatActivity {
         newuser.setTypeface(mont);
         signup.setTypeface(mont);
 
-
+        /*
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
-        mGoogleSignInClient = GoogleSignIn.getClient(this,gso);
+        mGoogleSignInClient = GoogleSignIn.getClient(this,gso);*/
         google_signIn = findViewById(R.id.google_signin);
         mAuth = FirebaseAuth.getInstance();
 
         google_signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-                        startActivityForResult(signInIntent, RC_SIGN_IN);
 
             }
         });
@@ -91,7 +90,7 @@ public class LoadScreen extends AppCompatActivity {
     }
 
 
-
+    /*
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -127,7 +126,7 @@ public class LoadScreen extends AppCompatActivity {
                         }
                     }
                 });
-    }
+    }*/
 
 
 
