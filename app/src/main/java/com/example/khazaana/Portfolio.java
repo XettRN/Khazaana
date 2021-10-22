@@ -1,17 +1,27 @@
 package com.example.khazaana;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Portfolio extends AppCompatActivity {
 
@@ -20,21 +30,49 @@ public class Portfolio extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_portfolio);
 
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference ifas = db.collection("Authorized IFAs");
+        DocumentReference ifa = ifas.document("A5WkIbLiaub1V1bQ9CRwzLdXBSo2");
+        CollectionReference clients = ifa.collection("Clients");
+        DocumentReference client = clients.document("ncqGS5zfzHEwzmIMjlKB");
+
+        TextView textView = findViewById(R.id.textView);
+
         PieChart pieChart = findViewById(R.id.pieChart);
         pieChart.getDescription().setEnabled(false);
         pieChart.setHoleRadius(0f);
         pieChart.setTransparentCircleRadius(0f);
         pieChart.getLegend().setEnabled(false);
-        pieChart.setData(getPieData());
 
-        //needed to update chart later on
-        //pieChart.invalidate();
+        client.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Log.d("TAG", "DocumentSnapshot data: " + document.getData());
+
+                        String firstName = (String) document.get("First Name");
+                        String lastName = (String) document.get("Last Name");
+                        textView.setText(firstName + " " + lastName);
+
+                        List<Number> equity = (List<Number>) document.get("Equity");
+                        pieChart.setData(getPieData(equity));
+                        pieChart.invalidate();
+                    } else {
+                        Log.d("TAG", "No such document");
+                    }
+                } else {
+                    Log.d("TAG", "get failed with ", task.getException());
+                }
+            }
+        });
     }
 
-    private PieData getPieData() {
+    private PieData getPieData(List<Number> list) {
         ArrayList<PieEntry> entries = new ArrayList<>();
-        entries.add(new PieEntry(40f, "Stocks"));
-        entries.add(new PieEntry(60f, "Crypto"));
+        entries.add(new PieEntry(list.get(0).floatValue(), "Stocks"));
+        entries.add(new PieEntry(list.get(1).floatValue(), "Crypto"));
 
         PieDataSet pieDataSet = new PieDataSet(entries , "");
         pieDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
