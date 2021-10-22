@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "459484525410-t50k540t4b4oav5ua9fa8i49po0ktp43.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.khazaana",
+            "certificate_hash": "a3a2bf10fdf7032828b56cf3843a082110145e88"
+          }
+        },
+        {
           "client_id": "459484525410-c6doivi0b7793q8sla53kr82t0aqp625.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -27,7 +35,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "459484525410-c6doivi0b7793q8sla53kr82t0aqp625.apps.googleusercontent.com",
+              "client_id": "459484525410-8rrqjj2tt99l6ca9aoeqimfrrb6m0dr6.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
