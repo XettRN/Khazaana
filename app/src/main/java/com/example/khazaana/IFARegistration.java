@@ -48,6 +48,8 @@ public class IFARegistration extends AppCompatActivity {
             finish();
         }
 
+
+
         nextScreen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -114,5 +116,13 @@ public class IFARegistration extends AppCompatActivity {
             }
         });
 
+    }
+
+    public String getFirst() {
+        return fName.getText().toString();
+    }
+
+    public String getLast() {
+        return lName.getText().toString();
     }
 }

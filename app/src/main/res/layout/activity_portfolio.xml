@@ -8,25 +8,43 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="50dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="170dp"
                 android:layout_height="37dp"
-                android:text="Name Here"
+                android:text="  Name Here"
                 android:textSize="24sp" />
 
             <com.github.mikephil.charting.charts.PieChart
                 android:id="@+id/pieChart"
                 android:layout_width="362dp"
-                android:layout_height="355dp"></com.github.mikephil.charting.charts.PieChart>
+                android:layout_height="355dp" >
+
+            </com.github.mikephil.charting.charts.PieChart>
         </LinearLayout>
     </ScrollView>
+
+    <Button
+        android:id="@+id/backBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#FFFFFF"
+        android:text="Back"
+        android:textColor="#000000"
+        app:iconTint="#610C0C"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.879" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,8 +3,11 @@ package com.example.khazaana;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.PieChart;
@@ -35,6 +38,7 @@ public class Portfolio extends AppCompatActivity {
         DocumentReference ifa = ifas.document("A5WkIbLiaub1V1bQ9CRwzLdXBSo2");
         CollectionReference clients = ifa.collection("Clients");
         DocumentReference client = clients.document("ncqGS5zfzHEwzmIMjlKB");
+        Button back = findViewById(R.id.backBtn);
 
         TextView textView = findViewById(R.id.textView);
 
@@ -43,6 +47,13 @@ public class Portfolio extends AppCompatActivity {
         pieChart.setHoleRadius(0f);
         pieChart.setTransparentCircleRadius(0f);
         pieChart.getLegend().setEnabled(false);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), ifaClientRegistrationDetails.class));
+            }
+        });
 
         client.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -54,7 +65,7 @@ public class Portfolio extends AppCompatActivity {
 
                         String firstName = (String) document.get("First Name");
                         String lastName = (String) document.get("Last Name");
-                        textView.setText(firstName + " " + lastName);
+                        textView.setText(" " +firstName + " " + lastName);
 
                         List<Number> equity = (List<Number>) document.get("Equity");
                         pieChart.setData(getPieData(equity));
