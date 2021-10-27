@@ -19,7 +19,7 @@
 
             <TextView
                 android:id="@+id/textView"
-                android:layout_width="170dp"
+                android:layout_width="379dp"
                 android:layout_height="37dp"
                 android:text="  Name Here"
                 android:textSize="24sp" />

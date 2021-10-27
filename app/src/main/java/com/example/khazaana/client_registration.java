@@ -18,12 +18,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class IFARegistration extends AppCompatActivity {
+public class client_registration extends AppCompatActivity {
 
-    EditText fName, lName, email, pass, repass;
+    EditText fName, lName, email, pass, repass,ifa_key;
     Button nextScreen;
     FirebaseAuth fAuthorization;
     FirebaseFirestore fStore;
@@ -32,14 +33,15 @@ public class IFARegistration extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ifaregistration);
+        setContentView(R.layout.activity_client_registration);
 
-        fName = findViewById(R.id.firstName);
-        lName = findViewById(R.id.lastName);
-        email = findViewById(R.id.email);
-        pass = findViewById(R.id.passText);
-        repass = findViewById(R.id.reEnterPass);
-        nextScreen = findViewById(R.id.next);
+        fName = findViewById(R.id.firstName3);
+        lName = findViewById(R.id.lastName2);
+        email = findViewById(R.id.email2);
+        pass = findViewById(R.id.passText2);
+        repass = findViewById(R.id.reEnterPass2);
+        ifa_key = findViewById(R.id.ifaKey);
+        nextScreen = findViewById(R.id.next3);
         fAuthorization = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
 
@@ -58,6 +60,7 @@ public class IFARegistration extends AppCompatActivity {
                 String emailAdd = email.getText().toString();
                 String password = pass.getText().toString();
                 String passMatch = repass.getText().toString();
+                String ifaKey = ifa_key.getText().toString();
 
                 if (TextUtils.isEmpty(firstName)) {
                     fName.setError("Please enter a first name!!");
@@ -89,25 +92,38 @@ public class IFARegistration extends AppCompatActivity {
                     return;
                 }
 
+                if (TextUtils.isEmpty(ifaKey)){
+                    ifa_key.setError("Please enter a valid ifa Key!!");
+                    return;
+                }
+
+
                 fAuthorization.createUserWithEmailAndPassword(emailAdd, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(IFARegistration.this,"User Created", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(client_registration.this,"User Created", Toast.LENGTH_SHORT).show();
+
                             uID = fAuthorization.getCurrentUser().getUid();
-                            DocumentReference d = fStore.collection("Authorized IFAs").document(uID);
-
-                            Map<String, Object> authorizedUsers = new HashMap<>();
-
-                            authorizedUsers.put("First Name", firstName);
-                            authorizedUsers.put("Last Name", lastName);
-                            authorizedUsers.put("Email Address", emailAdd);
-
-                            d.set(authorizedUsers);
+                            DocumentReference d = fStore.collection("Authorized IFAs").document(ifaKey).collection("Clients").document(uID);
+                            Map<String, Object> new_Client = new HashMap<>();
+                            ArrayList<Integer> eq = new ArrayList<>();
+                            eq.add(25);
+                            eq.add(75);
+                            new_Client.put("Equity", eq);
+                            new_Client.put("First Name", firstName);
+                            new_Client.put("Last Name", lastName);
+                            DocumentReference dref = fStore.collection("Client List").document(uID);
+                            Map<String, Object> client = new HashMap<>();
+                            client.put("First Name", firstName);
+                            client.put("Last Name", lastName);
+                            client.put("Email", emailAdd);
+                            d.set(new_Client);
+                            dref.set(client);
                             startActivity(new Intent(getApplicationContext(), userDetails.class));
 
                         } else {
-                            Toast.makeText(IFARegistration.this,"User creation unsuccessful!!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(client_registration.this,task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -116,13 +132,5 @@ public class IFARegistration extends AppCompatActivity {
             }
         });
 
-    }
-
-    public String getFirst() {
-        return fName.getText().toString();
-    }
-
-    public String getLast() {
-        return lName.getText().toString();
     }
 }

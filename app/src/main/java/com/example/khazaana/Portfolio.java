@@ -9,19 +9,22 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,11 +36,6 @@ public class Portfolio extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_portfolio);
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference ifas = db.collection("Authorized IFAs");
-        DocumentReference ifa = ifas.document("A5WkIbLiaub1V1bQ9CRwzLdXBSo2");
-        CollectionReference clients = ifa.collection("Clients");
-        DocumentReference client = clients.document("ncqGS5zfzHEwzmIMjlKB");
         Button back = findViewById(R.id.backBtn);
 
         TextView textView = findViewById(R.id.textView);
@@ -51,9 +49,18 @@ public class Portfolio extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), ifaClientRegistrationDetails.class));
+                startActivity(new Intent(getApplicationContext(), userDetails.class));
             }
         });
+
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference ifas = db.collection("Authorized IFAs");
+        DocumentReference ifa = ifas.document("A5WkIbLiaub1V1bQ9CRwzLdXBSo2");
+        CollectionReference clients = ifa.collection("Clients");
+        DocumentReference client = clients.document("2KvyW2lzjHclFAHQnTfWFFq2mYS2");
+        String userID = FirebaseAuth.getInstance().getUid();
+
 
         client.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override

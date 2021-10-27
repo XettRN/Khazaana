@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -54,7 +53,7 @@ public class LoginScreen extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             Toast.makeText(LoginScreen.this,"Login Successful", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(), ifaClientRegistrationDetails.class));
+                            startActivity(new Intent(getApplicationContext(), userDetails.class));
                         } else {
                             Toast.makeText(LoginScreen.this,"Error!!! "+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
