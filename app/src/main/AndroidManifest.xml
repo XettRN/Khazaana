@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Khazaana">
         <activity
+            android:name=".ClientList"
+            android:exported="false" />
+        <activity
             android:name=".client_signup_options"
             android:exported="true" />
         <activity
