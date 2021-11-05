@@ -45,6 +45,9 @@
         <activity
             android:name=".userDetails"
             android:exported="true" />
+        <activity
+            android:name=".ClientAccountSettings"
+            android:exported="true" />
     </application>
 
 </manifest>
