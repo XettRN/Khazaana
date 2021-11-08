@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoadScreen">
+
+    <Button
+        android:id="@+id/risk_profiling1"
+        android:layout_width="307dp"
+        android:layout_height="90dp"
+        android:backgroundTint="#00000000"
+        android:drawableLeft="@drawable/ic_baseline_assignment_late_24"
+        android:fontFamily="@font/montserrat_regular"
+        android:text="Risk Profiling 1"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.223" />
+
+
+    <Button
+        android:id="@+id/risk_profiling2"
+        android:layout_width="307dp"
+        android:layout_height="90dp"
+        android:backgroundTint="#00000000"
+        android:fontFamily="@font/montserrat_regular"
+        android:text="Risk Profiling 2"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        android:drawableLeft="@drawable/ic_baseline_assignment_late_24"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.379" />
+
+
+
+    <TextView
+        android:id="@+id/moderate_risk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="Moderate Risk"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.156"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.086" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -45,6 +45,31 @@
         <activity
             android:name=".userDetails"
             android:exported="true" />
+        <activity
+            android:name=".ClientAccountSettings"
+            android:exported="true" />
+        <activity
+            android:name=".AddNewIFA"
+            android:exported="true" />
+        <activity
+            android:name=".ClientSettings"
+            android:exported="true" />
+        <activity
+            android:name=".ClientRiskProfilingMain"
+            android:exported="true" />
+        <activity
+            android:name=".ClientFees"
+            android:exported="true" />
+        <activity
+            android:name=".ClientProfile"
+            android:exported="true" />
+        <activity
+            android:name=".RemoveIFA"
+            android:exported="true" />
+        <activity
+            android:name=".UpdatePassword"
+            android:exported="true" />
+
     </application>
 
 </manifest>
