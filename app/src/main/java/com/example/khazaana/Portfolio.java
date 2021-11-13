@@ -78,10 +78,10 @@ public class Portfolio extends AppCompatActivity {
                         pieChart.setData(getPieData(equity));
                         pieChart.invalidate();
                     } else {
-                        Log.d("TAG", "No such document");
+                        Log.d("PORT", "No such document");
                     }
                 } else {
-                    Log.d("TAG", "get failed with ", task.getException());
+                    Log.d("PORT", "get failed with ", task.getException());
                 }
             }
         });
