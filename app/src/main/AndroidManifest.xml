@@ -10,6 +10,42 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Khazaana">
         <activity
+            android:name=".RiskProfiling_12"
+            android:exported="true" />
+        <activity
+            android:name=".RiskProfiling_11"
+            android:exported="true" />
+        <activity
+            android:name=".RiskProfiling_10"
+            android:exported="true" />
+        <activity
+            android:name=".RiskProfiling_9"
+            android:exported="true" />
+        <activity
+            android:name=".RiskProfiling_8"
+            android:exported="true" />
+        <activity
+            android:name=".RiskProfiling_7"
+            android:exported="true" />
+        <activity
+            android:name=".RiskProfiling_6"
+            android:exported="true" />
+        <activity
+            android:name=".RiskProfiling_5"
+            android:exported="true" />
+        <activity
+            android:name=".RiskProfiling_4"
+            android:exported="true" />
+        <activity
+            android:name=".RiskProfiling_3"
+            android:exported="true" />
+        <activity
+            android:name=".RiskProfiling_2"
+            android:exported="true" />
+        <activity
+            android:name=".RiskProfiling_1"
+            android:exported="true" />
+        <activity
             android:name=".client_signup_options"
             android:exported="true" />
         <activity
@@ -70,6 +106,9 @@
             android:name=".UpdatePassword"
             android:exported="true" />
 
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>
