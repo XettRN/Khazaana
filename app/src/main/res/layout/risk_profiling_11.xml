@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".RiskProfiling_11">
 
+<<<<<<< HEAD
     <Button
         android:id="@+id/button11"
         style="?android:attr/borderlessButtonStyle"
@@ -24,6 +25,8 @@
         app:layout_constraintVertical_bias="0.019"
         app:strokeColor="@color/white" />
 
+=======
+>>>>>>> a24d7969a9416c3aa6e71e7294ad6370888bfac5
     <com.google.android.material.chip.Chip
         android:id="@+id/chip63"
         android:layout_width="318dp"

@@ -13,7 +13,7 @@
         android:background="#0FFFFFFF"
         android:fontFamily="@font/roboto"
         android:foregroundTint="#170A0A"
-        android:text="Below $50,000"
+        android:text="Less than $50,000"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="#150808"
@@ -97,7 +97,7 @@
         android:background="#0FFFFFFF"
         android:fontFamily="@font/roboto"
         android:foregroundTint="#170A0A"
-        android:text="> $1,000,000"
+        android:text="Greater than $1,000,000"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="#150808"
@@ -178,6 +178,7 @@
         app:layout_constraintVertical_bias="0.914"
         app:strokeColor="@color/black"
         app:strokeWidth="@dimen/material_emphasis_disabled" />
+
 
     <Button
         android:id="@+id/button4"
