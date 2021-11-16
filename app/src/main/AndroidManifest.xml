@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Khazaana">
-
+        <activity
+            android:name=".RiskProfilingContinue"
+            android:exported="true" />
         <activity
             android:name=".RiskProfiling_12"
             android:exported="true" />
