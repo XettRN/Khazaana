@@ -27,37 +27,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TextView name = findViewById(R.id.heading3);
+//        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+//        NavController navController = Navigation.findNavController(this,  R.id.fragment);
+//        NavigationUI.setupWithNavController(bottomNavigationView, navController);
 
-        String user = FirebaseAuth.getInstance().getUid();
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference ifas = db.collection("Authorized IFAs");
-        assert user != null;
-        DocumentReference ifa = ifas.document(user);
-        ifa.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot doc = task.getResult();
-                    if (doc.exists()) {
-                        String first = (String) doc.get("First Name");
-                        name.setText("Welcome, " + first);
-                    }
-                    else {
-                        Log.d("HOME", "No such document");
-                    }
-                }
-                else {
-                    Log.d("HOME", "get failed with ", task.getException());
-                }
-            }
-        });
-
-        Button clients = findViewById(R.id.button2);
-        clients.setOnClickListener(this::goClientList);
-
-        Button equity = findViewById(R.id.button);
-        equity.setOnClickListener(this::goPortfolio);
     }
 
     public void goClientList(View view) {

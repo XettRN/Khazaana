@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_bar"
+    app:startDestination="@id/ifaHome">
+
+    <activity
+        android:id="@+id/ifaHome"
+        android:name="com.example.khazaana.IFAHome"
+        android:label="ifa_home"
+        tools:layout="@layout/ifa_home" />
+    <activity
+        android:id="@+id/clientList"
+        android:name="com.example.khazaana.ClientList"
+        android:label="activity_client_list"
+        tools:layout="@layout/activity_client_list" />
+
+</navigation>
