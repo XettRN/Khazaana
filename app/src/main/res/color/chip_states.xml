@@ -2,7 +2,8 @@
 <selector
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:strokeColor="#07b438"
+        android:color="@color/purple_200"
         android:state_checked="true"/>
-    <item android:strokeColor="#ff3798"/>
+    <item
+        android:color="@color/purple_700"/>
 </selector>
