@@ -3,13 +3,9 @@ package com.example.khazaana;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
@@ -23,22 +19,25 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class Portfolio extends AppCompatActivity {
+public class equity_portfolio extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_portfolio);
+        setContentView(R.layout.activity_equity_portfolio);
 
-        Button back = findViewById(R.id.backBtn);
-
-        TextView textView = findViewById(R.id.textView);
+        TextView textView = findViewById(R.id.name);
+        TextView stock1 = findViewById(R.id.stock1);
+        TextView boughtPrice1 = findViewById(R.id.boughtPrice1);
+        TextView sharesOwned1 = findViewById(R.id.sharesOwned1);
 
         PieChart pieChart = findViewById(R.id.pieChart);
         pieChart.getDescription().setEnabled(false);
@@ -46,28 +45,11 @@ public class Portfolio extends AppCompatActivity {
         pieChart.setTransparentCircleRadius(0f);
         pieChart.getLegend().setEnabled(false);
 
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), userDetails.class));
-            }
-        });
-
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), equity_portfolio.class));
-            }
-        });
-
-
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference ifas = db.collection("Authorized IFAs");
         DocumentReference ifa = ifas.document("A5WkIbLiaub1V1bQ9CRwzLdXBSo2");
         CollectionReference clients = ifa.collection("Clients");
-        String userID = FirebaseAuth.getInstance().getUid();
-        DocumentReference client = clients.document("2KvyW2lzjHclFAHQnTfWFFq2mYS2");
-
+        DocumentReference client = clients.document("HeF4v6rn9GhNXFC7RH8j4efXT0m2");
 
         client.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -84,6 +66,10 @@ public class Portfolio extends AppCompatActivity {
                         List<Number> equity = (List<Number>) document.get("Equity");
                         pieChart.setData(getPieData(equity));
                         pieChart.invalidate();
+                        List<Map> t = (List<Map>) document.get("Stocks");
+                        stock1.setText("Stock: " + t.get(0).get("first"));
+                        boughtPrice1.setText("Bought Price: " + t.get(0).get("second"));
+                        sharesOwned1.setText("Shares Owned: " + t.get(0).get("third"));
                     } else {
                         Log.d("TAG", "No such document");
                     }
@@ -92,6 +78,9 @@ public class Portfolio extends AppCompatActivity {
                 }
             }
         });
+
+
+
     }
 
     private PieData getPieData(List<Number> list) {
@@ -105,7 +94,4 @@ public class Portfolio extends AppCompatActivity {
 
         return new PieData(pieDataSet);
     }
-
-
-
 }
