@@ -1,47 +1,52 @@
 package com.example.khazaana;
 
+import static androidx.navigation.Navigation.findNavController;
+
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.NavigationUI;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
+import android.view.MenuItem;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String USER_ID = "com.example.khazaana.USER";
-
+    BottomNavigationView bottomNavigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
-//        NavController navController = Navigation.findNavController(this,  R.id.fragment);
-//        NavigationUI.setupWithNavController(bottomNavigationView, navController);
 
-    }
+        bottomNavigationView = findViewById(R.id.bottomNavigationView2);
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_container, new ifa_home()).commit();
+        bottomNavigationView.setSelectedItemId(R.id.ifa_home);
 
-    public void goClientList(View view) {
-        Intent intent = new Intent(this, ClientList.class);
-        String user = FirebaseAuth.getInstance().getUid();
-        intent.putExtra(USER_ID, user);
-        startActivity(intent);
-    }
-
-    public void goPortfolio(View view) {
-        Intent intent = new Intent(this, Portfolio.class);
-        startActivity(intent);
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Fragment frag = null;
+                switch(item.getItemId()) {
+                    case R.id.ifa_home:
+                        frag = new ifa_home();
+                        break;
+                    case R.id.client_list:
+                        frag = new client_list();
+                        break;
+                    case R.id.settings2:
+                        frag = new settings();
+                        break;
+                }
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_container, frag).commit();
+                return true;
+            }
+        });
     }
 }

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_navi"
+    app:startDestination="@id/ifa_home">
+
+    <fragment
+        android:id="@+id/ifa_home"
+        android:name="com.example.khazaana.ifa_home"
+        android:label="fragment_ifa_home"
+        tools:layout="@layout/fragment_ifa_home" />
+    <fragment
+        android:id="@+id/client_list"
+        android:name="com.example.khazaana.client_list"
+        android:label="fragment_client_list"
+        tools:layout="@layout/fragment_client_list" />
+    <fragment
+        android:id="@+id/settings2"
+        android:name="com.example.khazaana.settings"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
+</navigation>

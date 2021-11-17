@@ -2,17 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:title="Home"
-        android:id="@+id/IFAHome"
+        android:id="@+id/ifa_home"
         android:icon="@drawable/ic_baseline_home_24"/>
 
     <item
         android:title="Client Portfolios"
-        android:id="@+id/clientList"
+        android:id="@+id/client_list"
         android:icon="@drawable/ic_baseline_people_24"/>
 
     <item
         android:title="Profile"
-        android:id="@+id/ifaProfile"
+        android:id="@+id/settings2"
         android:icon="@drawable/ic_baseline_account_circle_24"/>
 
 </menu>

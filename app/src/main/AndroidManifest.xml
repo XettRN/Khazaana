@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Khazaana">
         <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+        <activity
             android:name=".RiskProfilingContinue"
             android:exported="true" />
         <activity
@@ -49,9 +52,6 @@
             android:name=".RiskProfiling_1"
             android:exported="true" />
         <activity
-            android:name=".ClientList"
-            android:exported="false" />
-        <activity
             android:name=".client_signup_options"
             android:exported="true" />
         <activity
@@ -69,9 +69,6 @@
         <activity
             android:name=".Portfolio"
             android:exported="false" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="true" />
         <activity
             android:name=".LoginScreen"
             android:exported="true" />

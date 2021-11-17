@@ -5,15 +5,26 @@
       <map>
         <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/layout/activity_client_details.xml" value="0.19972826086956522" />
         <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/layout/activity_client_list.xml" value="0.2563405797101449" />
+        <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/layout/activity_client_list2.xml" value="0.2753623188405797" />
         <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/layout/activity_client_registration.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/layout/activity_client_signup_options.xml" value="0.2977777777777778" />
         <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/layout/activity_equity_portfolio.xml" value="0.19427083333333334" />
         <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/layout/activity_ifa_client_registration_details.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/layout/activity_ifaregistration.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/layout/activity_main.xml" value="0.28940217391304346" />
+        <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/layout/activity_main2.xml" value="0.2821557971014493" />
         <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/layout/activity_portfolio.xml" value="0.28940217391304346" />
+        <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/layout/client_profile.xml" value="0.2753623188405797" />
         <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/layout/details.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/layout/fragment_blank.xml" value="0.2821557971014493" />
+        <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/layout/fragment_blank2.xml" value="0.2821557971014493" />
+        <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/layout/fragment_blank3.xml" value="0.2821557971014493" />
+        <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/layout/fragment_client_list.xml" value="0.2821557971014493" />
+        <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/layout/fragment_ifa_home.xml" value="0.2821557971014493" />
+        <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/layout/fragment_settings.xml" value="0.2821557971014493" />
         <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/layout/ifa_details.xml" value="0.19972826086956522" />
+        <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/layout/ifa_home.xml" value="0.2821557971014493" />
+        <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/layout/ifa_home2.xml" value="0.2821557971014493" />
         <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/layout/ifa_registration.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/layout/load_screen.xml" value="0.33" />
         <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/layout/login_screen.xml" value="0.36666666666666664" />
@@ -31,6 +42,8 @@
         <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/layout/risk_profiling_9.xml" value="0.19427083333333334" />
         <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/layout/sign_up_general.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/layout/sign_up_options.xml" value="0.28306159420289856" />
+        <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/menu/client_toolbar.xml" value="0.3625" />
+        <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/menu/nav_menu.xml" value="0.3625" />
         <entry key="..\:/Users/kymet/Documents/Khazaana/app/src/main/res/layout/activity_client_list.xml" value="0.36231884057971014" />
         <entry key="..\:/Users/kymet/Documents/Khazaana/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Users/kymet/Documents/Khazaana/app/src/main/res/layout/activity_portfolio.xml" value="0.22" />

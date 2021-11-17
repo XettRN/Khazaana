@@ -9,11 +9,11 @@
         android:id="@+id/ifaHome"
         android:name="com.example.khazaana.IFAHome"
         android:label="ifa_home"
-        tools:layout="@layout/ifa_home" />
+        tools:layout="@layout/ifa_home2" />
     <activity
         android:id="@+id/clientList"
         android:name="com.example.khazaana.ClientList"
         android:label="activity_client_list"
-        tools:layout="@layout/activity_client_list" />
+        tools:layout="@layout/activity_client_list2" />
 
 </navigation>
