@@ -120,6 +120,7 @@ public class client_registration extends AppCompatActivity {
                             client.put("Email", emailAdd);
                             d.set(new_Client);
                             dref.set(client);
+
                             startActivity(new Intent(getApplicationContext(), userDetails.class));
 
                         } else {
