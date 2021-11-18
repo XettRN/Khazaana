@@ -112,9 +112,13 @@
             android:name=".UpdatePassword"
             android:exported="true" />
         <activity
-            android:name=".equity_portfolio"
+            android:name=".stocks_portfolio"
             android:exported="true" />
-
+        <activity
+            android:name=".crypto_portfolio"
+            android:exported="true" />
+        <activity android:name=".specific_equity"
+            android:exported="true" />
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
