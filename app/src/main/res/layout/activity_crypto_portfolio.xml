@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".crypto_portfolio">
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="35dp"
+        tools:layout_editor_absoluteY="37dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="379dp"
+                android:layout_height="37dp"
+                android:text="  Name Here"
+                android:textSize="24sp" />
+
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/pieChart2"
+                android:layout_width="match_parent"
+                android:layout_height="313dp">
+
+            </com.github.mikephil.charting.charts.PieChart>
+
+            <TextView
+                android:id="@+id/portfolio"
+                android:layout_width="408dp"
+                android:layout_height="50dp"
+                android:background="#000000"
+                android:text="Crypto Portfolio"
+                android:textColor="#FFFFFF"
+                android:textSize="45sp" />
+
+            <TextView
+                android:id="@+id/crypto1"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Crypto"
+                android:textColor="#000000" />
+
+            <TextView
+                android:id="@+id/cboughtPrice1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Last Bought Price: " />
+
+            <TextView
+                android:id="@+id/ccurrentPrice1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Current Price: " />
+
+            <TextView
+                android:id="@+id/cryptoOwned1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Shares Owned: " />
+
+            <TextView
+                android:id="@+id/creturn1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Return:" />
+
+            <View
+                android:id="@+id/divider3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
+            <TextView
+                android:id="@+id/crypto2"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Crypto"
+                android:textColor="#000000" />
+
+            <TextView
+                android:id="@+id/cboughtPrice2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Last Bought Price: " />
+
+            <TextView
+                android:id="@+id/ccurrentPrice2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Current Price: " />
+
+            <TextView
+                android:id="@+id/cryptoOwned2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Shares Owned: " />
+
+            <TextView
+                android:id="@+id/creturn2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Return:" />
+
+            <View
+                android:id="@+id/divider4"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
+            <TextView
+                android:id="@+id/crypto3"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Crypto"
+                android:textColor="#000000" />
+
+            <TextView
+                android:id="@+id/cboughtPrice3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Last Bought Price: " />
+
+            <TextView
+                android:id="@+id/ccurrentPrice3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Current Price: " />
+
+            <TextView
+                android:id="@+id/cryptoOwned3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Shares Owned: " />
+
+            <TextView
+                android:id="@+id/creturn3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Return:" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

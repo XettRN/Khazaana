@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    tools:context=".specific_equity">
+
+    <ScrollView
+        android:id="@+id/scrollView3"
+        android:layout_width="409dp"
+        android:layout_height="729dp"
+        android:background="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/stock_name"
+                android:layout_width="wrap_content"
+                android:layout_height="44dp"
+                android:background="#FFFFFF"
+                android:text="APPL"
+                android:textColor="#000000"
+                android:textSize="34sp" />
+
+            <ImageView
+                android:id="@+id/change"
+                android:layout_width="47dp"
+                android:layout_height="45dp"
+                app:srcCompat="@drawable/ic_baseline_arrow_upward_24" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <ScrollView
+        android:id="@+id/scrollView4"
+        android:layout_width="418dp"
+        android:layout_height="666dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="SpeakableTextPresentCheck">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/current_price"
+                    android:layout_width="86dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:text="TextView"
+                    android:textColor="#000000"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/priceChange"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:text="TextView"
+                    android:textColor="#000000"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/percentChange"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:text="TextView"
+                    android:textColor="#000000"
+                    android:textSize="24sp" />
+
+            </LinearLayout>
+
+            <com.jjoe64.graphview.GraphView
+                android:id="@+id/lineGraph"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_centerInParent="true" />
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

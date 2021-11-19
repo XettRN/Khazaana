@@ -110,9 +110,21 @@ public class client_registration extends AppCompatActivity {
                             ArrayList<Integer> eq = new ArrayList<>();
                             eq.add(25);
                             eq.add(75);
-                            new_Client.put("Equity", eq);
+                            ArrayList<Triplet> stocks = new ArrayList<>();
+                            Triplet t1 = new Triplet("APPL", 100.0, 50);
+                            Triplet t2 = new Triplet("TSLA", 500.0, 5);
+                            stocks.add(t1);
+                            stocks.add(t2);
+                            ArrayList<Triplet> crypto = new ArrayList<>();
+                            Triplet t3 = new Triplet("Dogecoin", 1.456, 500);
+                            Triplet t4 = new Triplet("Bitcoin", 25234.67, 2);
+                            crypto.add(t3);
+                            crypto.add(t4);
                             new_Client.put("First Name", firstName);
                             new_Client.put("Last Name", lastName);
+                            new_Client.put("Equity", eq);
+                            new_Client.put("Stocks", stocks);
+                            new_Client.put("Crypto", crypto);
                             DocumentReference dref = fStore.collection("Client List").document(uID);
                             Map<String, Object> client = new HashMap<>();
                             client.put("First Name", firstName);
@@ -133,4 +145,21 @@ public class client_registration extends AppCompatActivity {
         });
 
     }
+    public class Triplet<T, U, V> {
+
+        private final String stock;
+        private final double price;
+        private final double quantity;
+
+        public Triplet(String stock, double price, double quantity) {
+            this.stock = stock;
+            this.price = price;
+            this.quantity = quantity;
+        }
+
+        public String getStock() { return stock; }
+        public double getPrice() { return price; }
+        public double getQuantity() { return quantity; }
+    }
+
 }

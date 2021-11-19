@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
@@ -18,56 +17,43 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-public class Portfolio extends AppCompatActivity {
+public class stocks_portfolio extends AppCompatActivity {
 
+    List<Map> t = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_portfolio);
+        setContentView(R.layout.activity_stocks_portfolio);
 
-        Button back = findViewById(R.id.backBtn);
+        TextView textView = findViewById(R.id.name);
+        TextView stock1 = findViewById(R.id.stock1);
+        TextView boughtPrice1 = findViewById(R.id.boughtPrice1);
+        TextView sharesOwned1 = findViewById(R.id.sharesOwned1);
+        TextView stock2 = findViewById(R.id.stock2);
+        TextView boughtPrice2 = findViewById(R.id.boughtPrice2);
+        TextView sharesOwned2 = findViewById(R.id.sharesOwned2);
+        Button next = findViewById(R.id.nextScreen);
 
-        TextView textView = findViewById(R.id.textView);
-
-        PieChart pieChart = findViewById(R.id.pieChart);
+        PieChart pieChart = findViewById(R.id.pieChart1);
         pieChart.getDescription().setEnabled(false);
         pieChart.setHoleRadius(0f);
         pieChart.setTransparentCircleRadius(0f);
         pieChart.getLegend().setEnabled(false);
 
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), userDetails.class));
-            }
-        });
-
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), stocks_portfolio.class));
-            }
-        });
-
-
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference ifas = db.collection("Authorized IFAs");
         DocumentReference ifa = ifas.document("A5WkIbLiaub1V1bQ9CRwzLdXBSo2");
         CollectionReference clients = ifa.collection("Clients");
-        String userID = FirebaseAuth.getInstance().getUid();
-        DocumentReference client = clients.document("2KvyW2lzjHclFAHQnTfWFFq2mYS2");
-
+        DocumentReference client = clients.document("24pLjJbK43clJtggGDLPk9ALQfZ2");
 
         client.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -81,8 +67,22 @@ public class Portfolio extends AppCompatActivity {
                         String lastName = (String) document.get("Last Name");
                         textView.setText(" " +firstName + " " + lastName);
 
-                        List<Number> equity = (List<Number>) document.get("Equity");
-                        pieChart.setData(getPieData(equity));
+                        t = (List<Map>) document.get("Stocks");
+                        stock1.setText("Stock: " + t.get(0).get("stock"));
+                        boughtPrice1.setText("Bought Price: " + t.get(0).get("price"));
+                        sharesOwned1.setText("Shares Owned: " + t.get(0).get("quantity"));
+                        stock2.setText("Stock: " + t.get(1).get("stock"));
+                        boughtPrice2.setText("Bought Price: " + t.get(1).get("price"));
+                        sharesOwned2.setText("Shares Owned: " + t.get(1).get("quantity"));
+
+                        double total = (Double)t.get(0).get("price")*(Double)t.get(0).get("quantity") +
+                                (Double)t.get(1).get("price")*(Double)t.get(1).get("quantity");
+                        double invst1 = ((Double)t.get(0).get("price")*(Double)t.get(0).get("quantity")) / total;
+                        double invst2 = ((Double)t.get(1).get("price")*(Double)t.get(1).get("quantity")) / total;
+                        List<Number> stocks = new ArrayList<>();
+                        stocks.add(invst1);
+                        stocks.add(invst2);
+                        pieChart.setData(getPieData(stocks));
                         pieChart.invalidate();
                     } else {
                         Log.d("TAG", "No such document");
@@ -92,20 +92,34 @@ public class Portfolio extends AppCompatActivity {
                 }
             }
         });
+
+        stock1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), specific_equity.class));
+            }
+        });
+
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), crypto_portfolio.class));
+            }
+        });
+
+
+
     }
 
     private PieData getPieData(List<Number> list) {
         ArrayList<PieEntry> entries = new ArrayList<>();
-        entries.add(new PieEntry(list.get(0).floatValue(), "Stocks"));
-        entries.add(new PieEntry(list.get(1).floatValue(), "Crypto"));
+        entries.add(new PieEntry(list.get(0).floatValue(), ""+t.get(0).get("stock")));
+        entries.add(new PieEntry(list.get(1).floatValue(), ""+t.get(1).get("stock")));
 
         PieDataSet pieDataSet = new PieDataSet(entries , "");
-        pieDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+        pieDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
         pieDataSet.setDrawValues(false);
 
         return new PieData(pieDataSet);
     }
-
-
-
 }
