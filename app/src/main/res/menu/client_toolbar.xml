@@ -9,6 +9,7 @@
         app:actionViewClass="android.widget.SearchView"
         app:showAsAction="always" />
     <item
+        android:id="@+id/toolbar_add"
         android:icon="@android:drawable/ic_menu_add"
         android:title="Item"
         app:showAsAction="always" />
