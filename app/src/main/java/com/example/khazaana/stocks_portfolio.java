@@ -93,6 +93,13 @@ public class stocks_portfolio extends AppCompatActivity {
             }
         });
 
+        stock1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), specific_equity.class));
+            }
+        });
+
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
