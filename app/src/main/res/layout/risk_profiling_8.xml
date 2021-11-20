@@ -9,8 +9,8 @@
     <Button
         android:id="@+id/button8"
         style="?android:attr/borderlessButtonStyle"
-        android:layout_width="38dp"
-        android:layout_height="31dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:backgroundTint="#FFFFFF"
         android:foreground="@drawable/ic_baseline_arrow_back_ios_24"
         android:textColor="#000000"
@@ -18,14 +18,29 @@
         app:iconTint="#610C0C"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.045"
+        app:layout_constraintHorizontal_bias="0.044"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.019"
-        app:strokeColor="@color/white" />
+        app:layout_constraintVertical_bias="0.055"
+        app:strokeColor="@color/white"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/choice_chip_group"
+        android:layout_width="340dp"
+        android:layout_height="456dp"
+        app:chipSpacingVertical="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.647"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.676"
+        app:singleSelection="true">
 
     <com.google.android.material.chip.Chip
         android:id="@+id/chip46"
+        style="@style/Widget.MaterialComponents.Chip.Choice"
         android:layout_width="318dp"
         android:layout_height="48dp"
         android:background="#0FFFFFFF"
@@ -47,6 +62,7 @@
 
     <com.google.android.material.chip.Chip
         android:id="@+id/chip51"
+        style="@style/Widget.MaterialComponents.Chip.Choice"
         android:layout_width="318dp"
         android:layout_height="48dp"
         android:background="#0FFFFFFF"
@@ -68,6 +84,7 @@
 
     <com.google.android.material.chip.Chip
         android:id="@+id/chip47"
+        style="@style/Widget.MaterialComponents.Chip.Choice"
         android:layout_width="318dp"
         android:layout_height="48dp"
         android:background="#0FFFFFFF"
@@ -89,6 +106,7 @@
 
     <com.google.android.material.chip.Chip
         android:id="@+id/chip48"
+        style="@style/Widget.MaterialComponents.Chip.Choice"
         android:layout_width="318dp"
         android:layout_height="48dp"
         android:background="#0FFFFFFF"
@@ -110,6 +128,7 @@
 
     <com.google.android.material.chip.Chip
         android:id="@+id/chip49"
+        style="@style/Widget.MaterialComponents.Chip.Choice"
         android:layout_width="318dp"
         android:layout_height="48dp"
         android:background="#0FFFFFFF"
@@ -131,6 +150,7 @@
 
     <com.google.android.material.chip.Chip
         android:id="@+id/chip50"
+        style="@style/Widget.MaterialComponents.Chip.Choice"
         android:layout_width="318dp"
         android:layout_height="48dp"
         android:background="#0FFFFFFF"
@@ -149,6 +169,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.467" />
+
+    </com.google.android.material.chip.ChipGroup>
 
     <TextView
         android:id="@+id/textView35"
@@ -170,7 +192,7 @@
         android:layout_width="320dp"
         android:layout_height="35dp"
         android:fontFamily="@font/roboto_bold"
-        android:text="What is your objective of investing?"
+        android:text="What is your objective behind investing?"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="#131313"
@@ -197,6 +219,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.914"
         app:strokeColor="@color/black"
-        app:strokeWidth="@dimen/material_emphasis_disabled" />
+        app:strokeWidth="0.38dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,6 +10,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Khazaana">
         <activity
+            android:name=".RiskProfiling_Answer"
+            android:exported="true" />
+        <activity
+            android:name=".RiskProfiling_C3"
+            android:exported="true" />
+        <activity
+            android:name=".RiskProfiling_C2"
+            android:exported="true" />
+        <activity
+            android:name=".RiskProfiling_C1"
+            android:exported="true" />
+        <activity
             android:name=".RiskProfilingContinue"
             android:exported="true" />
         <activity
@@ -117,8 +129,10 @@
         <activity
             android:name=".crypto_portfolio"
             android:exported="true" />
-        <activity android:name=".specific_equity"
+        <activity
+            android:name=".specific_equity"
             android:exported="true" />
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

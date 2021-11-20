@@ -6,8 +6,22 @@
     android:layout_height="match_parent"
     tools:context=".RiskProfiling_3">
 
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/choice_chip_group"
+        android:layout_width="340dp"
+        android:layout_height="456dp"
+        app:chipSpacingVertical="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.647"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.676"
+        app:singleSelection="true">
+
     <com.google.android.material.chip.Chip
         android:id="@+id/chip16"
+        style="@style/Widget.MaterialComponents.Chip.Choice"
         android:layout_width="318dp"
         android:layout_height="48dp"
         android:background="#0FFFFFFF"
@@ -18,7 +32,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="#150808"
         app:chipBackgroundColor="#0FFFFFFF"
-        app:chipStrokeColor="#27171617"
+        app:chipStrokeColor="@color/chip_states"
         app:chipStrokeWidth="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -29,6 +43,7 @@
 
     <com.google.android.material.chip.Chip
         android:id="@+id/chip17"
+        style="@style/Widget.MaterialComponents.Chip.Choice"
         android:layout_width="318dp"
         android:layout_height="48dp"
         android:background="#0FFFFFFF"
@@ -39,7 +54,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="#150808"
         app:chipBackgroundColor="#0FFFFFFF"
-        app:chipStrokeColor="#27171617"
+        app:chipStrokeColor="@color/chip_states"
         app:chipStrokeWidth="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -50,6 +65,7 @@
 
     <com.google.android.material.chip.Chip
         android:id="@+id/chip18"
+        style="@style/Widget.MaterialComponents.Chip.Choice"
         android:layout_width="318dp"
         android:layout_height="48dp"
         android:background="#0FFFFFFF"
@@ -60,7 +76,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="#150808"
         app:chipBackgroundColor="#0FFFFFFF"
-        app:chipStrokeColor="#27171617"
+        app:chipStrokeColor="@color/chip_states"
         app:chipStrokeWidth="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -71,6 +87,7 @@
 
     <com.google.android.material.chip.Chip
         android:id="@+id/chip19"
+        style="@style/Widget.MaterialComponents.Chip.Choice"
         android:layout_width="318dp"
         android:layout_height="48dp"
         android:background="#0FFFFFFF"
@@ -81,7 +98,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="#150808"
         app:chipBackgroundColor="#0FFFFFFF"
-        app:chipStrokeColor="#27171617"
+        app:chipStrokeColor="@color/chip_states"
         app:chipStrokeWidth="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -92,6 +109,7 @@
 
     <com.google.android.material.chip.Chip
         android:id="@+id/chip20"
+        style="@style/Widget.MaterialComponents.Chip.Choice"
         android:layout_width="318dp"
         android:layout_height="48dp"
         android:background="#0FFFFFFF"
@@ -102,7 +120,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="#150808"
         app:chipBackgroundColor="#0FFFFFFF"
-        app:chipStrokeColor="#27171617"
+        app:chipStrokeColor="@color/chip_states"
         app:chipStrokeWidth="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -113,6 +131,7 @@
 
     <com.google.android.material.chip.Chip
         android:id="@+id/chip21"
+        style="@style/Widget.MaterialComponents.Chip.Choice"
         android:layout_width="318dp"
         android:layout_height="48dp"
         android:background="#0FFFFFFF"
@@ -123,7 +142,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="#150808"
         app:chipBackgroundColor="#0FFFFFFF"
-        app:chipStrokeColor="#27171617"
+        app:chipStrokeColor="@color/chip_states"
         app:chipStrokeWidth="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -131,6 +150,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.467" />
+
+    </com.google.android.material.chip.ChipGroup>
 
     <TextView
         android:id="@+id/textView25"
@@ -177,14 +198,14 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.914"
         app:strokeColor="@color/black"
-        app:strokeWidth="@dimen/material_emphasis_disabled" />
+        app:strokeWidth="0.38dp" />
 
 
     <Button
         android:id="@+id/button3"
         style="?android:attr/borderlessButtonStyle"
-        android:layout_width="38dp"
-        android:layout_height="31dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:backgroundTint="#FFFFFF"
         android:foreground="@drawable/ic_baseline_arrow_back_ios_24"
         android:textColor="#000000"
@@ -192,11 +213,12 @@
         app:iconTint="#610C0C"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.045"
+        app:layout_constraintHorizontal_bias="0.044"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.019"
-        app:strokeColor="@color/white" />
+        app:layout_constraintVertical_bias="0.055"
+        app:strokeColor="@color/white"
+        tools:ignore="SpeakableTextPresentCheck" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
