@@ -8,7 +8,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 public class ClientList extends AppCompatActivity {
     @Override
@@ -31,8 +32,22 @@ public class ClientList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_list);
-        Toolbar toolbar = findViewById(R.id.toolbar2);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        LinearLayout layout = findViewById(R.id.clientScroll);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+        String[] clients = getResources().getStringArray(R.array.clients);
+
+        for (String client: clients) {
+            TextView textView = new TextView(this);
+            textView.setText(client);
+            textView.setLayoutParams(params);
+            layout.addView(textView);
+        }
     }
 
     public void goAddData(MenuItem item) {

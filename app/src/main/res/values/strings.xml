@@ -9,6 +9,17 @@
         <item>AAPL</item>
         <item>OPK</item>
     </string-array>
+    <string-array name="clients">
+        <item>Kyle</item>
+        <item>Katie</item>
+        <item>Tejas</item>
+        <item>Karen</item>
+        <item>Varshita</item>
+        <item>Bob</item>
+        <item>Iron Man</item>
+        <item>Rutvik</item>
+        <item>Susan</item>
+    </string-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
