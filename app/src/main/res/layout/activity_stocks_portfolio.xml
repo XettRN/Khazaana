@@ -54,7 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="Last Bought Price: " />
+                android:text="Bought Price: " />
 
             <TextView
                 android:id="@+id/currentPrice1"
@@ -96,7 +96,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="Last Bought Price: " />
+                android:text="Bought Price: " />
 
             <TextView
                 android:id="@+id/currentPrice2"
@@ -138,7 +138,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="Last Bought Price: " />
+                android:text="Bought Price: " />
 
             <TextView
                 android:id="@+id/currentPrice3"
