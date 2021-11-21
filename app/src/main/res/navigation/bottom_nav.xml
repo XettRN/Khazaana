@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottom_nav"
+    app:startDestination="@id/mainActivity">
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.example.khazaana.MainActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main" />
+    <activity
+        android:id="@+id/clientProfile2"
+        android:name="com.example.khazaana.ClientProfile"
+        android:label="ClientProfile" />
+    <activity
+        android:id="@+id/clientList"
+        android:name="com.example.khazaana.ClientList"
+        android:label="activity_client_list"
+        tools:layout="@layout/activity_client_list" />
+</navigation>

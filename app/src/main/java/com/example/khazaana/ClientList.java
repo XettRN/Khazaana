@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -46,12 +47,18 @@ public class ClientList extends AppCompatActivity {
             TextView textView = new TextView(this);
             textView.setText(client);
             textView.setLayoutParams(params);
+            textView.setOnClickListener(this::goClientPortfolio);
             layout.addView(textView);
         }
     }
 
     public void goAddData(MenuItem item) {
         Intent intent = new Intent(this, AddData.class);
+        startActivity(intent);
+    }
+
+    public void goClientPortfolio(View view) {
+        Intent intent = new Intent(this, Portfolio.class);
         startActivity(intent);
     }
 }
