@@ -10,7 +10,7 @@
         android:label="activity_main"
         tools:layout="@layout/activity_main" />
     <activity
-        android:id="@+id/clientProfile2"
+        android:id="@+id/clientProfile"
         android:name="com.example.khazaana.ClientProfile"
         android:label="ClientProfile" />
     <activity
