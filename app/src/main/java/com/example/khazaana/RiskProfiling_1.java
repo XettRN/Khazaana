@@ -24,15 +24,15 @@ public class RiskProfiling_1 extends AppCompatActivity {
         nextPage.setOnClickListener(this::nextPage);
     }
 
-    ChipGroup choiceChipGroup = findViewById(R.id.choice_chip_group);
-        choiceChipGroup.setOnCheckedChangeListener(new ChipGroup.OnCheckedChangeListener()
-
-    {
-        @Override
-        public void onCheckedChanged (ChipGroup chipGroup,@IdRes int i){
-        Log.i(TAG, i + "");
-    }
-    });
+//    ChipGroup choiceChipGroup = findViewById(R.id.choice_chip_group);
+//        choiceChipGroup.setOnCheckedChangeListener(new ChipGroup.OnCheckedChangeListener()
+//
+//    {
+//        @Override
+//        public void onCheckedChanged (ChipGroup chipGroup,@IdRes int i){
+//        Log.i(TAG, i + "");
+//    }
+//    });
 
     public void nextPage(View view) {
         Intent intent = new Intent(this, RiskProfiling_2.class);

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/home_component"
+    tools:context=".IFAHome">
+
+
+    <TextView
+        android:id="@+id/summary"
+        android:layout_width="172dp"
+        android:layout_height="63dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="Summary"
+        android:textSize="30dp"
+        android:translationX="20dp"
+        android:translationY="70dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="220dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/summary" />
+
+
+    <!--    <RelativeLayout-->
+<!--        android:id="@+id/relative_container"-->
+<!--        android:layout_width="477dp"-->
+<!--        android:layout_height="831dp"-->
+<!--        android:layout_marginTop="136dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/summary">-->
+
+<!--        <FrameLayout-->
+<!--            android:id="@+id/frame_container"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="405dp">-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/client_name"-->
+<!--                android:layout_width="112dp"-->
+<!--                android:layout_height="38dp"-->
+<!--                android:layout_marginLeft="20dp"-->
+<!--                android:text="Client Name"-->
+<!--                android:textSize="20sp" />-->
+
+<!--            <com.github.mikephil.charting.charts.PieChart-->
+<!--                android:id="@+id/pieChart"-->
+<!--                android:layout_width="238dp"-->
+<!--                android:layout_height="218dp"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:layout_marginTop="0dp"-->
+
+<!--                android:layout_marginEnd="0dp"-->
+<!--                android:layout_marginBottom="40dp" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/return_percent"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="35dp"-->
+<!--                android:layout_marginTop="261dp"-->
+<!--                android:layout_marginEnd="393dp"-->
+<!--                android:layout_marginBottom="15dp"-->
+<!--                android:text="Return"-->
+<!--                />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/bench_return"-->
+<!--                android:layout_width="250dp"-->
+<!--                android:layout_height="20dp"-->
+<!--                android:layout_marginStart="35dp"-->
+<!--                android:layout_marginTop="290dp"-->
+<!--                android:layout_marginBottom="542dp"-->
+<!--                android:text="Benchmark Return:"-->
+<!--                />-->
+<!--        </FrameLayout>-->
+<!--    </RelativeLayout>-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>
