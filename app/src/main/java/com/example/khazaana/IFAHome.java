@@ -36,17 +36,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class IFAHome extends AppCompatActivity {
 
-    private ArrayList<PortfolioData> data = new ArrayList<PortfolioData>();
+
     // private ArrayList<String> data = new ArrayList<String>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ifa_home);
-        populateList();
         //generateList();
-        ListView listView = (ListView) findViewById(R.id.listView);
-        listView.setAdapter(new MyListAdapter(this, R.layout.client_summary_item, data));
-
+        displayPortfolios();
     }
 
 //    private void generateList() {
@@ -55,7 +52,8 @@ public class IFAHome extends AppCompatActivity {
 //        }
 //    }
 
-    private void populateList() {
+    private void displayPortfolios() {
+        ArrayList<PortfolioData> data = new ArrayList<PortfolioData>();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference ifas = db.collection("Authorized IFAs");
         DocumentReference ifa = ifas.document("A5WkIbLiaub1V1bQ9CRwzLdXBSo2");
@@ -81,11 +79,18 @@ public class IFAHome extends AppCompatActivity {
                             // Calculate AUM, return, and benchmark return
                             data.add(new PortfolioData(firstName + " " + lastName, 0,0,
                                     0, equity));
+                            Log.d("TAG", "LIST SIZE: " + data.size());
+
+
+
 
                         } else {
                             Log.d("TAG", "No such document");
                         }
                     }
+
+                    ListView listView = (ListView) findViewById(R.id.listView);
+                    listView.setAdapter(new MyListAdapter(getApplicationContext(), R.layout.client_summary_item, data));
 
                 } else {
                     Log.d("TAG", "get failed with ", task.getException());
@@ -96,8 +101,8 @@ public class IFAHome extends AppCompatActivity {
 
     private PieData getPieData(List<Number> list) {
         ArrayList<PieEntry> entries = new ArrayList<>();
-        entries.add(new PieEntry(list.get(0).floatValue(), "Stocks"));
-        entries.add(new PieEntry(list.get(1).floatValue(), "Crypto"));
+        entries.add(new PieEntry(list.get(0).floatValue(), "Equity"));
+        entries.add(new PieEntry(list.get(1).floatValue(), "Debt"));
 
         PieDataSet pieDataSet = new PieDataSet(entries , "");
         pieDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
@@ -117,7 +122,6 @@ public class IFAHome extends AppCompatActivity {
         @NonNull
         @Override
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-            Log.d("TAG", "HIHIHIHIHIHI");
             ViewHolder mainViewHolder = null;
             if (convertView == null) {
                 LayoutInflater inflater = LayoutInflater.from(getContext());
@@ -131,8 +135,8 @@ public class IFAHome extends AppCompatActivity {
             } else {
                 mainViewHolder = (ViewHolder) convertView.getTag();
                 mainViewHolder.clientName.setText(getItem(position).clientName);
-//                mainViewHolder.pieChart.setData(getPieData(getItem(position).equity));
-//                mainViewHolder.pieChart.invalidate();
+                mainViewHolder.pieChart.setData(getPieData(getItem(position).equity));
+                mainViewHolder.pieChart.invalidate();
                 mainViewHolder.return_perc.setText("Return: " + getItem(position).return_perc + "%");
                 mainViewHolder.benchmarkReturn.setText("Benchmark Return: " + getItem(position).benchmarkReturn + "0");
             }
