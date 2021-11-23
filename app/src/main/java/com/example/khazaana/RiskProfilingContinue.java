@@ -14,10 +14,10 @@ public class RiskProfilingContinue extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.risk_profiling_continue);
 
-        Button skipPage = findViewById(R.id.next12);
+        Button skipPage = findViewById(R.id.next18);
         skipPage.setOnClickListener(this::skipPage);
 
-        Button continuousPage = findViewById(R.id.next12);
+        Button continuousPage = findViewById(R.id.next19);
         continuousPage.setOnClickListener(this::continuousPage);
 
         Button previousPage = findViewById(R.id.button16);
@@ -25,12 +25,12 @@ public class RiskProfilingContinue extends AppCompatActivity {
     }
 
     public void skipPage(View view) {
-        Intent intent = new Intent(this, RiskProfiling_12.class);
+        Intent intent = new Intent(this, RiskProfiling_Answer.class);
         startActivity(intent);
     }
 
     public void continuousPage(View view) {
-        Intent intent = new Intent(this, RiskProfiling_12.class);
+        Intent intent = new Intent(this, RiskProfiling_C1.class);
         startActivity(intent);
     }
 

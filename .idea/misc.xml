@@ -96,10 +96,11 @@
         <entry key="app/src/main/res/layout/risk_profiling_6.xml" value="0.22864583333333333" />
         <entry key="app/src/main/res/layout/risk_profiling_8.xml" value="0.22864583333333333" />
         <entry key="app/src/main/res/layout/risk_profiling_9.xml" value="0.22864583333333333" />
+        <entry key="app/src/main/res/layout/risk_profiling_answer.xml" value="0.24270833333333333" />
         <entry key="app/src/main/res/layout/risk_profiling_c1.xml" value="0.30512820512820515" />
         <entry key="app/src/main/res/layout/risk_profiling_c2.xml" value="0.30512820512820515" />
         <entry key="app/src/main/res/layout/risk_profiling_c3.xml" value="0.30512820512820515" />
-        <entry key="app/src/main/res/layout/risk_profiling_continue.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/risk_profiling_continue.xml" value="0.25" />
         <entry key="app/src/main/res/layout/settings.xml" value="0.24270833333333333" />
         <entry key="app/src/main/res/layout/sign_up_general.xml" value="0.21875" />
         <entry key="app/src/main/res/layout/sign_up_options.xml" value="0.21875" />
