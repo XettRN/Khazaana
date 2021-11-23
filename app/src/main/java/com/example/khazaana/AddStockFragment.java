@@ -2,6 +2,8 @@ package com.example.khazaana;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -15,12 +17,15 @@ public class AddStockFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_add_stock, container, false);
+        return inflater.inflate(R.layout.fragment_add_stock, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         String[] stocks = getResources().getStringArray(R.array.stocks);
         AutoCompleteTextView auto = view.findViewById(R.id.autoCompleteTextView);
-        auto.setAdapter(new ArrayAdapter<String>(requireContext(), R.layout.dropdown_item, stocks));
-
-        return view;
+        auto.setAdapter(new ArrayAdapter<>(requireContext(), R.layout.dropdown_item, stocks));
     }
 }
