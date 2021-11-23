@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
     <item
-        android:id="@+id/mainActivity"
+        android:id="@+id/home_frag"
         android:title="Home"
-        android:icon="@drawable/ic_baseline_home_24"/>
+        android:icon="@drawable/ic_baseline_home_24" />
     <item
-        android:id="@+id/clientList"
-        android:title="List"
+        android:id="@+id/clients_frag"
+        android:title="Clients"
         android:icon="@drawable/ic_baseline_people_24"/>
     <item
-        android:id="@+id/clientProfile"
+        android:id="@+id/profile_frag"
         android:title="Profile"
         android:icon="@drawable/ic_baseline_person_24"/>
 </menu>
