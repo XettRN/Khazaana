@@ -7,6 +7,38 @@
     tools:context=".RiskProfilingContinue">
 
     <Button
+        android:id="@+id/next18"
+        android:layout_width="233dp"
+        android:layout_height="52dp"
+        android:backgroundTint="#FFFFFF"
+        android:text="Skip"
+        android:textColor="#000000"
+        app:iconTint="#610C0C"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.519"
+        app:strokeColor="@color/black"
+        app:strokeWidth="0.38dp" />
+
+    <Button
+        android:id="@+id/next19"
+        android:layout_width="233dp"
+        android:layout_height="52dp"
+        android:backgroundTint="#FFFFFF"
+        android:text="Continue"
+        android:textColor="#000000"
+        app:iconTint="#610C0C"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.371"
+        app:strokeColor="@color/black"
+        app:strokeWidth="0.38dp" />
+
+    <Button
         android:id="@+id/button16"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="48dp"
@@ -24,65 +56,6 @@
         app:layout_constraintVertical_bias="0.055"
         app:strokeColor="@color/white"
         tools:ignore="SpeakableTextPresentCheck" />
-
-    <com.google.android.material.chip.ChipGroup
-        android:id="@+id/choice_chip_group"
-        android:layout_width="340dp"
-        android:layout_height="456dp"
-        app:chipSpacingVertical="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.591"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.792"
-        app:singleSelection="true">
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip63"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="318dp"
-            android:layout_height="48dp"
-            android:background="#0FFFFFFF"
-            android:fontFamily="@font/roboto"
-            android:foregroundTint="#170A0A"
-            android:text="Continue"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="#150808"
-            app:chipBackgroundColor="#0FFFFFFF"
-            app:chipStrokeColor="@color/chip_states"
-            app:chipStrokeWidth="1dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.494"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.367" />
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip64"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="318dp"
-            android:layout_height="48dp"
-            android:background="#0FFFFFFF"
-            android:fontFamily="@font/roboto"
-            android:foregroundTint="#170A0A"
-            android:text="Skip"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="#150808"
-            app:chipBackgroundColor="#0FFFFFFF"
-            app:chipStrokeColor="@color/chip_states"
-            app:chipStrokeWidth="1dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.494"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.267" />
-
-    </com.google.android.material.chip.ChipGroup>
 
     <TextView
         android:id="@+id/textView50"
