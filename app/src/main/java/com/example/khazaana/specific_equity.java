@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 
@@ -80,7 +79,7 @@ public class specific_equity extends AppCompatActivity {
                         List<Map> t = (List<Map>) document.get("Stocks");
                         sharesOwned.setText("Shares Owned: " + t.get(0).get("quantity"));
                         buyingPrice.setText("Buying Price: " + t.get(0).get("price"));
-                        boughtPrice = (Double) t.get(0).get("price");
+                        boughtPrice = Double.parseDouble(t.get(0).get("price").toString());
                     } else {
                         Log.d("TAG", "No such document");
                     }
