@@ -85,7 +85,7 @@ public class stocks_portfolio extends AppCompatActivity {
         return2 = findViewById(R.id.return2);
         return3 = findViewById(R.id.return3);
 
-        pieChart = findViewById(R.id.pieChart3);
+        pieChart = findViewById(R.id.pieChart2);
         pieChart.getDescription().setEnabled(false);
         pieChart.setHoleRadius(0f);
         pieChart.setTransparentCircleRadius(0f);
@@ -192,7 +192,7 @@ public class stocks_portfolio extends AppCompatActivity {
                         public void run() {
                             try {
                                 currentP1.setText("Current Price: $" + j.get("current price"));
-                                cp1 = (Double) j.get("current price");
+                                cp1 = Double.parseDouble(j.get("current price").toString());
                                 double returnS1 = ((cp1 - buyingPrice1)/buyingPrice1)*100;
                                 return1.setText("Return: "+returnS1+"%");
 
@@ -256,7 +256,7 @@ public class stocks_portfolio extends AppCompatActivity {
                         public void run() {
                             try {
                                 currentP2.setText("Current Price: $" + j.get("current price"));
-                                cp2 = (Double) j.get("current price");
+                                cp2 = Double.parseDouble(j.get("current price").toString());
                                 double returnS2 = ((cp2 - buyingPrice2)/buyingPrice2)*100;
                                 return2.setText("Return: "+returnS2+"%");
 
@@ -320,7 +320,7 @@ public class stocks_portfolio extends AppCompatActivity {
                         public void run() {
                             try {
                                 currentP3.setText("Current Price: $" + j.get("current price"));
-                                cp3 = (Double) j.get("current price");
+                                cp3 = Double.parseDouble(j.get("current price").toString());
                                 double returnS3 = ((cp3 - buyingPrice3)/buyingPrice3)*100;
                                 return3.setText("Return: "+returnS3+"%");
 
