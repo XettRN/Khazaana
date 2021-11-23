@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Khazaana">
         <activity
+            android:name=".main.NavView"
+            android:exported="false" />
+        <activity
             android:name=".individual_client_portfolio"
             android:exported="false" />
         <activity

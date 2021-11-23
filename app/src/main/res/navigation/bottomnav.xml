@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottomnav"
+    app:startDestination="@id/home_frag">
+
+    <fragment
+        android:id="@+id/home_frag"
+        android:name="com.example.khazaana.main.Home"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/clients_frag"
+        android:name="com.example.khazaana.main.Clients"
+        android:label="fragment_clients"
+        tools:layout="@layout/fragment_clients" >
+        <action
+            android:id="@+id/action_clients_frag_to_addStockFragment"
+            app:destination="@id/addStockFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profile_frag"
+        android:name="com.example.khazaana.main.Profile"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/addStockFragment"
+        android:name="com.example.khazaana.AddStockFragment"
+        android:label="fragment_add_stock"
+        tools:layout="@layout/fragment_add_stock" />
+</navigation>
