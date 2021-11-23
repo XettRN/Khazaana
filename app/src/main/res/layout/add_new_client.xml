@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddNewIFA">
+    tools:context=".AddNewClient">
 
 
     <TextView
@@ -15,10 +15,10 @@
         android:textColor="#F44336"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.728"
+        app:layout_constraintHorizontal_bias="0.224"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.392" />
+        app:layout_constraintVertical_bias="0.401" />
 
     <TextView
         android:id="@+id/textView18"
@@ -78,7 +78,7 @@
         android:id="@+id/heading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add New IFA"
+        android:text="Add New Client"
         android:fontFamily="@font/montserrat_bold"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -100,12 +100,12 @@
         app:layout_constraintVertical_bias="0.129" />
 
     <Button
-        android:id="@+id/addifa"
+        android:id="@+id/addClient"
         android:layout_width="125dp"
         android:layout_height="52dp"
         android:backgroundTint="#FFFFFF"
         android:fontFamily="@font/montserrat_regular"
-        android:text="Add IFA"
+        android:text="Add Client"
         android:textAllCaps="false"
         android:textColor="#000000"
         app:cornerRadius="1dp"
@@ -115,7 +115,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.577"
-        app:strokeColor="#020202"
+        app:strokeColor="#000000"
         app:strokeWidth="1dp" />
 
     <TextView
@@ -147,9 +147,9 @@
         app:layout_constraintVertical_bias="0.234" />
 
     <EditText
-        android:id="@+id/advisor_ID_input"
-        android:layout_width="321dp"
-        android:layout_height="48dp"
+        android:id="@+id/email_input"
+        android:layout_width="326dp"
+        android:layout_height="34dp"
         android:ems="10"
         android:fontFamily="@font/montserrat_regular"
         android:inputType="text"
@@ -161,18 +161,18 @@
         app:layout_constraintVertical_bias="0.452" />
 
     <TextView
-        android:id="@+id/advisor_ID"
-        android:layout_width="247dp"
+        android:id="@+id/email"
+        android:layout_width="50dp"
         android:layout_height="27dp"
-        android:text="Affiliated Financial Advisor ID"
         android:fontFamily="@font/montserrat_regular"
+        android:text="Email"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.246"
+        app:layout_constraintHorizontal_bias="0.104"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider"
-        app:layout_constraintVertical_bias="0.315" />
+        app:layout_constraintVertical_bias="0.316" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

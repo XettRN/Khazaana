@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:foregroundTint="#0B0A0A"
-    tools:context=".LoadScreen">
+    tools:context=".ClientFees">
 
     <TextView
         android:id="@+id/fees"
@@ -42,7 +42,8 @@
             android:text="VS**** **** **** 1234"
             android:includeFontPadding="true"
             android:padding="15dp"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            />
 
         <TextView
             android:id="@+id/usage_fees"

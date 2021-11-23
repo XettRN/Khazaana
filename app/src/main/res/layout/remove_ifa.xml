@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".IFARegistration">
+    tools:context=".RemoveIFA">
 
 
     <TextView
@@ -128,19 +128,23 @@
 
     <Button
         android:id="@+id/remove_ifa"
-        android:layout_width="125dp"
-        android:layout_height="52dp"
+        android:layout_width="155dp"
+        android:layout_height="56dp"
         android:backgroundTint="#FFFFFF"
         android:fontFamily="@font/montserrat_regular"
         android:text="Remove IFA"
+        android:textAllCaps="false"
         android:textColor="#000000"
+        app:cornerRadius="1dp"
         app:iconTint="#610C0C"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.447"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.682" />
+        app:layout_constraintVertical_bias="0.682"
+        app:strokeColor="#000000"
+        app:strokeWidth="1dp" />
 
     <TextView
         android:id="@+id/first_name"

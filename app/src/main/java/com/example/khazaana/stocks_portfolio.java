@@ -85,7 +85,7 @@ public class stocks_portfolio extends AppCompatActivity {
         return2 = findViewById(R.id.return2);
         return3 = findViewById(R.id.return3);
 
-        pieChart = findViewById(R.id.pieChart1);
+        pieChart = findViewById(R.id.pieChart3);
         pieChart.getDescription().setEnabled(false);
         pieChart.setHoleRadius(0f);
         pieChart.setTransparentCircleRadius(0f);
