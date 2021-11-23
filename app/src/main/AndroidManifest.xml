@@ -15,6 +15,9 @@
             android:name=".main.NavView"
             android:exported="false" />
         <activity
+            android:name=".individual_client_portfolio"
+            android:exported="false" />
+        <activity
             android:name=".AddData"
             android:exported="false" />
         <activity
@@ -129,7 +132,7 @@
             android:name=".RemoveIFA"
             android:exported="true" />
         <activity
-            android:name=".UpdatePassword"
+            android:name=".ClientUpdatePassword"
             android:exported="true" />
         <activity
             android:name=".stocks_portfolio"
@@ -139,6 +142,18 @@
             android:exported="true" />
         <activity
             android:name=".specific_equity"
+            android:exported="true" />
+        <activity
+            android:name=".AddNewClient"
+            android:exported="true" />
+        <activity
+            android:name=".RemoveClient"
+            android:exported="true" />
+        <activity
+            android:name=".IFAUpdatePassword"
+            android:exported="true" />
+        <activity
+            android:name=".IFASettings"
             android:exported="true" />
 
         <meta-data

@@ -26,7 +26,7 @@
                 android:textSize="24sp" />
 
             <com.github.mikephil.charting.charts.PieChart
-                android:id="@+id/pieChart1"
+                android:id="@+id/pieChart2"
                 android:layout_width="match_parent"
                 android:layout_height="313dp">
 
@@ -38,6 +38,7 @@
                 android:layout_height="50dp"
                 android:background="#000000"
                 android:text="Stocks Portfolio"
+                android:textAlignment="center"
                 android:textColor="#FFFFFF"
                 android:textSize="45sp" />
 
@@ -54,7 +55,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="Last Bought Price: " />
+                android:text="Bought Price: " />
 
             <TextView
                 android:id="@+id/currentPrice1"
@@ -96,7 +97,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="Last Bought Price: " />
+                android:text="Bought Price: " />
 
             <TextView
                 android:id="@+id/currentPrice2"
@@ -138,7 +139,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="Last Bought Price: " />
+                android:text="Bought Price: " />
 
             <TextView
                 android:id="@+id/currentPrice3"

@@ -4,21 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".IFARegistration">
+    tools:context=".RemoveClient">
 
 
     <TextView
         android:id="@+id/textView19"
-        android:layout_width="7dp"
-        android:layout_height="12dp"
+        android:layout_width="10dp"
+        android:layout_height="15dp"
         android:text="*"
         android:textColor="#F44336"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.603"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.399" />
+        app:layout_constraintVertical_bias="0.4" />
 
     <TextView
         android:id="@+id/textView18"
@@ -28,10 +28,10 @@
         android:textColor="#F44336"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.411"
+        app:layout_constraintHorizontal_bias="0.329"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.296" />
+        app:layout_constraintVertical_bias="0.298" />
 
     <TextView
         android:id="@+id/textView17"
@@ -41,13 +41,13 @@
         android:textColor="#F44336"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.472"
+        app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.196" />
 
     <EditText
-        android:id="@+id/new_password_input"
+        android:id="@+id/last_name_input2"
         android:layout_width="321dp"
         android:layout_height="48dp"
         android:ems="10"
@@ -61,24 +61,24 @@
         app:layout_constraintVertical_bias="0.337" />
 
     <TextView
-        android:id="@+id/new_password"
-        android:layout_width="241dp"
-        android:layout_height="21dp"
+        android:id="@+id/last_name"
+        android:layout_width="101dp"
+        android:layout_height="20dp"
         android:fontFamily="@font/montserrat_regular"
-        android:text="New Password"
+        android:text="Last Name"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.236"
+        app:layout_constraintHorizontal_bias="0.123"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider"
-        app:layout_constraintVertical_bias="0.194" />
+        app:layout_constraintVertical_bias="0.195" />
 
     <TextView
         android:id="@+id/heading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Update Password"
+        android:text="Remove Existing Client"
         android:fontFamily="@font/montserrat_bold"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -100,37 +100,40 @@
         app:layout_constraintVertical_bias="0.129" />
 
     <Button
-        android:id="@+id/change_password"
-        android:layout_width="240dp"
-        android:layout_height="56dp"
+        android:id="@+id/removeClient"
+        android:layout_width="162dp"
+        android:layout_height="53dp"
         android:backgroundTint="#FFFFFF"
         android:fontFamily="@font/montserrat_regular"
-        android:text="Change Password"
+        android:text="Remove Client"
         android:textAllCaps="false"
         android:textColor="#000000"
+        app:cornerRadius="1dp"
         app:iconTint="#610C0C"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.577" />
+        app:layout_constraintVertical_bias="0.577"
+        app:strokeColor="#000000"
+        app:strokeWidth="1dp" />
 
     <TextView
-        android:id="@+id/current_password"
-        android:layout_width="204dp"
+        android:id="@+id/first_name"
+        android:layout_width="108dp"
         android:layout_height="23dp"
         android:fontFamily="@font/montserrat_regular"
-        android:text="Current Password"
+        android:text="First Name"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.19"
+        app:layout_constraintHorizontal_bias="0.126"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider"
-        app:layout_constraintVertical_bias="0.075" />
+        app:layout_constraintVertical_bias="0.076" />
 
     <EditText
-        android:id="@+id/current_password_input"
+        android:id="@+id/first_name_input"
         android:layout_width="321dp"
         android:layout_height="48dp"
         android:ems="10"
@@ -144,9 +147,9 @@
         app:layout_constraintVertical_bias="0.234" />
 
     <EditText
-        android:id="@+id/confirm_password_input"
-        android:layout_width="321dp"
-        android:layout_height="48dp"
+        android:id="@+id/reason_input"
+        android:layout_width="324dp"
+        android:layout_height="40dp"
         android:ems="10"
         android:fontFamily="@font/montserrat_regular"
         android:inputType="text"
@@ -158,15 +161,15 @@
         app:layout_constraintVertical_bias="0.452" />
 
     <TextView
-        android:id="@+id/confirm_password"
-        android:layout_width="247dp"
-        android:layout_height="27dp"
-        android:text="Re-enter New Password"
+        android:id="@+id/reason"
+        android:layout_width="182dp"
+        android:layout_height="28dp"
         android:fontFamily="@font/montserrat_regular"
+        android:text="Reason for removal"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.246"
+        app:layout_constraintHorizontal_bias="0.17"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider"
         app:layout_constraintVertical_bias="0.315" />
