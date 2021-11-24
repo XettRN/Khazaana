@@ -18,6 +18,9 @@
         <action
             android:id="@+id/action_clients_frag_to_addStockFragment"
             app:destination="@id/addStockFragment" />
+        <action
+            android:id="@+id/action_clients_frag_to_stockPortfolio"
+            app:destination="@id/stockPortfolio" />
     </fragment>
     <fragment
         android:id="@+id/profile_frag"
@@ -29,4 +32,9 @@
         android:name="com.example.khazaana.AddStockFragment"
         android:label="fragment_add_stock"
         tools:layout="@layout/fragment_add_stock" />
+    <fragment
+        android:id="@+id/stockPortfolio"
+        android:name="com.example.khazaana.main.StockPortfolio"
+        android:label="fragment_stock_portfolio"
+        tools:layout="@layout/fragment_stock_portfolio" />
 </navigation>
