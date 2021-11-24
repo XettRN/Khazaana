@@ -64,7 +64,7 @@ public class Clients extends Fragment {
                 @Override
                 public void onClick(View view) {
                     //add fragment to bottomnav.xml so this can be written
-                    NavDirections navDirections = ClientsDirections.actionClientsFragToStockPortfolio();
+                    NavDirections navDirections = ClientsDirections.actionClientsFragToHomeFrag();
                     Navigation.findNavController(root).navigate(navDirections);
                 }
             });

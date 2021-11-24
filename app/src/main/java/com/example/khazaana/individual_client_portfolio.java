@@ -308,6 +308,7 @@ public class individual_client_portfolio extends AppCompatActivity {
                                 return1.setText(return1.getText() + "" + stocks_return);
                                 stock3 = "AMZN";
                                 price3 = Double.parseDouble(j.get("current price").toString());
+                                current_aum2.setText(current_aum2.getText() + ""+crypto_total);
 
                                 if (price1 > price2 && price1 > price3) {
                                     perform1.setText(stock1 + ":  "+price1);

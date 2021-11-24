@@ -1,6 +1,5 @@
 package com.example.khazaana.main;
 
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -14,13 +13,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.khazaana.R;
-import com.example.khazaana.crypto_portfolio;
-import com.example.khazaana.specific_equity;
-import com.example.khazaana.stocks_portfolio;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -42,71 +37,61 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class StockPortfolio extends Fragment {
-    List<Map> t = null;
+public class individualClientPortfolio extends Fragment {
 
-    TextView currentP1 = null;
-    TextView currentP2 = null;
-    TextView currentP3 = null;
-    TextView return1 = null;
-    TextView return2 = null;
-    TextView return3 = null;
-    double buyingPrice1 = 0;
-    double buyingPrice2 = 0;
-    double buyingPrice3 = 0;
-    double cp1 = 0;
-    double cp2 = 0;
-    double cp3 = 0;
-    double q1 = 0;
-    double q2 = 0;
-    double q3 = 0;
-    List<Number> stocks = null;
     PieChart pieChart = null;
+    TextView perform1 = null;
+    TextView perform2 = null;
+    TextView current_aum1 = null;
+    TextView return1 = null;
+    TextView current_aum2 = null;
+    TextView return2 = null;
+    String stock1, stock2, stock3 = null;
+    double price1, price2, price3 = 0;
+    double stocks_total = 0;
+    double crypto_total = 0;
+    List<Map> stocks = null;
+    List<Map> crypto = null;
+    TextView initial_aum1 = null;
+    TextView initial_aum2 = null;
+    List<Number> equity = null;
+    double total1, total2;
+    TextView aum = null;
+    TextView returnP = null;
+    DecimalFormat d = new DecimalFormat("#.####");
 
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_stock_portfolio, container, false);
+        return inflater.inflate(R.layout.fragment_individual_client_portfolio, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        TextView name = view.findViewById(R.id.clientName);
+        pieChart = view.findViewById(R.id.pieChart3);
+        aum = view.findViewById(R.id.aum);
+        returnP = view.findViewById(R.id.returnP);
+        TextView bench_return = view.findViewById(R.id.bench_return);
+        perform1 = view.findViewById(R.id.performer1);
+        perform2 = view.findViewById(R.id.performer2);
+        initial_aum1 = view.findViewById(R.id.initial_aum1);
+        current_aum1 = view.findViewById(R.id.current_aum1);
+        return1 = view.findViewById(R.id.equity_return);
+        TextView bench_return1 = view.findViewById(R.id.equity_return_bench);
+        initial_aum2 = view.findViewById(R.id.initial_aum2);
+        current_aum2 = view.findViewById(R.id.current_aum2);
+        return2 = view.findViewById(R.id.crypto_return);
+        TextView bench_return2 = view.findViewById(R.id.crypto_return_bench);
+        TextView stockTitle = view.findViewById(R.id.stocks);
 
-        //changed all findViewById to view.findViewById
-        TextView textView = view.findViewById(R.id.name);
-
-        TextView stock1 = view.findViewById(R.id.stock1);
-        TextView boughtPrice1 = view.findViewById(R.id.boughtPrice1);
-        TextView sharesOwned1 = view.findViewById(R.id.sharesOwned1);
-
-        TextView stock2 = view.findViewById(R.id.stock2);
-        TextView boughtPrice2 = view.findViewById(R.id.boughtPrice2);
-        TextView sharesOwned2 = view.findViewById(R.id.sharesOwned2);
-
-        TextView stock3 = view.findViewById(R.id.stock3);
-        TextView boughtPrice3 = view.findViewById(R.id.boughtPrice3);
-        TextView sharesOwned3 = view.findViewById(R.id.sharesOwned3);
-
-        Button next = view.findViewById(R.id.nextScreen);
-
-        currentP1 = view.findViewById(R.id.currentPrice1);
-        currentP2 = view.findViewById(R.id.currentPrice2);
-        currentP3 = view.findViewById(R.id.currentPrice3);
-
-        return1 = view.findViewById(R.id.return1);
-        return2 = view.findViewById(R.id.return2);
-        return3 = view.findViewById(R.id.return3);
-
-        pieChart = view.findViewById(R.id.pieChart2);
-        pieChart.getDescription().setEnabled(false);
-        pieChart.setHoleRadius(0f);
-        pieChart.setTransparentCircleRadius(0f);
-        pieChart.getLegend().setEnabled(false);
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference ifas = db.collection("Authorized IFAs");
@@ -124,29 +109,33 @@ public class StockPortfolio extends Fragment {
 
                         String firstName = (String) document.get("First Name");
                         String lastName = (String) document.get("Last Name");
-                        textView.setText(" " +firstName + " " + lastName);
+                        name.setText(" " + firstName + " " + lastName);
 
-                        t = (List<Map>) document.get("Stocks");
-                        assert t != null;
+                        stocks = (List<Map>) document.get("Stocks");
+                        assert stocks != null;
+                        double totalS = 0;
+                        for (int i = 0; i < 3; i++) {
+                            totalS = totalS + Double.parseDouble(stocks.get(i).get("price").toString()) * Double.parseDouble(stocks.get(i).get("quantity").toString());
+                        }
+                        initial_aum1.setText(initial_aum1.getText() + " " + totalS);
+                        total1 = totalS;
+                        bench_return1.setText(bench_return1.getText() + " 21%");
 
-                        stock1.setText("Stock: " + t.get(0).get("stock"));
-                        boughtPrice1.setText("Bought Price: $" + t.get(0).get("price"));
-                        sharesOwned1.setText("Shares Owned: " + t.get(0).get("quantity"));
-                        buyingPrice1 = Double.parseDouble(t.get(0).get("price").toString());
-                        q1 = Double.parseDouble(t.get(0).get("quantity").toString());
+                        crypto = (List<Map>) document.get("Crypto");
+                        assert crypto != null;
+                        double totalC = 0;
+                        for (int i = 0; i < 3; i++) {
+                            totalC = totalC + Double.parseDouble(crypto.get(i).get("price").toString()) * Double.parseDouble(crypto.get(i).get("quantity").toString());
+                        }
+                        crypto_total = totalC;
+                        initial_aum2.setText(initial_aum2.getText() + " " + totalC);
+                        total2 = totalC;
+                        return2.setText(return2.getText() + " 16%");
+                        bench_return2.setText(bench_return2.getText() + " 12%");
 
-                        stock2.setText("Stock: " + t.get(1).get("stock"));
-                        boughtPrice2.setText("Bought Price: $" + t.get(1).get("price"));
-                        sharesOwned2.setText("Shares Owned: " + t.get(1).get("quantity"));
-                        buyingPrice2 = Double.parseDouble(t.get(1).get("price").toString());
-                        q2 = Double.parseDouble(t.get(1).get("quantity").toString());
+                        bench_return.setText(bench_return.getText() + " 10%");
 
-                        stock3.setText("Stock: " + t.get(2).get("stock"));
-                        boughtPrice3.setText("Bought Price: $" + t.get(2).get("price"));
-                        sharesOwned3.setText("Shares Owned: " + t.get(2).get("quantity"));
-                        buyingPrice3 = Double.parseDouble(t.get(2).get("price").toString());
-                        q3 = Double.parseDouble(t.get(2).get("quantity").toString());
-
+                        equity = (List<Number>) document.get("Equity");
 
                     } else {
                         Log.d("TAG", "No such document");
@@ -157,94 +146,23 @@ public class StockPortfolio extends Fragment {
             }
         });
 
+        new stockPriceTask1().execute("https://finnhub-backend.herokuapp.com/price?symbol=AAPL");
+        new stockPriceTask2().execute("https://finnhub-backend.herokuapp.com/price?symbol=TSLA");
+        new stockPriceTask3().execute("https://finnhub-backend.herokuapp.com/price?symbol=AMZN");
+
         View root = view;
-        stock1.setOnClickListener(new View.OnClickListener() {
+        stockTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //add fragment to bottomnav.xml so this can be written
-                NavDirections navDirections = StockPortfolioDirections.actionStockPortfolioToSpecificStock();
+                NavDirections navDirections = individualClientPortfolioDirections.actionIndividualClientPortfolioToStockPortfolio();
                 Navigation.findNavController(root).navigate(navDirections);
             }
         });
 
-        next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NavDirections navDirections = StockPortfolioDirections.actionStockPortfolioToCryptoPortfolio();
-                Navigation.findNavController(root).navigate(navDirections);
-            }
-        });
-
-        new StockPortfolio.priceTask1().execute("https://finnhub-backend.herokuapp.com/price?symbol=AAPL");
-        new StockPortfolio.priceTask2().execute("https://finnhub-backend.herokuapp.com/price?symbol=TSLA");
-        new StockPortfolio.priceTask3().execute("https://finnhub-backend.herokuapp.com/price?symbol=AMZN");
     }
 
-    private class priceTask1 extends AsyncTask<String, String, String> {
-        String data = "";
-
-        protected String doInBackground(String... params) {
-
-
-            HttpURLConnection connection = null;
-            BufferedReader reader = null;
-
-            try {
-                URL url = new URL(params[0]);
-                connection = (HttpURLConnection) url.openConnection();
-                connection.connect();
-
-
-                InputStream stream = connection.getInputStream();
-
-                reader = new BufferedReader(new InputStreamReader(stream));
-
-                String line = "";
-
-                while (line != null) {
-                    line = reader.readLine();
-                    data = data + line;
-                }
-                try {
-                    JSONObject j = new JSONObject(data);
-                    getActivity().runOnUiThread(new Runnable() { //add getActivity. before this method
-                        @Override
-                        public void run() {
-                            try {
-                                currentP1.setText("Current Price: $" + j.get("current price"));
-                                cp1 = Double.parseDouble(j.get("current price").toString());
-                                double returnS1 = ((cp1 - buyingPrice1)/buyingPrice1)*100;
-                                return1.setText("Return: "+returnS1+"%");
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    });
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                if (connection != null) {
-                    connection.disconnect();
-                }
-                try {
-                    if (reader != null) {
-                        reader.close();
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            return null;
-        }
-    }
-
-    private class priceTask2 extends AsyncTask<String, String, String> {
+    private class stockPriceTask1 extends AsyncTask<String, String, String> {
         String data = "";
 
         protected String doInBackground(String... params) {
@@ -275,11 +193,9 @@ public class StockPortfolio extends Fragment {
                         @Override
                         public void run() {
                             try {
-                                currentP2.setText("Current Price: $" + j.get("current price"));
-                                cp2 = Double.parseDouble(j.get("current price").toString());
-                                double returnS2 = ((cp2 - buyingPrice2)/buyingPrice2)*100;
-                                return2.setText("Return: "+returnS2+"%");
-
+                                stocks_total = stocks_total + Double.parseDouble(j.get("current price").toString());
+                                stock1 = "APPL";
+                                price1 = Double.parseDouble(j.get("current price").toString());
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -308,7 +224,7 @@ public class StockPortfolio extends Fragment {
         }
     }
 
-    private class priceTask3 extends AsyncTask<String, String, String> {
+    private class stockPriceTask2 extends AsyncTask<String, String, String> {
         String data = "";
 
         protected String doInBackground(String... params) {
@@ -339,22 +255,107 @@ public class StockPortfolio extends Fragment {
                         @Override
                         public void run() {
                             try {
-                                currentP3.setText("Current Price: $" + j.get("current price"));
-                                cp3 = Double.parseDouble(j.get("current price").toString());
-                                double returnS3 = ((cp3 - buyingPrice3)/buyingPrice3)*100;
-                                return3.setText("Return: "+returnS3+"%");
+                                stocks_total = stocks_total + Double.parseDouble(j.get("current price").toString());
+                                stock2 = "TSLA";
+                                price2 = Double.parseDouble(j.get("current price").toString());
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
 
-                                double total = cp1*q1 + cp2*q2 + cp3*q3;
-                                double invst1 = cp1*q1 / total;
-                                double invst2 = cp2*q2 / total;
-                                double invst3 = cp3*q3 / total;
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (connection != null) {
+                    connection.disconnect();
+                }
+                try {
+                    if (reader != null) {
+                        reader.close();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            return null;
+        }
+    }
 
-                                stocks = new ArrayList<>();
-                                stocks.add(invst1);
-                                stocks.add(invst2);
-                                stocks.add(invst3);
-                                pieChart.setData(getPieData(stocks));
+    private class stockPriceTask3 extends AsyncTask<String, String, String> {
+        String data = "";
+
+        protected String doInBackground(String... params) {
+
+
+            HttpURLConnection connection = null;
+            BufferedReader reader = null;
+
+            try {
+                URL url = new URL(params[0]);
+                connection = (HttpURLConnection) url.openConnection();
+                connection.connect();
+
+
+                InputStream stream = connection.getInputStream();
+
+                reader = new BufferedReader(new InputStreamReader(stream));
+
+                String line = "";
+
+                while (line != null) {
+                    line = reader.readLine();
+                    data = data + line;
+                }
+                try {
+                    JSONObject j = new JSONObject(data);
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                stocks_total = stocks_total + Double.parseDouble(j.get("current price").toString());
+                                current_aum1.setText(current_aum1.getText()+""+stocks_total);
+                                double stocks_return = ((stocks_total - total1)/ total1)*100;
+                                return1.setText(return1.getText() + "" + stocks_return);
+                                stock3 = "AMZN";
+                                price3 = Double.parseDouble(j.get("current price").toString());
+                                current_aum2.setText(current_aum2.getText() + ""+crypto_total);
+
+                                if (price1 > price2 && price1 > price3) {
+                                    perform1.setText(stock1 + ":  "+price1);
+                                    if (price2 > price3) {
+                                        perform2.setText(stock2 + ":  "+price2);
+                                    } else {
+                                        perform2.setText(stock3 + ":  "+price3);
+                                    }
+                                } else if (price2 > price1 && price2 > price3) {
+                                    perform1.setText(stock2 + ":  "+price2);
+                                    if (price1 > price3) {
+                                        perform2.setText(stock1 + ":  "+price1);
+                                    } else {
+                                        perform2.setText(stock3 + ":  "+price3);
+                                    }
+                                } else {
+                                    perform1.setText(stock3 + ":  "+price3);
+                                    if (price1 > price3) {
+                                        perform2.setText(stock1 + ":  "+price1);
+                                    } else {
+                                        perform2.setText(stock2 + ":  "+price2);
+                                    }
+                                }
+
+                                double total = stocks_total + crypto_total;
+                                aum.setText(aum.getText() + " "+total);
+                                double returnValue = ((total - (total1+total2))/(total1 + total2))*100;
+                                returnP.setText(returnP.getText() + " "+d.format(returnValue));
+                                List<Number> a = new ArrayList<>();
+                                a.add((stocks_total/total)*100);
+                                a.add((crypto_total/total)*100);
+                                pieChart.setData(getPieData(a));
                                 pieChart.invalidate();
 
                             } catch (JSONException e) {
@@ -387,11 +388,10 @@ public class StockPortfolio extends Fragment {
 
     private PieData getPieData(List<Number> list) {
         ArrayList<PieEntry> entries = new ArrayList<>();
-        entries.add(new PieEntry(list.get(0).floatValue(), ""+t.get(0).get("stock")));
-        entries.add(new PieEntry(list.get(1).floatValue(), ""+t.get(1).get("stock")));
-        entries.add(new PieEntry(list.get(2).floatValue(), ""+t.get(2).get("stock")));
+        entries.add(new PieEntry(list.get(0).floatValue(), "Stocks"));
+        entries.add(new PieEntry(list.get(1).floatValue(), "Crypto"));
 
-        PieDataSet pieDataSet = new PieDataSet(entries , "");
+        PieDataSet pieDataSet = new PieDataSet(entries, "");
         pieChart.setEntryLabelColor(getResources().getColor(R.color.black));
         pieDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
         pieDataSet.setDrawValues(false);

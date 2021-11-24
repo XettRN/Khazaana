@@ -9,7 +9,11 @@
         android:id="@+id/home_frag"
         android:name="com.example.khazaana.main.Home"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_home_frag_to_individualClientPortfolio"
+            app:destination="@id/individualClientPortfolio" />
+    </fragment>
     <fragment
         android:id="@+id/clients_frag"
         android:name="com.example.khazaana.main.Clients"
@@ -21,6 +25,9 @@
         <action
             android:id="@+id/action_clients_frag_to_stockPortfolio"
             app:destination="@id/stockPortfolio" />
+        <action
+            android:id="@+id/action_clients_frag_to_home_frag"
+            app:destination="@id/home_frag" />
     </fragment>
     <fragment
         android:id="@+id/profile_frag"
@@ -36,5 +43,34 @@
         android:id="@+id/stockPortfolio"
         android:name="com.example.khazaana.main.StockPortfolio"
         android:label="fragment_stock_portfolio"
-        tools:layout="@layout/fragment_stock_portfolio" />
+        tools:layout="@layout/fragment_stock_portfolio">
+        <action
+            android:id="@+id/action_stockPortfolio_to_specific_stock"
+            app:destination="@id/specific_stock" />
+        <action
+            android:id="@+id/action_stockPortfolio_to_cryptoPortfolio"
+            app:destination="@id/cryptoPortfolio" />
+    </fragment>
+    <fragment
+        android:id="@+id/cryptoPortfolio"
+        android:name="com.example.khazaana.main.crypto_portfolio"
+        android:label="fragment_crypto_portfolio"
+        tools:layout="@layout/fragment_crypto_portfolio" />
+    <fragment
+        android:id="@+id/specific_stock"
+        android:name="com.example.khazaana.main.specific_stock"
+        android:label="fragment_specific_stock"
+        tools:layout="@layout/fragment_specific_stock" />
+    <fragment
+        android:id="@+id/individualClientPortfolio"
+        android:name="com.example.khazaana.main.individualClientPortfolio"
+        android:label="fragment_individual_client_portfolio"
+        tools:layout="@layout/fragment_individual_client_portfolio">
+        <action
+            android:id="@+id/action_individualClientPortfolio_to_stockPortfolio"
+            app:destination="@id/stockPortfolio" />
+        <action
+            android:id="@+id/action_individualClientPortfolio_to_cryptoPortfolio"
+            app:destination="@id/cryptoPortfolio" />
+    </fragment>
 </navigation>
