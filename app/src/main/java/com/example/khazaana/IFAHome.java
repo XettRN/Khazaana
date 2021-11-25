@@ -129,6 +129,7 @@ public class IFAHome extends AppCompatActivity {
                 ViewHolder viewHolder = new ViewHolder();
                 viewHolder.clientName = (TextView) convertView.findViewById(R.id.client_name);
                 viewHolder.pieChart = (PieChart) convertView.findViewById(R.id.pieChart);
+                viewHolder.aum = (TextView) convertView.findViewById(R.id.aum);
                 viewHolder.return_perc = (TextView) convertView.findViewById(R.id.return_percent);
                 viewHolder.benchmarkReturn = (TextView) convertView.findViewById(R.id.bench_return);
                 convertView.setTag(viewHolder);
@@ -137,8 +138,9 @@ public class IFAHome extends AppCompatActivity {
                 mainViewHolder.clientName.setText(getItem(position).clientName);
                 mainViewHolder.pieChart.setData(getPieData(getItem(position).equity));
                 mainViewHolder.pieChart.invalidate();
+                mainViewHolder.aum.setText("AUM: $" + getItem(position).aum);
                 mainViewHolder.return_perc.setText("Return: " + getItem(position).return_perc + "%");
-                mainViewHolder.benchmarkReturn.setText("Benchmark Return: " + getItem(position).benchmarkReturn + "0");
+                mainViewHolder.benchmarkReturn.setText("Benchmark Return: " + getItem(position).benchmarkReturn + "%");
             }
             return convertView;
         }
@@ -147,6 +149,7 @@ public class IFAHome extends AppCompatActivity {
     public class ViewHolder {
         TextView clientName;
         PieChart pieChart;
+        TextView aum;
         TextView return_perc;
         TextView benchmarkReturn;
     }

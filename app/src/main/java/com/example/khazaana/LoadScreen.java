@@ -76,7 +76,7 @@ public class LoadScreen extends AppCompatActivity {
 
         signIn.setOnClickListener( new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(LoadScreen.this, IFAHome.class);
+                Intent intent = new Intent(LoadScreen.this, LoginScreen.class);
                 startActivity(intent);
             }
         });
