@@ -1,16 +1,26 @@
-package com.example.khazaana;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+package com.example.khazaana.main;
 
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
+
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.khazaana.R;
+import com.example.khazaana.crypto_portfolio;
+import com.example.khazaana.specific_equity;
+import com.example.khazaana.stocks_portfolio;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -36,9 +46,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class stocks_portfolio extends AppCompatActivity {
-
+public class StockPortfolio extends Fragment {
     List<Map> t = null;
+
     TextView currentP1 = null;
     TextView currentP2 = null;
     TextView currentP3 = null;
@@ -56,36 +66,43 @@ public class stocks_portfolio extends AppCompatActivity {
     double q3 = 0;
     List<Number> stocks = null;
     PieChart pieChart = null;
+
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_stock_portfolio, container, false);
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_stocks_portfolio);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-        TextView textView = findViewById(R.id.name);
+        //changed all findViewById to view.findViewById
+        TextView textView = view.findViewById(R.id.name);
 
-        TextView stock1 = findViewById(R.id.stock1);
-        TextView boughtPrice1 = findViewById(R.id.boughtPrice1);
-        TextView sharesOwned1 = findViewById(R.id.sharesOwned1);
+        TextView stock1 = view.findViewById(R.id.stock1);
+        TextView boughtPrice1 = view.findViewById(R.id.boughtPrice1);
+        TextView sharesOwned1 = view.findViewById(R.id.sharesOwned1);
 
-        TextView stock2 = findViewById(R.id.stock2);
-        TextView boughtPrice2 = findViewById(R.id.boughtPrice2);
-        TextView sharesOwned2 = findViewById(R.id.sharesOwned2);
+        TextView stock2 = view.findViewById(R.id.stock2);
+        TextView boughtPrice2 = view.findViewById(R.id.boughtPrice2);
+        TextView sharesOwned2 = view.findViewById(R.id.sharesOwned2);
 
-        TextView stock3 = findViewById(R.id.stock3);
-        TextView boughtPrice3 = findViewById(R.id.boughtPrice3);
-        TextView sharesOwned3 = findViewById(R.id.sharesOwned3);
+        TextView stock3 = view.findViewById(R.id.stock3);
+        TextView boughtPrice3 = view.findViewById(R.id.boughtPrice3);
+        TextView sharesOwned3 = view.findViewById(R.id.sharesOwned3);
 
-        Button next = findViewById(R.id.nextScreen);
+        Button next = view.findViewById(R.id.nextScreen);
 
-        currentP1 = findViewById(R.id.currentPrice1);
-        currentP2 = findViewById(R.id.currentPrice2);
-        currentP3 = findViewById(R.id.currentPrice3);
+        currentP1 = view.findViewById(R.id.currentPrice1);
+        currentP2 = view.findViewById(R.id.currentPrice2);
+        currentP3 = view.findViewById(R.id.currentPrice3);
 
-        return1 = findViewById(R.id.return1);
-        return2 = findViewById(R.id.return2);
-        return3 = findViewById(R.id.return3);
+        return1 = view.findViewById(R.id.return1);
+        return2 = view.findViewById(R.id.return2);
+        return3 = view.findViewById(R.id.return3);
 
-        pieChart = findViewById(R.id.pieChart2);
+        pieChart = view.findViewById(R.id.pieChart2);
         pieChart.getDescription().setEnabled(false);
         pieChart.setHoleRadius(0f);
         pieChart.setTransparentCircleRadius(0f);
@@ -140,24 +157,27 @@ public class stocks_portfolio extends AppCompatActivity {
             }
         });
 
+        View root = view;
         stock1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), specific_equity.class));
+                //add fragment to bottomnav.xml so this can be written
+                NavDirections navDirections = StockPortfolioDirections.actionStockPortfolioToSpecificStock();
+                Navigation.findNavController(root).navigate(navDirections);
             }
         });
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), crypto_portfolio.class));
+                NavDirections navDirections = StockPortfolioDirections.actionStockPortfolioToCryptoPortfolio();
+                Navigation.findNavController(root).navigate(navDirections);
             }
         });
 
-        new priceTask1().execute("https://finnhub-backend.herokuapp.com/price?symbol=AAPL");
-        new priceTask2().execute("https://finnhub-backend.herokuapp.com/price?symbol=TSLA");
-        new priceTask3().execute("https://finnhub-backend.herokuapp.com/price?symbol=AMZN");
-
+        new StockPortfolio.priceTask1().execute("https://finnhub-backend.herokuapp.com/price?symbol=AAPL");
+        new StockPortfolio.priceTask2().execute("https://finnhub-backend.herokuapp.com/price?symbol=TSLA");
+        new StockPortfolio.priceTask3().execute("https://finnhub-backend.herokuapp.com/price?symbol=AMZN");
     }
 
     private class priceTask1 extends AsyncTask<String, String, String> {
@@ -187,7 +207,7 @@ public class stocks_portfolio extends AppCompatActivity {
                 }
                 try {
                     JSONObject j = new JSONObject(data);
-                    runOnUiThread(new Runnable() {
+                    getActivity().runOnUiThread(new Runnable() { //add getActivity. before this method
                         @Override
                         public void run() {
                             try {
@@ -251,7 +271,7 @@ public class stocks_portfolio extends AppCompatActivity {
                 }
                 try {
                     JSONObject j = new JSONObject(data);
-                    runOnUiThread(new Runnable() {
+                    getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             try {
@@ -315,7 +335,7 @@ public class stocks_portfolio extends AppCompatActivity {
                 }
                 try {
                     JSONObject j = new JSONObject(data);
-                    runOnUiThread(new Runnable() {
+                    getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             try {

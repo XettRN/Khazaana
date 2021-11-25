@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.khazaana.main.NavView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -53,15 +54,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button clients = findViewById(R.id.button2);
-        clients.setOnClickListener(this::goClientList);
+        Button home = findViewById(R.id.button2);
+        home.setOnClickListener(this::goHome);
 
         Button equity = findViewById(R.id.button);
         equity.setOnClickListener(this::goPortfolio);
     }
 
-    public void goClientList(View view) {
-        Intent intent = new Intent(this, ClientList.class);
+    public void goHome(View view) {
+        Intent intent = new Intent(this, NavView.class);
         String user = FirebaseAuth.getInstance().getUid();
         intent.putExtra(USER_ID, user);
         startActivity(intent);
