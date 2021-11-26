@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.khazaana.main.riskprofiling.RiskProfiling_1;
+
 public class RiskProfiling_2 extends AppCompatActivity {
 
     @Override
