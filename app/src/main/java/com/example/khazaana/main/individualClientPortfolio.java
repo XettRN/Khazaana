@@ -1,15 +1,21 @@
-package com.example.khazaana;
+package com.example.khazaana.main;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
+
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.khazaana.R;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -36,7 +42,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class individual_client_portfolio extends AppCompatActivity {
+public class individualClientPortfolio extends Fragment {
 
     PieChart pieChart = null;
     TextView perform1 = null;
@@ -58,26 +64,33 @@ public class individual_client_portfolio extends AppCompatActivity {
     TextView aum = null;
     TextView returnP = null;
     DecimalFormat d = new DecimalFormat("#.####");
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_individual_client_portfolio);
-        TextView name = findViewById(R.id.clientName);
-        pieChart = findViewById(R.id.pieChart3);
-        aum = findViewById(R.id.aum);
-        returnP = findViewById(R.id.returnP);
-        TextView bench_return = findViewById(R.id.bench_return);
-        perform1 = findViewById(R.id.performer1);
-        perform2 = findViewById(R.id.performer2);
-        initial_aum1 = findViewById(R.id.initial_aum1);
-        current_aum1 = findViewById(R.id.current_aum1);
-        return1 = findViewById(R.id.equity_return);
-        TextView bench_return1 = findViewById(R.id.equity_return_bench);
-        initial_aum2 = findViewById(R.id.initial_aum2);
-        current_aum2 = findViewById(R.id.current_aum2);
-        return2 = findViewById(R.id.crypto_return);
-        TextView bench_return2 = findViewById(R.id.crypto_return_bench);
-        TextView stockTitle = findViewById(R.id.stocks);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_individual_client_portfolio, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        TextView name = view.findViewById(R.id.clientName);
+        pieChart = view.findViewById(R.id.pieChart3);
+        aum = view.findViewById(R.id.aum);
+        returnP = view.findViewById(R.id.returnP);
+        TextView bench_return = view.findViewById(R.id.bench_return);
+        perform1 = view.findViewById(R.id.performer1);
+        perform2 = view.findViewById(R.id.performer2);
+        initial_aum1 = view.findViewById(R.id.initial_aum1);
+        current_aum1 = view.findViewById(R.id.current_aum1);
+        return1 = view.findViewById(R.id.equity_return);
+        TextView bench_return1 = view.findViewById(R.id.equity_return_bench);
+        initial_aum2 = view.findViewById(R.id.initial_aum2);
+        current_aum2 = view.findViewById(R.id.current_aum2);
+        return2 = view.findViewById(R.id.crypto_return);
+        TextView bench_return2 = view.findViewById(R.id.crypto_return_bench);
+        TextView stockTitle = view.findViewById(R.id.stocks);
 
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -137,13 +150,15 @@ public class individual_client_portfolio extends AppCompatActivity {
         new stockPriceTask2().execute("https://finnhub-backend.herokuapp.com/price?symbol=TSLA");
         new stockPriceTask3().execute("https://finnhub-backend.herokuapp.com/price?symbol=AMZN");
 
+        View root = view;
         stockTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), stocks_portfolio.class));
+                //add fragment to bottomnav.xml so this can be written
+                NavDirections navDirections = individualClientPortfolioDirections.actionIndividualClientPortfolioToStockPortfolio();
+                Navigation.findNavController(root).navigate(navDirections);
             }
         });
-
 
     }
 
@@ -174,7 +189,7 @@ public class individual_client_portfolio extends AppCompatActivity {
                 }
                 try {
                     JSONObject j = new JSONObject(data);
-                    runOnUiThread(new Runnable() {
+                    getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             try {
@@ -236,7 +251,7 @@ public class individual_client_portfolio extends AppCompatActivity {
                 }
                 try {
                     JSONObject j = new JSONObject(data);
-                    runOnUiThread(new Runnable() {
+                    getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             try {
@@ -298,7 +313,7 @@ public class individual_client_portfolio extends AppCompatActivity {
                 }
                 try {
                     JSONObject j = new JSONObject(data);
-                    runOnUiThread(new Runnable() {
+                    getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             try {

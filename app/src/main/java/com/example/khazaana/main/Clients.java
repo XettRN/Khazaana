@@ -55,22 +55,20 @@ public class Clients extends Fragment {
 
         String[] clients = getResources().getStringArray(R.array.clients);
 
+        View root = view;
         for (String client: clients) {
             TextView textView = new TextView(getContext());
             textView.setText(client);
             textView.setLayoutParams(params);
-            textView.setOnClickListener(this::goClientPortfolio);
+            textView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //add fragment to bottomnav.xml so this can be written
+                    NavDirections navDirections = ClientsDirections.actionClientsFragToHomeFrag();
+                    Navigation.findNavController(root).navigate(navDirections);
+                }
+            });
             layout.addView(textView);
         }
-    }
-
-    public void goAddData(MenuItem item) {
-        Intent intent = new Intent(getContext(), AddData.class);
-        startActivity(intent);
-    }
-
-    public void goClientPortfolio(View view) {
-        Intent intent = new Intent(getContext(), Portfolio.class);
-        startActivity(intent);
     }
 }
