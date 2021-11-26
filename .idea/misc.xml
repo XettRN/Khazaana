@@ -58,6 +58,7 @@
         <entry key="..\:/Varshita/CS8803/Khazaana/app/src/main/res/layout/activity_ifaregistration.xml" value="0.14743589743589744" />
         <entry key="..\:/Varshita/CS8803/Khazaana/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/Varshita/CS8803/Khazaana/app/src/main/res/layout/activity_portfolio.xml" value="0.1453804347826087" />
+        <entry key="..\:/Varshita/CS8803/Khazaana/app/src/main/res/layout/activity_stocks_portfolio.xml" value="0.22" />
         <entry key="..\:/Varshita/CS8803/Khazaana/app/src/main/res/layout/add_new_client.xml" value="0.3333333333333333" />
         <entry key="..\:/Varshita/CS8803/Khazaana/app/src/main/res/layout/add_new_ifa.xml" value="0.22" />
         <entry key="..\:/Varshita/CS8803/Khazaana/app/src/main/res/layout/client_account_settings.xml" value="0.3333333333333333" />
@@ -67,6 +68,8 @@
         <entry key="..\:/Varshita/CS8803/Khazaana/app/src/main/res/layout/client_update_password.xml" value="0.4466666666666667" />
         <entry key="..\:/Varshita/CS8803/Khazaana/app/src/main/res/layout/details.xml" value="0.14743589743589744" />
         <entry key="..\:/Varshita/CS8803/Khazaana/app/src/main/res/layout/fragment_home.xml" value="0.16666666666666666" />
+        <entry key="..\:/Varshita/CS8803/Khazaana/app/src/main/res/layout/fragment_home_list.xml" value="0.14743589743589744" />
+        <entry key="..\:/Varshita/CS8803/Khazaana/app/src/main/res/layout/fragment_home_summary.xml" value="0.14743589743589744" />
         <entry key="..\:/Varshita/CS8803/Khazaana/app/src/main/res/layout/home_header.xml" value="0.14743589743589744" />
         <entry key="..\:/Varshita/CS8803/Khazaana/app/src/main/res/layout/ifa_home.xml" value="0.16666666666666666" />
         <entry key="..\:/Varshita/CS8803/Khazaana/app/src/main/res/layout/ifa_settings.xml" value="0.3333333333333333" />
@@ -80,6 +83,8 @@
         <entry key="..\:/Varshita/CS8803/Khazaana/app/src/main/res/layout/settings.xml" value="0.13333333333333333" />
         <entry key="..\:/Varshita/CS8803/Khazaana/app/src/main/res/layout/sign_up_general.xml" value="0.22" />
         <entry key="..\:/Varshita/CS8803/Khazaana/app/src/main/res/layout/update_password.xml" value="0.3333333333333333" />
+        <entry key="..\:/Varshita/CS8803/Khazaana/app/src/main/res/menu/client_toolbar.xml" value="0.1346153846153846" />
+        <entry key="..\:/Varshita/CS8803/Khazaana/app/src/main/res/menu/navbar.xml" value="0.1346153846153846" />
         <entry key="app/src/main/res/layout/activity_client_registration.xml" value="0.24270833333333333" />
         <entry key="app/src/main/res/layout/activity_client_signup_options.xml" value="0.24270833333333333" />
         <entry key="app/src/main/res/layout/activity_ifaregistration.xml" value="0.21014492753623187" />

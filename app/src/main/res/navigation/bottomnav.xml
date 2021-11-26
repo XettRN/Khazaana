@@ -9,7 +9,7 @@
         android:id="@+id/home_frag"
         android:name="com.example.khazaana.main.Home"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home">
+        tools:layout="@layout/fragment_home_list">
         <action
             android:id="@+id/action_home_frag_to_individualClientPortfolio"
             app:destination="@id/individualClientPortfolio" />

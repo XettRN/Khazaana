@@ -1,13 +1,11 @@
 package com.example.khazaana.main;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
@@ -17,10 +15,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.khazaana.Portfolio;
 import com.example.khazaana.R;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
@@ -36,16 +34,20 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 public class Home extends Fragment {
+    private NumberFormat format = NumberFormat.getCurrencyInstance(Locale.US);
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        return inflater.inflate(R.layout.fragment_home_list, container, false);
     }
 
     @Override
@@ -65,22 +67,28 @@ public class Home extends Fragment {
             }
         });
     }
-
+    // calculates summary of aum, benchmark, etc
     private void calculateSummary(ArrayList<Home.PortfolioData> data) {
         // TODO: calculate equity summary and total AUM
+        LayoutInflater factory = getLayoutInflater();
+        View homeHeader = factory.inflate(R.layout.fragment_home_summary, null);
+        Log.d("TAG", "CLIENT SIZE: YOYO" + data.size());
         int numClients = data.size();
         double aum = 0; // calculate total aum
-        TextView numClientsText = getView().findViewById(R.id.numClients);
-        TextView aumText = getView().findViewById(R.id.aumSummary);
+        TextView numClientsText = homeHeader.findViewById(R.id.numClients);
+        TextView aumText = homeHeader.findViewById(R.id.aumSummary);
         numClientsText.setText("Clients: " + numClients);
         aumText.setText("AUM: $" + aum);
 
-        PieChart summaryPie = getView().findViewById(R.id.overallSummaryPie);
+        PieChart summaryPie = homeHeader.findViewById(R.id.overallSummaryPie);
         summaryPie.setData(getSummaryPieData(data.get(0).equity)); // need to pass in total amount, not just for one client
         summaryPie.invalidate();
 
-    }
+        ListView listView = (ListView) getView().findViewById(R.id.listView);
+        listView.addHeaderView(homeHeader, null, false);
 
+    }
+    // Calculates pie chart values needed for summary
     private PieData getSummaryPieData(List<Number> list) {
         ArrayList<PieEntry> entries = new ArrayList<>();
         entries.add(new PieEntry(list.get(0).floatValue(), "Equity"));
@@ -95,6 +103,27 @@ public class Home extends Fragment {
         return new PieData(pieDataSet);
     }
 
+    // Finds the top 5 portfolios to display given a list of client portfolio data
+    private ArrayList<Home.PortfolioData> filterPortfolios(ArrayList<Home.PortfolioData> data) {
+        if (data.size() <= 5) {
+            return data;
+        } else {
+            return null;
+        }
+    }
+
+    private double calculateAUM(List<Map> stocks) {
+        if (stocks != null) {
+            double totalS = 0;
+            for (int i = 0; i < 3; i++) {
+                totalS = totalS + Double.parseDouble(stocks.get(i).get("price").toString()) * Double.parseDouble(stocks.get(i).get("quantity").toString());
+            }
+            return totalS;
+        }
+        return 0;
+    }
+
+    // Displays top 5 portfolios
     private void displayPortfolios() {
         ArrayList<Home.PortfolioData> data = new ArrayList<Home.PortfolioData>();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -117,24 +146,31 @@ public class Home extends Fragment {
 
                             String firstName = (String) document.get("First Name");
                             String lastName = (String) document.get("Last Name");
+                            List<Map> stocks = (List<Map>) document.get("Stocks");
                             List<Number> equity = (List<Number>) document.get("Equity");
-                            double aum = 0; // need to calculate
+
+                            double aum = calculateAUM(stocks); // need to calculate
                             double return_perc = 0;
                             double benchmarkReturn = 0;
-                            // TODO: Calculate AUM, return, and benchmark return
-                            data.add(new Home.PortfolioData(firstName + " " + lastName, aum,return_perc,
+                            // TODO: figure out return and benchmark return
+                            data.add(new Home.PortfolioData(firstName + " " + lastName, aum, return_perc,
                                     benchmarkReturn, equity));
                             Log.d("TAG", "LIST SIZE: " + data.size());
                         } else {
                             Log.d("TAG", "No such document");
                         }
                     }
-
-                    calculateSummary(data);
+                    ArrayList<Home.PortfolioData> top5Data = filterPortfolios(data);
+                    calculateSummary(top5Data);
 
                     ListView listView = (ListView) getView().findViewById(R.id.listView);
-                    listView.setNestedScrollingEnabled(true);
-                    listView.setAdapter(new Home.MyListAdapter(getContext(), R.layout.client_summary_item, data));
+//                    LayoutInflater inflater = getLayoutInflater();
+//                    ViewGroup header = (ViewGroup)inflater.inflate(R.layout.fragment_home_summary, listView, false);
+//                    listView.addHeaderView(header, null, false);
+
+//                    getActivity().setContentView(listView);
+                    // listView.setNestedScrollingEnabled(true);
+                    listView.setAdapter(new Home.MyListAdapter(getContext(), R.layout.client_summary_item, top5Data));
 
                 } else {
                     Log.d("TAG", "get failed with ", task.getException());
@@ -182,7 +218,7 @@ public class Home extends Fragment {
                 mainViewHolder.clientName.setText(getItem(position).clientName);
                 mainViewHolder.pieChart.setData(getPieData(getItem(position).equity));
                 mainViewHolder.pieChart.invalidate();
-                mainViewHolder.aum.setText("AUM: $" + getItem(position).aum);
+                mainViewHolder.aum.setText("AUM: " + format.format(getItem(position).aum));
                 mainViewHolder.return_perc.setText("Return: " + getItem(position).return_perc + "%");
                 mainViewHolder.benchmarkReturn.setText("Benchmark Return: " + getItem(position).benchmarkReturn + "%");
             }
