@@ -13,22 +13,12 @@
         <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/layout/activity_equity_portfolio.xml" value="0.19427083333333334" />
         <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/layout/activity_ifa_client_registration_details.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/layout/activity_ifaregistration.xml" value="0.3333333333333333" />
-        <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/layout/activity_individual_client_portfolio.xml" value="0.20364583333333333" />
         <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/layout/activity_main.xml" value="0.28940217391304346" />
-        <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/layout/activity_nav_view.xml" value="0.20923913043478262" />
         <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/layout/activity_portfolio.xml" value="0.28940217391304346" />
         <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/layout/activity_specific_equity.xml" value="0.20606884057971014" />
         <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/layout/activity_stocks_portfolio.xml" value="0.20606884057971014" />
         <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/layout/add_new_ifa.xml" value="0.2604166666666667" />
         <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/layout/details.xml" value="0.3333333333333333" />
-        <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/layout/fragment_add_stock.xml" value="0.20108695652173914" />
-        <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/layout/fragment_clients.xml" value="0.20923913043478262" />
-        <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/layout/fragment_crypto_portfolio.xml" value="0.20108695652173914" />
-        <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/layout/fragment_home.xml" value="0.20923913043478262" />
-        <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/layout/fragment_individual_client_portfolio.xml" value="0.20108695652173914" />
-        <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/layout/fragment_profile.xml" value="0.20108695652173914" />
-        <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/layout/fragment_specific_stock.xml" value="0.20108695652173914" />
-        <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/layout/fragment_stock_portfolio.xml" value="0.19635416666666666" />
         <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/layout/ifa_details.xml" value="0.19972826086956522" />
         <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/layout/ifa_registration.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/layout/load_screen.xml" value="0.33" />
@@ -47,8 +37,6 @@
         <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/layout/risk_profiling_9.xml" value="0.19427083333333334" />
         <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/layout/sign_up_general.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/layout/sign_up_options.xml" value="0.28306159420289856" />
-        <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/menu/client_toolbar.xml" value="0.3625" />
-        <entry key="..\:/Users/HP/Desktop/CS 4261/Khazaana/app/src/main/res/menu/navbar.xml" value="0.3625" />
         <entry key="..\:/Users/kymet/Documents/Khazaana/app/src/main/res/layout/activity_add_data.xml" value="0.2" />
         <entry key="..\:/Users/kymet/Documents/Khazaana/app/src/main/res/layout/activity_client_list.xml" value="0.36231884057971014" />
         <entry key="..\:/Users/kymet/Documents/Khazaana/app/src/main/res/layout/activity_main.xml" value="0.33" />
@@ -65,22 +53,38 @@
         <entry key="..\:/Varshita/CS8803/Khazaana/app/src/main/res/drawable/ic_baseline_perm_identity_24.xml" value="0.1606837606837607" />
         <entry key="..\:/Varshita/CS8803/Khazaana/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1606837606837607" />
         <entry key="..\:/Varshita/CS8803/Khazaana/app/src/main/res/font/montserrat.xml" value="0.17222222222222222" />
+        <entry key="..\:/Varshita/CS8803/Khazaana/app/src/main/res/layout/activity_client_list.xml" value="0.13418803418803418" />
         <entry key="..\:/Varshita/CS8803/Khazaana/app/src/main/res/layout/activity_client_registration.xml" value="0.14743589743589744" />
         <entry key="..\:/Varshita/CS8803/Khazaana/app/src/main/res/layout/activity_ifaregistration.xml" value="0.14743589743589744" />
         <entry key="..\:/Varshita/CS8803/Khazaana/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/Varshita/CS8803/Khazaana/app/src/main/res/layout/activity_portfolio.xml" value="0.1453804347826087" />
+        <entry key="..\:/Varshita/CS8803/Khazaana/app/src/main/res/layout/activity_stocks_portfolio.xml" value="0.22" />
+        <entry key="..\:/Varshita/CS8803/Khazaana/app/src/main/res/layout/add_new_client.xml" value="0.3333333333333333" />
         <entry key="..\:/Varshita/CS8803/Khazaana/app/src/main/res/layout/add_new_ifa.xml" value="0.22" />
-        <entry key="..\:/Varshita/CS8803/Khazaana/app/src/main/res/layout/client_account_settings.xml" value="0.22" />
+        <entry key="..\:/Varshita/CS8803/Khazaana/app/src/main/res/layout/client_account_settings.xml" value="0.3333333333333333" />
         <entry key="..\:/Varshita/CS8803/Khazaana/app/src/main/res/layout/client_fees.xml" value="0.3333333333333333" />
         <entry key="..\:/Varshita/CS8803/Khazaana/app/src/main/res/layout/client_profile.xml" value="0.16666666666666666" />
+        <entry key="..\:/Varshita/CS8803/Khazaana/app/src/main/res/layout/client_summary_item.xml" value="0.22" />
+        <entry key="..\:/Varshita/CS8803/Khazaana/app/src/main/res/layout/client_update_password.xml" value="0.4466666666666667" />
         <entry key="..\:/Varshita/CS8803/Khazaana/app/src/main/res/layout/details.xml" value="0.14743589743589744" />
+        <entry key="..\:/Varshita/CS8803/Khazaana/app/src/main/res/layout/fragment_home.xml" value="0.16666666666666666" />
+        <entry key="..\:/Varshita/CS8803/Khazaana/app/src/main/res/layout/fragment_home_list.xml" value="0.14743589743589744" />
+        <entry key="..\:/Varshita/CS8803/Khazaana/app/src/main/res/layout/fragment_home_summary.xml" value="0.14743589743589744" />
+        <entry key="..\:/Varshita/CS8803/Khazaana/app/src/main/res/layout/home_header.xml" value="0.14743589743589744" />
+        <entry key="..\:/Varshita/CS8803/Khazaana/app/src/main/res/layout/ifa_home.xml" value="0.16666666666666666" />
+        <entry key="..\:/Varshita/CS8803/Khazaana/app/src/main/res/layout/ifa_settings.xml" value="0.3333333333333333" />
+        <entry key="..\:/Varshita/CS8803/Khazaana/app/src/main/res/layout/ifa_update_password.xml" value="0.4466666666666667" />
         <entry key="..\:/Varshita/CS8803/Khazaana/app/src/main/res/layout/load_screen.xml" value="0.3333333333333333" />
         <entry key="..\:/Varshita/CS8803/Khazaana/app/src/main/res/layout/login_screen.xml" value="0.22" />
+        <entry key="..\:/Varshita/CS8803/Khazaana/app/src/main/res/layout/remove_client.xml" value="0.3333333333333333" />
         <entry key="..\:/Varshita/CS8803/Khazaana/app/src/main/res/layout/remove_ifa.xml" value="0.3333333333333333" />
-        <entry key="..\:/Varshita/CS8803/Khazaana/app/src/main/res/layout/risk_profiling_main.xml" value="0.22" />
+        <entry key="..\:/Varshita/CS8803/Khazaana/app/src/main/res/layout/risk_profiling_2.xml" value="0.1" />
+        <entry key="..\:/Varshita/CS8803/Khazaana/app/src/main/res/layout/risk_profiling_main.xml" value="0.3333333333333333" />
         <entry key="..\:/Varshita/CS8803/Khazaana/app/src/main/res/layout/settings.xml" value="0.13333333333333333" />
         <entry key="..\:/Varshita/CS8803/Khazaana/app/src/main/res/layout/sign_up_general.xml" value="0.22" />
         <entry key="..\:/Varshita/CS8803/Khazaana/app/src/main/res/layout/update_password.xml" value="0.3333333333333333" />
+        <entry key="..\:/Varshita/CS8803/Khazaana/app/src/main/res/menu/client_toolbar.xml" value="0.1346153846153846" />
+        <entry key="..\:/Varshita/CS8803/Khazaana/app/src/main/res/menu/navbar.xml" value="0.1346153846153846" />
         <entry key="app/src/main/res/layout/activity_client_registration.xml" value="0.24270833333333333" />
         <entry key="app/src/main/res/layout/activity_client_signup_options.xml" value="0.24270833333333333" />
         <entry key="app/src/main/res/layout/activity_ifaregistration.xml" value="0.21014492753623187" />
@@ -88,7 +92,6 @@
         <entry key="app/src/main/res/layout/activity_main2.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_portfolio.xml" value="0.21875" />
         <entry key="app/src/main/res/layout/activity_risk_profiling7.xml" value="0.22864583333333333" />
-        <entry key="app/src/main/res/layout/activity_specific_equity.xml" value="0.2624016161098888" />
         <entry key="app/src/main/res/layout/add_new_ifa.xml" value="0.21014492753623187" />
         <entry key="app/src/main/res/layout/client_account_settings.xml" value="0.21875" />
         <entry key="app/src/main/res/layout/client_fees.xml" value="0.24270833333333333" />
@@ -130,12 +133,5 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
-  </component>
-  <component name="VisualizationToolProject">
-    <option name="state">
-      <ProjectState>
-        <option name="scale" value="0.335" />
-      </ProjectState>
-    </option>
   </component>
 </project>

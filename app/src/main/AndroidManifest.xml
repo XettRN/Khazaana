@@ -155,7 +155,9 @@
         <activity
             android:name=".IFASettings"
             android:exported="true" />
-
+        <activity
+            android:name=".IFAHome"
+            android:exported="true" />
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
