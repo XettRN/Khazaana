@@ -21,55 +21,55 @@
             android:name=".AddData"
             android:exported="false" />
         <activity
-            android:name=".RiskProfiling_Answer"
+            android:name=".main.riskprofiling.RiskProfiling_Answer"
             android:exported="true" />
         <activity
-            android:name=".RiskProfiling_C3"
+            android:name=".main.riskprofiling.RiskProfiling_C3"
             android:exported="true" />
         <activity
-            android:name=".RiskProfiling_C2"
+            android:name=".main.riskprofiling.RiskProfiling_C2"
             android:exported="true" />
         <activity
-            android:name=".RiskProfiling_C1"
+            android:name=".main.riskprofiling.RiskProfiling_C1"
             android:exported="true" />
         <activity
-            android:name=".RiskProfilingContinue"
+            android:name=".main.riskprofiling.RiskProfilingContinue"
             android:exported="true" />
         <activity
-            android:name=".RiskProfiling_12"
+            android:name=".main.riskprofiling.RiskProfiling_12"
             android:exported="true" />
         <activity
-            android:name=".RiskProfiling_11"
+            android:name=".main.riskprofiling.RiskProfiling_11"
             android:exported="true" />
         <activity
-            android:name=".RiskProfiling_10"
+            android:name=".main.riskprofiling.RiskProfiling_10"
             android:exported="true" />
         <activity
-            android:name=".RiskProfiling_9"
+            android:name=".main.riskprofiling.RiskProfiling_9"
             android:exported="true" />
         <activity
-            android:name=".RiskProfiling_8"
+            android:name=".main.riskprofiling.RiskProfiling_8"
             android:exported="true" />
         <activity
-            android:name=".RiskProfiling_7"
+            android:name=".main.riskprofiling.RiskProfiling_7"
             android:exported="true" />
         <activity
-            android:name=".RiskProfiling_6"
+            android:name=".main.riskprofiling.RiskProfiling_6"
             android:exported="true" />
         <activity
-            android:name=".RiskProfiling_5"
+            android:name=".main.riskprofiling.RiskProfiling_5"
             android:exported="true" />
         <activity
-            android:name=".RiskProfiling_4"
+            android:name=".main.riskprofiling.RiskProfiling_4"
             android:exported="true" />
         <activity
-            android:name=".RiskProfiling_3"
+            android:name=".main.riskprofiling.RiskProfiling_3"
             android:exported="true" />
         <activity
-            android:name=".RiskProfiling_2"
+            android:name=".main.riskprofiling.RiskProfiling_2"
             android:exported="true" />
         <activity
-            android:name=".RiskProfiling_1"
+            android:name=".main.riskprofiling.RiskProfiling_1"
             android:exported="true" />
         <activity
             android:name=".ClientList"

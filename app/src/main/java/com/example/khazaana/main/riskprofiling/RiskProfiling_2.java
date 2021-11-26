@@ -1,4 +1,4 @@
-package com.example.khazaana;
+package com.example.khazaana.main.riskprofiling;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.khazaana.main.riskprofiling.RiskProfiling_1;
+import com.example.khazaana.R;
 
 public class RiskProfiling_2 extends AppCompatActivity {
 

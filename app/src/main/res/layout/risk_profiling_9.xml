@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RiskProfiling_9">
+    tools:context=".main.riskprofiling.RiskProfiling_9">
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/choice_chip_group"
