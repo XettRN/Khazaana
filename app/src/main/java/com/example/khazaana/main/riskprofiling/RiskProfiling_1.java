@@ -1,4 +1,4 @@
-package com.example.khazaana;
+package com.example.khazaana.main.riskprofiling;
 
 import androidx.annotation.IdRes;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,8 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.util.Log;
 
-import com.google.android.material.chip.Chip;
-import com.google.android.material.chip.ChipDrawable;
+import com.example.khazaana.R;
 import com.google.android.material.chip.ChipGroup;
 
 public class RiskProfiling_1 extends AppCompatActivity {

@@ -1,4 +1,4 @@
-package com.example.khazaana;
+package com.example.khazaana.main.riskprofiling;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,27 +7,29 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class RiskProfiling_C3 extends AppCompatActivity {
+import com.example.khazaana.R;
+
+public class RiskProfiling_5 extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.risk_profiling_c3);
+        setContentView(R.layout.risk_profiling_5);
 
-        Button nextPage = findViewById(R.id.next17);
+        Button nextPage = findViewById(R.id.next7);
         nextPage.setOnClickListener(this::nextPage);
 
-        Button previousPage = findViewById(R.id.button15);
+        Button previousPage = findViewById(R.id.button5);
         previousPage.setOnClickListener(this::previousPage);
     }
 
     public void nextPage(View view) {
-        Intent intent = new Intent(this, RiskProfiling_Answer.class);
+        Intent intent = new Intent(this, RiskProfiling_6.class);
         startActivity(intent);
     }
 
     public void previousPage(View view) {
-        Intent intent = new Intent(this, RiskProfiling_C2.class);
+        Intent intent = new Intent(this, RiskProfiling_4.class);
         startActivity(intent);
     }
 }
