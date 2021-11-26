@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,6 +21,17 @@ import android.widget.TextView;
 import com.example.khazaana.AddData;
 import com.example.khazaana.Portfolio;
 import com.example.khazaana.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
 
 public class Clients extends Fragment {
 
@@ -53,22 +65,47 @@ public class Clients extends Fragment {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
-        String[] clients = getResources().getStringArray(R.array.clients);
+        //String[] clients = getResources().getStringArray(R.array.clients);
 
-        View root = view;
-        for (String client: clients) {
-            TextView textView = new TextView(getContext());
-            textView.setText(client);
-            textView.setLayoutParams(params);
-            textView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    //add fragment to bottomnav.xml so this can be written
-                    NavDirections navDirections = ClientsDirections.actionClientsFragToHomeFrag();
-                    Navigation.findNavController(root).navigate(navDirections);
+        String user = FirebaseAuth.getInstance().getUid();
+        assert user != null;
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference cliRef = db.collection("Authorized IFAs")
+                .document(user)
+                .collection("Clients");
+        cliRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        Log.d("CLIENTS", document.getId() + " => " + document.getData());
+                        String fullName = document.get("First Name") + " " + document.get("Last Name");
+                        addClientToList(view, fullName, params, layout);
+                    }
                 }
-            });
-            layout.addView(textView);
-        }
+                else {
+                    Log.d("CLIENTS", "Error getting documents: ", task.getException());
+                }
+            }
+        });
+
+
+    }
+
+    private void addClientToList(View view, String client,
+                                 ViewGroup.LayoutParams params, LinearLayout layout) {
+        View root = view;
+        TextView textView = new TextView(getContext());
+        textView.setText(client);
+        textView.setLayoutParams(params);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //add fragment to bottomnav.xml so this can be written
+                NavDirections navDirections = ClientsDirections.actionClientsFragToHomeFrag();
+                Navigation.findNavController(root).navigate(navDirections);
+            }
+        });
+        layout.addView(textView);
     }
 }
