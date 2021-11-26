@@ -36,6 +36,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -69,16 +71,18 @@ public class Home extends Fragment {
     }
     // calculates summary of aum, benchmark, etc
     private void calculateSummary(ArrayList<Home.PortfolioData> data) {
-        // TODO: calculate equity summary and total AUM
+        // TODO: calculate equity summary
         LayoutInflater factory = getLayoutInflater();
         View homeHeader = factory.inflate(R.layout.fragment_home_summary, null);
-        Log.d("TAG", "CLIENT SIZE: YOYO" + data.size());
         int numClients = data.size();
         double aum = 0; // calculate total aum
+        for (Home.PortfolioData item : data) {
+            aum += item.aum;
+        }
         TextView numClientsText = homeHeader.findViewById(R.id.numClients);
         TextView aumText = homeHeader.findViewById(R.id.aumSummary);
         numClientsText.setText("Clients: " + numClients);
-        aumText.setText("AUM: $" + aum);
+        aumText.setText("AUM: " + format.format(aum));
 
         PieChart summaryPie = homeHeader.findViewById(R.id.overallSummaryPie);
         summaryPie.setData(getSummaryPieData(data.get(0).equity)); // need to pass in total amount, not just for one client
@@ -108,7 +112,22 @@ public class Home extends Fragment {
         if (data.size() <= 5) {
             return data;
         } else {
-            return null;
+            Collections.sort(data, new Comparator<PortfolioData>() {
+                @Override
+                public int compare(PortfolioData portfolioData, PortfolioData t1) {
+                    if (portfolioData.aum < t1.aum)
+                        return 1;
+                    else if (portfolioData.aum > t1.aum)
+                        return -1;
+                    else
+                        return 0;
+                }
+            });
+            ArrayList<Home.PortfolioData> filterdList = new ArrayList<>();
+            for (int i = 0; i < 5; i++) {
+                filterdList.add(data.get(i));
+            }
+            return filterdList;
         }
     }
 
@@ -151,7 +170,7 @@ public class Home extends Fragment {
 
                             double aum = calculateAUM(stocks); // need to calculate
                             double return_perc = 0;
-                            double benchmarkReturn = 0;
+                            double benchmarkReturn = 10;
                             // TODO: figure out return and benchmark return
                             data.add(new Home.PortfolioData(firstName + " " + lastName, aum, return_perc,
                                     benchmarkReturn, equity));
@@ -160,16 +179,11 @@ public class Home extends Fragment {
                             Log.d("TAG", "No such document");
                         }
                     }
+
                     ArrayList<Home.PortfolioData> top5Data = filterPortfolios(data);
                     calculateSummary(top5Data);
 
                     ListView listView = (ListView) getView().findViewById(R.id.listView);
-//                    LayoutInflater inflater = getLayoutInflater();
-//                    ViewGroup header = (ViewGroup)inflater.inflate(R.layout.fragment_home_summary, listView, false);
-//                    listView.addHeaderView(header, null, false);
-
-//                    getActivity().setContentView(listView);
-                    // listView.setNestedScrollingEnabled(true);
                     listView.setAdapter(new Home.MyListAdapter(getContext(), R.layout.client_summary_item, top5Data));
 
                 } else {
