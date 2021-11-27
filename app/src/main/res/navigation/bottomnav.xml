@@ -47,15 +47,16 @@
         <action
             android:id="@+id/action_stockPortfolio_to_specific_stock"
             app:destination="@id/specific_stock" />
-        <action
-            android:id="@+id/action_stockPortfolio_to_cryptoPortfolio"
-            app:destination="@id/cryptoPortfolio" />
     </fragment>
     <fragment
         android:id="@+id/cryptoPortfolio"
         android:name="com.example.khazaana.main.crypto_portfolio"
         android:label="fragment_crypto_portfolio"
-        tools:layout="@layout/fragment_crypto_portfolio" />
+        tools:layout="@layout/fragment_crypto_portfolio">
+        <action
+            android:id="@+id/action_cryptoPortfolio_to_specific_crypto"
+            app:destination="@id/specific_crypto" />
+    </fragment>
     <fragment
         android:id="@+id/specific_stock"
         android:name="com.example.khazaana.main.specific_stock"
@@ -73,4 +74,9 @@
             android:id="@+id/action_individualClientPortfolio_to_cryptoPortfolio"
             app:destination="@id/cryptoPortfolio" />
     </fragment>
+    <fragment
+        android:id="@+id/specific_crypto"
+        android:name="com.example.khazaana.main.specific_crypto"
+        android:label="fragment_specific_crypto"
+        tools:layout="@layout/fragment_specific_crypto" />
 </navigation>

@@ -92,8 +92,6 @@ public class StockPortfolio extends Fragment {
         TextView boughtPrice3 = view.findViewById(R.id.boughtPrice3);
         TextView sharesOwned3 = view.findViewById(R.id.sharesOwned3);
 
-        Button next = view.findViewById(R.id.nextScreen);
-
         currentP1 = view.findViewById(R.id.currentPrice1);
         currentP2 = view.findViewById(R.id.currentPrice2);
         currentP3 = view.findViewById(R.id.currentPrice3);
@@ -167,17 +165,9 @@ public class StockPortfolio extends Fragment {
             }
         });
 
-        next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NavDirections navDirections = StockPortfolioDirections.actionStockPortfolioToCryptoPortfolio();
-                Navigation.findNavController(root).navigate(navDirections);
-            }
-        });
-
-        new StockPortfolio.priceTask1().execute("https://finnhub-backend.herokuapp.com/price?symbol=AAPL");
-        new StockPortfolio.priceTask2().execute("https://finnhub-backend.herokuapp.com/price?symbol=TSLA");
-        new StockPortfolio.priceTask3().execute("https://finnhub-backend.herokuapp.com/price?symbol=AMZN");
+        new priceTask1().execute("https://finnhub-backend.herokuapp.com/price?symbol=AAPL");
+        new priceTask2().execute("https://finnhub-backend.herokuapp.com/price?symbol=TSLA");
+        new priceTask3().execute("https://finnhub-backend.herokuapp.com/price?symbol=AMZN");
     }
 
     private class priceTask1 extends AsyncTask<String, String, String> {
