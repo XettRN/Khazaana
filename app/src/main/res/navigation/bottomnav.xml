@@ -36,7 +36,7 @@
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/addStockFragment"
-        android:name="com.example.khazaana.AddStockFragment"
+        android:name="com.example.khazaana.main.AddStock"
         android:label="fragment_add_stock"
         tools:layout="@layout/fragment_add_stock" />
     <fragment

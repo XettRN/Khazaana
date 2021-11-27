@@ -1,4 +1,4 @@
-package com.example.khazaana;
+package com.example.khazaana.main;
 
 import android.os.Bundle;
 
@@ -17,14 +17,18 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.example.khazaana.R;
+import com.example.khazaana.RequestSingleton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
-public class AddStockFragment extends Fragment {
+public class AddStock extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -38,11 +42,13 @@ public class AddStockFragment extends Fragment {
 
         String url = "https://finnhub-backend.herokuapp.com/stock/symbols";
 
+        //GET JSONArray via Volley for all stocks
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
                         try {
+                            //parse through array and determine if common stock
                             int stocksATM = response.length();
                             ArrayList<String> stocks = new ArrayList<>();
                             for (int i = 0; i < stocksATM; i++) {
@@ -52,6 +58,15 @@ public class AddStockFragment extends Fragment {
                                 }
                             }
 
+                            //sort array alphabetically
+                            Collections.sort(stocks, new Comparator<String>() {
+                                @Override
+                                public int compare(String s1, String s2) {
+                                    return s1.compareToIgnoreCase(s2);
+                                }
+                            });
+
+                            //add array to dropdown menu for autocomplete entry
                             AutoCompleteTextView auto = view.findViewById(R.id.autoCompleteTextView);
                             auto.setAdapter(new ArrayAdapter<>(requireContext(),
                                     R.layout.dropdown_item, stocks));
@@ -66,6 +81,7 @@ public class AddStockFragment extends Fragment {
                         Toast.makeText(getContext(), "Error!", Toast.LENGTH_SHORT);
                     }
                 });
+        //call Singleton for RequestQueue
         RequestSingleton.getInstance(getContext()).addToRequestQueue(request);
     }
 }
