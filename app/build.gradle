@@ -39,6 +39,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore'
     implementation "io.grpc:grpc-okhttp:1.32.2"
 
+    //Volley
+    implementation 'com.android.volley:volley:1.2.1'
+
     //charts
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
