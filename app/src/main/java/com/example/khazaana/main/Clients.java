@@ -80,7 +80,7 @@ public class Clients extends Fragment {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         Log.d("CLIENTS", document.getId() + " => " + document.getData());
                         String fullName = document.get("First Name") + " " + document.get("Last Name");
-                        addClientToList(view, fullName, params, layout);
+                        addClientToList(view, fullName, params, layout, "EJCyh9saTPZ9YzHvdtdN");
                     }
                 }
                 else {
@@ -93,7 +93,8 @@ public class Clients extends Fragment {
     }
 
     private void addClientToList(View view, String client,
-                                 ViewGroup.LayoutParams params, LinearLayout layout) {
+                                 ViewGroup.LayoutParams params, LinearLayout layout,
+                                 String clientID) {
         View root = view;
         TextView textView = new TextView(getContext());
         textView.setText(client);
@@ -102,7 +103,8 @@ public class Clients extends Fragment {
             @Override
             public void onClick(View view) {
                 //add fragment to bottomnav.xml so this can be written
-                NavDirections navDirections = ClientsDirections.actionClientsFragToHomeFrag();
+                NavDirections navDirections = ClientsDirections
+                        .actionClientsFragToIndividualClientPortfolio(clientID);
                 Navigation.findNavController(root).navigate(navDirections);
             }
         });

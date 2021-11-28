@@ -30,6 +30,7 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -177,6 +178,16 @@ public class StockPortfolio extends Fragment {
             }
         });
 
+        //navigation will have to pass in the client from previous location
+        //(from home or client list screen)
+        String passedInClientID = "EJCyh9saTPZ9YzHvdtdN";
+
+        String user = FirebaseAuth.getInstance().getUid();
+        DocumentReference clientID = db.collection("Authorized IFAs")
+                .document(user)
+                .collection("Clients")
+                .document(passedInClientID);
+
         Toolbar stockBar = view.findViewById(R.id.stockBar);
         stockBar.inflateMenu(R.menu.asset_toolbar);
         stockBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
@@ -184,7 +195,8 @@ public class StockPortfolio extends Fragment {
             public boolean onMenuItemClick(MenuItem item) {
                 int i = item.getItemId();
                 if (i == R.id.add_asset_button) {
-                    NavDirections navDirections = StockPortfolioDirections.actionStockPortfolioToAddStockFrag();
+                    NavDirections navDirections = StockPortfolioDirections
+                            .actionStockPortfolioToAddStockFrag(clientID.getId());
                     Navigation.findNavController(view).navigate(navDirections);
                     return true;
                 }

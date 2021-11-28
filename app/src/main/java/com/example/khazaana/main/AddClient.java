@@ -57,9 +57,13 @@ public class AddClient extends Fragment {
                     Toast.makeText(getContext(), "Please input name", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    Map<String, String> data = new HashMap<>();
+                    Map<String, Object> data = new HashMap<>();
+                    StockEntry[] stocks = {};
+                    CryptoEntry[] crypto = {};
                     data.put("First Name", first);
                     data.put("Last Name", last);
+                    data.put("Stocks", stocks);
+                    data.put("Crypto", crypto);
 
                     clients.add(data).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                         @Override
