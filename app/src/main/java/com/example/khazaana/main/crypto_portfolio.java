@@ -4,10 +4,14 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -20,6 +24,7 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -118,8 +123,31 @@ public class crypto_portfolio extends Fragment {
             }
         });
 
+        //navigation will have to pass in the client from previous location
+        //(from home or client list screen)
+        String passedInClientID = "EJCyh9saTPZ9YzHvdtdN";
 
+        String user = FirebaseAuth.getInstance().getUid();
+        DocumentReference clientID = db.collection("Authorized IFAs")
+                .document(user)
+                .collection("Clients")
+                .document(passedInClientID);
 
+        Toolbar cryptoBar = view.findViewById(R.id.cryptoBar);
+        cryptoBar.inflateMenu(R.menu.asset_toolbar);
+        cryptoBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                int i = item.getItemId();
+                if (i == R.id.add_asset_button) {
+                    NavDirections navDirections = crypto_portfolioDirections
+                            .actionCryptoPortfolioToAddCrypto(clientID.getId());
+                    Navigation.findNavController(view).navigate(navDirections);
+                    return true;
+                }
+                return crypto_portfolio.super.onOptionsItemSelected(item);
+            }
+        });
     }
 
     private PieData getPieData(List<Number> list) {
