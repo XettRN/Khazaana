@@ -80,5 +80,9 @@
         android:id="@+id/add_client_frag"
         android:name="com.example.khazaana.main.AddClient"
         android:label="fragment_add_client"
-        tools:layout="@layout/fragment_add_client" />
+        tools:layout="@layout/fragment_add_client" >
+        <action
+            android:id="@+id/action_add_client_frag_to_clients_frag"
+            app:destination="@id/clients_frag" />
+    </fragment>
 </navigation>

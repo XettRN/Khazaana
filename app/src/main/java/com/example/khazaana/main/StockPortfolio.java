@@ -183,7 +183,7 @@ public class StockPortfolio extends Fragment {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 int i = item.getItemId();
-                if (i == R.id.add_stock_button) {
+                if (i == R.id.add_asset_button) {
                     NavDirections navDirections = StockPortfolioDirections.actionStockPortfolioToAddStockFrag();
                     Navigation.findNavController(view).navigate(navDirections);
                     return true;
