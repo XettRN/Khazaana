@@ -88,18 +88,18 @@
         app:strokeWidth="1dp" />
 
     <TextView
-        android:id="@+id/client_name"
-        android:layout_width="169dp"
-        android:layout_height="61dp"
-        android:text="Iron Man"
-        android:textSize="28sp"
-        android:textAllCaps="false"
+        android:id="@+id/heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:fontFamily="@font/montserrat_bold"
+        android:text="Iron Man"
+        android:textColor="#000000"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.191"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.111" />
+        app:layout_constraintVertical_bias="0.078" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

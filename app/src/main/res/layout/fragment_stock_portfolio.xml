@@ -174,23 +174,6 @@
                 android:layout_margin="10dp"
                 android:text="Return:" />
 
-            <Button
-                android:id="@+id/nextScreen"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="150dp"
-                android:layout_marginBottom="10dp"
-                android:backgroundTint="#FFFFFF"
-                android:fontFamily="@font/montserrat_regular"
-                android:text="Next"
-                android:textColor="#000000"
-                app:iconTint="#610C0C"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.577" />
-
         </LinearLayout>
     </ScrollView>
 

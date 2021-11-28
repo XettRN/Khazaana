@@ -55,7 +55,7 @@ public class specific_equity extends AppCompatActivity {
         currentP = findViewById(R.id.current_price);
         priceC = findViewById(R.id.priceChange);
         percentC = findViewById(R.id.percentChange);
-        TextView sharesOwned = findViewById(R.id.sharesOwned);
+        TextView sharesOwned = findViewById(R.id.stocksOwned);
         TextView buyingPrice = findViewById(R.id.buyingPrice);
         returnP = findViewById(R.id.returnPercent);
         pe = findViewById(R.id.value1);

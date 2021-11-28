@@ -6,6 +6,36 @@
     android:layout_height="match_parent"
     tools:context=".AddNewClient">
 
+    <View
+        android:layout_width="400dp"
+        android:layout_height="2dp"
+        android:background="#DCD7D7"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.119" />
+
+    <Button
+        android:id="@+id/back_add_new_client"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:backgroundTint="#FFFFFF"
+        android:foreground="@drawable/ic_baseline_arrow_back_ios_24"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        app:iconTint="#610C0C"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.044"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.042"
+        app:strokeColor="@color/white"
+        tools:ignore="SpeakableTextPresentCheck" />
+
 
     <TextView
         android:id="@+id/textView19"
@@ -64,22 +94,22 @@
         android:id="@+id/last_name"
         android:layout_width="101dp"
         android:layout_height="20dp"
+        android:layout_marginBottom="496dp"
         android:fontFamily="@font/montserrat_regular"
         android:text="Last Name"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.123"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider"
-        app:layout_constraintVertical_bias="0.195" />
+        app:layout_constraintHorizontal_bias="0.145"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/heading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add New Client"
-        android:fontFamily="@font/montserrat_bold"
+        android:fontFamily="@font/montserrat_regular"
+        android:text="Add Client"
+        android:textColor="#000000"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -87,17 +117,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.042" />
 
-
-    <TableRow
-        android:id="@+id/divider"
-        android:layout_width="391dp"
-        android:layout_height="wrap_content"
-        android:background="#444"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.129" />
 
     <Button
         android:id="@+id/addClient"
@@ -122,15 +141,14 @@
         android:id="@+id/first_name"
         android:layout_width="108dp"
         android:layout_height="23dp"
+        android:layout_marginBottom="568dp"
         android:fontFamily="@font/montserrat_regular"
         android:text="First Name"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.126"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider"
-        app:layout_constraintVertical_bias="0.076" />
+        app:layout_constraintHorizontal_bias="0.125"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/first_name_input"
@@ -164,15 +182,14 @@
         android:id="@+id/email"
         android:layout_width="50dp"
         android:layout_height="27dp"
+        android:layout_marginBottom="416dp"
         android:fontFamily="@font/montserrat_regular"
         android:text="Email"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.104"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider"
-        app:layout_constraintVertical_bias="0.316" />
+        app:layout_constraintHorizontal_bias="0.11"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
