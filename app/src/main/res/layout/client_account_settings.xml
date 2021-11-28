@@ -7,37 +7,6 @@
     tools:context=".ClientAccountSettings">
 
     <Button
-        android:id="@+id/back_ifa_settings"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:backgroundTint="#FFFFFF"
-        android:foreground="@drawable/ic_baseline_arrow_back_ios_24"
-        android:textColor="#000000"
-        android:textSize="30sp"
-        app:iconTint="#610C0C"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.044"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.042"
-        app:strokeColor="@color/white"
-        tools:ignore="SpeakableTextPresentCheck" />
-
-    <View
-        android:id="@+id/view"
-        android:layout_width="400dp"
-        android:layout_height="2dp"
-        android:background="#DCD7D7"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.483"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.119" />
-
-    <Button
         android:id="@+id/profile"
         android:layout_width="307dp"
         android:layout_height="90dp"
@@ -125,11 +94,12 @@
         android:fontFamily="@font/montserrat_bold"
         android:text="Iron Man"
         android:textColor="#000000"
-        android:textSize="24sp"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.042" />
+        app:layout_constraintVertical_bias="0.078" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
