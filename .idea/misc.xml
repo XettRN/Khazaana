@@ -94,6 +94,7 @@
         <entry key="app/src/main/res/layout/activity_individual_client_portfolio.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.21014492753623187" />
         <entry key="app/src/main/res/layout/activity_main2.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_nav_view.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/activity_portfolio.xml" value="0.21875" />
         <entry key="app/src/main/res/layout/activity_risk_profiling7.xml" value="0.22864583333333333" />
         <entry key="app/src/main/res/layout/add_new_client.xml" value="0.3098958333333333" />
@@ -105,6 +106,7 @@
         <entry key="app/src/main/res/layout/client_update_password.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/details.xml" value="0.24270833333333333" />
         <entry key="app/src/main/res/layout/fragment_home_summary.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/fragment_individual_client_portfolio.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/fragment_stock_portfolio.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/ifa_settings.xml" value="0.25" />

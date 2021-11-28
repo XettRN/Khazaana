@@ -11,7 +11,7 @@ public class ClientSettings extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.settings);
+        setContentView(R.layout.client_settings);
 
         Button addifa = findViewById(R.id.add_ifa);
         addifa.setOnClickListener(this::goAddIFA);
