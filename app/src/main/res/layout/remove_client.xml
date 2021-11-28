@@ -7,9 +7,8 @@
     android:background="#FFFFFF"
     tools:context=".RemoveClient">
 
-
     <Button
-        android:id="@+id/back_remove_client"
+        android:id="@+id/back_ifa_update_password"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="48dp"
         android:layout_height="48dp"
@@ -23,7 +22,7 @@
         app:layout_constraintHorizontal_bias="0.044"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.055"
+        app:layout_constraintVertical_bias="0.042"
         app:strokeColor="@color/white"
         tools:ignore="SpeakableTextPresentCheck" />
 
