@@ -91,6 +91,7 @@ public class individualClientPortfolio extends Fragment {
         return2 = view.findViewById(R.id.crypto_return);
         TextView bench_return2 = view.findViewById(R.id.crypto_return_bench);
         TextView stockTitle = view.findViewById(R.id.stocks);
+        TextView cryptoTitle = view.findViewById(R.id.crypto);
 
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -156,6 +157,15 @@ public class individualClientPortfolio extends Fragment {
             public void onClick(View view) {
                 //add fragment to bottomnav.xml so this can be written
                 NavDirections navDirections = individualClientPortfolioDirections.actionIndividualClientPortfolioToStockPortfolio();
+                Navigation.findNavController(root).navigate(navDirections);
+            }
+        });
+
+        cryptoTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //add fragment to bottomnav.xml so this can be written
+                NavDirections navDirections = individualClientPortfolioDirections.actionIndividualClientPortfolioToCryptoPortfolio();
                 Navigation.findNavController(root).navigate(navDirections);
             }
         });

@@ -42,8 +42,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
-
-public class specific_stock extends Fragment {
+public class specific_crypto extends Fragment {
 
     TextView currentP = null;
     TextView priceC = null;
@@ -51,32 +50,24 @@ public class specific_stock extends Fragment {
     GraphView g = null;
     TextView returnP = null;
     double boughtPrice = 0;
-    TextView pe = null;
-    TextView pb = null;
-    TextView roe = null;
-    TextView recommend = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_specific_stock, container, false);
+        return inflater.inflate(R.layout.fragment_specific_crypto, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        g = view.findViewById(R.id.lineGraph);
-        currentP = view.findViewById(R.id.current_price);
-        priceC = view.findViewById(R.id.priceChange);
-        percentC = view.findViewById(R.id.percentChange);
-        TextView sharesOwned = view.findViewById(R.id.stocksOwned);
-        TextView buyingPrice = view.findViewById(R.id.buyingPrice);
-        returnP = view.findViewById(R.id.returnPercent);
-        pe = view.findViewById(R.id.value1);
-        pb = view.findViewById(R.id.value2);
-        roe = view.findViewById(R.id.value3);
-        recommend = view.findViewById(R.id.value4);
+        g = view.findViewById(R.id.clineGraph);
+        currentP = view.findViewById(R.id.ccurrent_price);
+        priceC = view.findViewById(R.id.cpriceChange);
+        percentC = view.findViewById(R.id.cpercentChange);
+        TextView cryptoOwned = view.findViewById(R.id.cryptoOwned);
+        TextView buyingPrice = view.findViewById(R.id.cbuyingPrice);
+        returnP = view.findViewById(R.id.creturnPercent);
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference ifas = db.collection("Authorized IFAs");
@@ -90,8 +81,8 @@ public class specific_stock extends Fragment {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
-                        List<Map> t = (List<Map>) document.get("Stocks");
-                        sharesOwned.setText("Shares Owned: " + t.get(0).get("quantity"));
+                        List<Map> t = (List<Map>) document.get("Crypto");
+                        cryptoOwned.setText("Crypto Owned: " + t.get(0).get("quantity"));
                         buyingPrice.setText("Buying Price: " + t.get(0).get("price"));
                         boughtPrice = Double.parseDouble(t.get(0).get("price").toString());
                     } else {
@@ -107,8 +98,7 @@ public class specific_stock extends Fragment {
         gridLabel.setHorizontalAxisTitle("November 2021 Date");
         gridLabel.setVerticalAxisTitle("Price");
         new priceTask().execute("https://finnhub-backend.herokuapp.com/price?symbol=AAPL");
-        new tickerTask().execute("https://finnhub-backend.herokuapp.com/ticker?symbol=AAPL");
-        new ratiosTask().execute("https://finnhub-backend.herokuapp.com/ratios?symbol=AAPL");
+        new tickerTask().execute("https://finnhub-backend.herokuapp.com/crypto_ticker?symbol=AAPL");
     }
 
     private class priceTask extends AsyncTask<String, String, String> {
@@ -137,17 +127,18 @@ public class specific_stock extends Fragment {
                     data = data + line;
                 }
                 try {
-                    JSONObject j = new JSONObject(data);
+                    JSONArray j = new JSONArray(data);
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             try {
-                                currentP.setText("$" + j.get("current price"));
-                                priceC.setText("$" + j.get("previous price"));
-                                percentC.setText("" + j.get("change percentage") + "%");
-                                double returnPrice = (((Double) j.get("current price") - boughtPrice)/boughtPrice)*100;
+                                currentP.setText("$" + j.get(j.length() - 1));
+                                priceC.setText("$" + j.get(j.length() - 2));
+                                double percent = (Double.parseDouble(j.get(j.length() - 1).toString()) - Double.parseDouble(j.get(j.length() - 2).toString()))/ Double.parseDouble(j.get(j.length() - 1).toString());
+                                percentC.setText("" + percent*100 + "%");
+                                double returnPrice = ((Double.parseDouble(j.get(j.length() - 1).toString()) - boughtPrice)/boughtPrice)*100;
                                 returnP.setText("Return: "+returnPrice+"%");
-                                if ((Double) j.get("current price") > (Double) j.get("previous price")) {
+                                if (Double.parseDouble(j.get(j.length() - 1).toString()) > Double.parseDouble(j.get(j.length() - 2).toString())) {
                                     currentP.setTextColor(getResources().getColor(R.color.green));
                                     priceC.setTextColor(getResources().getColor(R.color.green));
                                     percentC.setTextColor(getResources().getColor(R.color.green));
@@ -227,79 +218,12 @@ public class specific_stock extends Fragment {
                                         new DataPoint((getLocalDate().getDayOfMonth())-2, Double.parseDouble(j.get(5).toString())),
                                         new DataPoint((getLocalDate().getDayOfMonth())-1, Double.parseDouble(j.get(6).toString())),
                                         new DataPoint(getLocalDate().getDayOfMonth(), Double.parseDouble(j.get(7).toString()))
-
                                 });
                                 g.addSeries(s);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
 
-                        }
-                    });
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                if (connection != null) {
-                    connection.disconnect();
-                }
-                try {
-                    if (reader != null) {
-                        reader.close();
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            return null;
-        }
-    }
-
-    private class ratiosTask extends AsyncTask<String, String, String> {
-        String data = "";
-
-        protected String doInBackground(String... params) {
-
-
-            HttpURLConnection connection = null;
-            BufferedReader reader = null;
-
-            try {
-                URL url = new URL(params[0]);
-                connection = (HttpURLConnection) url.openConnection();
-                connection.connect();
-
-
-                InputStream stream = connection.getInputStream();
-
-                reader = new BufferedReader(new InputStreamReader(stream));
-
-                String line = "";
-
-                while (line != null) {
-                    line = reader.readLine();
-                    data = data + line;
-                }
-                try {
-                    JSONObject j = new JSONObject(data);
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                pe.setText("" + j.get("p/e"));
-                                pb.setText("" + j.get("p/b"));
-                                roe.setText("" + j.get("roe"));
-                                recommend.setText(""+j.get("recommendation"));
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
                         }
                     });
                 } catch (JSONException e) {
