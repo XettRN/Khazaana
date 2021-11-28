@@ -98,17 +98,21 @@
         <entry key="app/src/main/res/layout/activity_risk_profiling7.xml" value="0.22864583333333333" />
         <entry key="app/src/main/res/layout/add_new_client.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/add_new_ifa.xml" value="0.21014492753623187" />
-        <entry key="app/src/main/res/layout/client_account_settings.xml" value="0.21875" />
+        <entry key="app/src/main/res/layout/client_account_settings.xml" value="0.2719873199000019" />
         <entry key="app/src/main/res/layout/client_fees.xml" value="0.24270833333333333" />
         <entry key="app/src/main/res/layout/client_profile.xml" value="0.21875" />
         <entry key="app/src/main/res/layout/client_summary_item.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/client_update_password.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/details.xml" value="0.24270833333333333" />
+        <entry key="app/src/main/res/layout/fragment_home_summary.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/fragment_stock_portfolio.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/ifa_settings.xml" value="0.25" />
         <entry key="app/src/main/res/layout/ifa_update_password.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/load_screen.xml" value="0.21875" />
         <entry key="app/src/main/res/layout/login_screen.xml" value="0.21875" />
         <entry key="app/src/main/res/layout/remove_client.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/remove_ifa.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/risk_profiling_1.xml" value="0.24270833333333333" />
         <entry key="app/src/main/res/layout/risk_profiling_10.xml" value="0.22864583333333333" />
         <entry key="app/src/main/res/layout/risk_profiling_11.xml" value="0.22864583333333333" />
