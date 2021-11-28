@@ -6,12 +6,14 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -28,6 +30,7 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -165,6 +168,40 @@ public class StockPortfolio extends Fragment {
             }
         });
 
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavDirections navDirections = StockPortfolioDirections.actionStockPortfolioToCryptoPortfolio();
+                Navigation.findNavController(root).navigate(navDirections);
+            }
+        });
+
+        //navigation will have to pass in the client from previous location
+        //(from home or client list screen)
+        String passedInClientID = "EJCyh9saTPZ9YzHvdtdN";
+
+        String user = FirebaseAuth.getInstance().getUid();
+        DocumentReference clientID = db.collection("Authorized IFAs")
+                .document(user)
+                .collection("Clients")
+                .document(passedInClientID);
+
+        Toolbar stockBar = view.findViewById(R.id.stockBar);
+        stockBar.inflateMenu(R.menu.asset_toolbar);
+        stockBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                int i = item.getItemId();
+                if (i == R.id.add_asset_button) {
+                    NavDirections navDirections = StockPortfolioDirections
+                            .actionStockPortfolioToAddStockFrag(clientID.getId());
+                    Navigation.findNavController(view).navigate(navDirections);
+                    return true;
+                }
+                return StockPortfolio.super.onOptionsItemSelected(item);
+            }
+        });
+      
         new priceTask1().execute("https://finnhub-backend.herokuapp.com/price?symbol=AAPL");
         new priceTask2().execute("https://finnhub-backend.herokuapp.com/price?symbol=TSLA");
         new priceTask3().execute("https://finnhub-backend.herokuapp.com/price?symbol=AMZN");

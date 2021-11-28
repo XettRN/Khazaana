@@ -22,7 +22,7 @@ public class ClientList extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int i = item.getItemId();
-        if (i == R.id.toolbar_add) {
+        if (i == R.id.add_stock_button) {
             goAddData(item);
             return true;
         }

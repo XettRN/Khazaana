@@ -20,14 +20,11 @@
         android:label="fragment_clients"
         tools:layout="@layout/fragment_clients" >
         <action
-            android:id="@+id/action_clients_frag_to_addStockFragment"
-            app:destination="@id/addStockFragment" />
+            android:id="@+id/action_clients_frag_to_add_client_frag"
+            app:destination="@id/add_client_frag" />
         <action
-            android:id="@+id/action_clients_frag_to_stockPortfolio"
-            app:destination="@id/stockPortfolio" />
-        <action
-            android:id="@+id/action_clients_frag_to_home_frag"
-            app:destination="@id/home_frag" />
+            android:id="@+id/action_clients_frag_to_individualClientPortfolio"
+            app:destination="@id/individualClientPortfolio" />
     </fragment>
     <fragment
         android:id="@+id/profile_frag"
@@ -35,10 +32,15 @@
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
-        android:id="@+id/addStockFragment"
-        android:name="com.example.khazaana.AddStockFragment"
+        android:id="@+id/add_stock_frag"
+        android:name="com.example.khazaana.main.AddStock"
         android:label="fragment_add_stock"
-        tools:layout="@layout/fragment_add_stock" />
+        tools:layout="@layout/fragment_add_stock" >
+        <argument android:name="client" />
+        <action
+            android:id="@+id/action_add_stock_frag_to_stockPortfolio"
+            app:destination="@id/stockPortfolio" />
+    </fragment>
     <fragment
         android:id="@+id/stockPortfolio"
         android:name="com.example.khazaana.main.StockPortfolio"
@@ -47,11 +49,21 @@
         <action
             android:id="@+id/action_stockPortfolio_to_specific_stock"
             app:destination="@id/specific_stock" />
+        <action
+            android:id="@+id/action_stockPortfolio_to_cryptoPortfolio"
+            app:destination="@id/cryptoPortfolio" />
+        <action
+            android:id="@+id/action_stockPortfolio_to_add_stock_frag"
+            app:destination="@id/add_stock_frag" />
     </fragment>
     <fragment
         android:id="@+id/cryptoPortfolio"
         android:name="com.example.khazaana.main.crypto_portfolio"
         android:label="fragment_crypto_portfolio"
+        tools:layout="@layout/fragment_crypto_portfolio" >
+        <action
+            android:id="@+id/action_cryptoPortfolio_to_addCrypto"
+            app:destination="@id/addCrypto" />
         tools:layout="@layout/fragment_crypto_portfolio">
         <action
             android:id="@+id/action_cryptoPortfolio_to_specific_crypto"
@@ -73,6 +85,28 @@
         <action
             android:id="@+id/action_individualClientPortfolio_to_cryptoPortfolio"
             app:destination="@id/cryptoPortfolio" />
+        <argument
+            android:name="clientID"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/add_client_frag"
+        android:name="com.example.khazaana.main.AddClient"
+        android:label="fragment_add_client"
+        tools:layout="@layout/fragment_add_client" >
+        <action
+            android:id="@+id/action_add_client_frag_to_clients_frag"
+            app:destination="@id/clients_frag" />
+    </fragment>
+    <fragment
+        android:id="@+id/addCrypto"
+        android:name="com.example.khazaana.main.AddCrypto"
+        android:label="fragment_add_crypto"
+        tools:layout="@layout/fragment_add_crypto" >
+        <action
+            android:id="@+id/action_addCrypto_to_cryptoPortfolio"
+            app:destination="@id/cryptoPortfolio" />
+        <argument android:name="client" />
     </fragment>
     <fragment
         android:id="@+id/specific_crypto"

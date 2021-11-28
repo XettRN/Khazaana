@@ -159,7 +159,7 @@
                 android:background="?android:attr/listDivider" />
 
             <TextView
-                android:id="@+id/crypto"
+                android:id="@+id/cryptoTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
