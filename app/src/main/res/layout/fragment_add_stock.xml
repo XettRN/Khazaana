@@ -40,9 +40,10 @@
         app:layout_constraintTop_toBottomOf="@+id/stockInput">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/field_shares"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="1" />
+            android:inputType="numberDecimal" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -58,9 +59,10 @@
         app:layout_constraintTop_toBottomOf="@+id/shareInput">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/field_stock_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="$4.00" />
+            android:inputType="numberDecimal" />
     </com.google.android.material.textfield.TextInputLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

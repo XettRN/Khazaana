@@ -52,8 +52,8 @@ public class Clients extends Fragment {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 int i = item.getItemId();
-                if (i == R.id.toolbar_add) {
-                    NavDirections action = ClientsDirections.actionClientsFragToAddStockFragment();
+                if (i == R.id.add_client_button) {
+                    NavDirections action = ClientsDirections.actionClientsFragToAddClientFrag();
                     Navigation.findNavController(view).navigate(action);
                     return true;
                 }

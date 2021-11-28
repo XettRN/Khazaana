@@ -6,12 +6,14 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -172,6 +174,21 @@ public class StockPortfolio extends Fragment {
             public void onClick(View view) {
                 NavDirections navDirections = StockPortfolioDirections.actionStockPortfolioToCryptoPortfolio();
                 Navigation.findNavController(root).navigate(navDirections);
+            }
+        });
+
+        Toolbar stockBar = view.findViewById(R.id.stockBar);
+        stockBar.inflateMenu(R.menu.asset_toolbar);
+        stockBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                int i = item.getItemId();
+                if (i == R.id.add_stock_button) {
+                    NavDirections navDirections = StockPortfolioDirections.actionStockPortfolioToAddStockFrag();
+                    Navigation.findNavController(view).navigate(navDirections);
+                    return true;
+                }
+                return StockPortfolio.super.onOptionsItemSelected(item);
             }
         });
 
