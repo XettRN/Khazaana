@@ -28,6 +28,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -53,6 +54,10 @@ public class individualClientPortfolio extends Fragment {
     TextView return2 = null;
     String stock1, stock2, stock3 = null;
     double price1, price2, price3 = 0;
+
+    String crypto1, crypto2, crypto3 = null;
+    double cprice1, cprice2, cprice3 = 0;
+
     double stocks_total = 0;
     double crypto_total = 0;
     List<Map> stocks = null;
@@ -64,6 +69,7 @@ public class individualClientPortfolio extends Fragment {
     TextView aum = null;
     TextView returnP = null;
     DecimalFormat d = new DecimalFormat("#.####");
+    List<Number> a = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -91,7 +97,8 @@ public class individualClientPortfolio extends Fragment {
         return2 = view.findViewById(R.id.crypto_return);
         TextView bench_return2 = view.findViewById(R.id.crypto_return_bench);
         TextView stockTitle = view.findViewById(R.id.stocks);
-        TextView cryptoTitle = view.findViewById(R.id.crypto);
+        TextView cryptoTitle = view.findViewById(R.id.cryptoTitle);
+        a = new ArrayList<>();
 
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -120,7 +127,7 @@ public class individualClientPortfolio extends Fragment {
                         }
                         initial_aum1.setText(initial_aum1.getText() + " " + totalS);
                         total1 = totalS;
-                        bench_return1.setText(bench_return1.getText() + " 21%");
+                        bench_return1.setText(bench_return1.getText() + " 10%");
 
                         crypto = (List<Map>) document.get("Crypto");
                         assert crypto != null;
@@ -128,11 +135,10 @@ public class individualClientPortfolio extends Fragment {
                         for (int i = 0; i < 3; i++) {
                             totalC = totalC + Double.parseDouble(crypto.get(i).get("price").toString()) * Double.parseDouble(crypto.get(i).get("quantity").toString());
                         }
-                        crypto_total = totalC;
                         initial_aum2.setText(initial_aum2.getText() + " " + totalC);
                         total2 = totalC;
-                        return2.setText(return2.getText() + " 16%");
-                        bench_return2.setText(bench_return2.getText() + " 12%");
+                        //return2.setText(return2.getText() + " 16%");
+                        bench_return2.setText(bench_return2.getText() + " 10%");
 
                         bench_return.setText(bench_return.getText() + " 10%");
 
@@ -150,6 +156,10 @@ public class individualClientPortfolio extends Fragment {
         new stockPriceTask1().execute("https://finnhub-backend.herokuapp.com/price?symbol=AAPL");
         new stockPriceTask2().execute("https://finnhub-backend.herokuapp.com/price?symbol=TSLA");
         new stockPriceTask3().execute("https://finnhub-backend.herokuapp.com/price?symbol=AMZN");
+
+        new cryptoPriceTask1().execute("https://finnhub-backend.herokuapp.com/crypto_ticker?symbol=BTC-USD");
+        new cryptoPriceTask2().execute("https://finnhub-backend.herokuapp.com/crypto_ticker?symbol=DOGE-USD");
+        new cryptoPriceTask3().execute("https://finnhub-backend.herokuapp.com/crypto_ticker?symbol=ETH-USD");
 
         View root = view;
         stockTitle.setOnClickListener(new View.OnClickListener() {
@@ -234,6 +244,78 @@ public class individualClientPortfolio extends Fragment {
         }
     }
 
+    private class cryptoPriceTask1 extends AsyncTask<String, String, String> {
+        String data = "";
+
+        protected String doInBackground(String... params) {
+
+
+            HttpURLConnection connection = null;
+            BufferedReader reader = null;
+
+            try {
+                URL url = new URL(params[0]);
+                connection = (HttpURLConnection) url.openConnection();
+                connection.connect();
+
+
+                InputStream stream = connection.getInputStream();
+
+                reader = new BufferedReader(new InputStreamReader(stream));
+
+                String line = "";
+
+                while (line != null) {
+                    line = reader.readLine();
+                    data = data + line;
+                }
+                try {
+                    JSONArray j = new JSONArray(data);
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                crypto_total = crypto_total + Double.parseDouble(j.get(j.length() - 1).toString());
+                                crypto1 = "BTC";
+                                cprice1 = Double.parseDouble(j.get(j.length() - 1).toString());
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (connection != null) {
+                    connection.disconnect();
+                }
+                try {
+                    if (reader != null) {
+                        reader.close();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            return null;
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
     private class stockPriceTask2 extends AsyncTask<String, String, String> {
         String data = "";
 
@@ -296,6 +378,78 @@ public class individualClientPortfolio extends Fragment {
         }
     }
 
+
+    private class cryptoPriceTask2 extends AsyncTask<String, String, String> {
+        String data = "";
+
+        protected String doInBackground(String... params) {
+
+
+            HttpURLConnection connection = null;
+            BufferedReader reader = null;
+
+            try {
+                URL url = new URL(params[0]);
+                connection = (HttpURLConnection) url.openConnection();
+                connection.connect();
+
+
+                InputStream stream = connection.getInputStream();
+
+                reader = new BufferedReader(new InputStreamReader(stream));
+
+                String line = "";
+
+                while (line != null) {
+                    line = reader.readLine();
+                    data = data + line;
+                }
+                try {
+                    JSONArray j = new JSONArray(data);
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                crypto_total = crypto_total + Double.parseDouble(j.get(j.length() - 1).toString());
+                                crypto2 = "DOGE";
+                                cprice2 = Double.parseDouble(j.get(j.length() - 1).toString());
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (connection != null) {
+                    connection.disconnect();
+                }
+                try {
+                    if (reader != null) {
+                        reader.close();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            return null;
+        }
+    }
+
+
+
+
+
+
+
+
+
+
     private class stockPriceTask3 extends AsyncTask<String, String, String> {
         String data = "";
 
@@ -333,7 +487,107 @@ public class individualClientPortfolio extends Fragment {
                                 return1.setText(return1.getText() + "" + stocks_return);
                                 stock3 = "AMZN";
                                 price3 = Double.parseDouble(j.get("current price").toString());
+                                //current_aum2.setText(current_aum2.getText() + ""+crypto_total);
+
+                                if (price1 > price2 && price1 > price3) {
+                                    perform1.setText(stock1 + ":  "+price1);
+                                    if (price2 > price3) {
+                                        perform2.setText(stock2 + ":  "+price2);
+                                    } else {
+                                        perform2.setText(stock3 + ":  "+price3);
+                                    }
+                                } else if (price2 > price1 && price2 > price3) {
+                                    perform1.setText(stock2 + ":  "+price2);
+                                    if (price1 > price3) {
+                                        perform2.setText(stock1 + ":  "+price1);
+                                    } else {
+                                        perform2.setText(stock3 + ":  "+price3);
+                                    }
+                                } else {
+                                    perform1.setText(stock3 + ":  "+price3);
+                                    if (price1 > price3) {
+                                        perform2.setText(stock1 + ":  "+price1);
+                                    } else {
+                                        perform2.setText(stock2 + ":  "+price2);
+                                    }
+                                }
+
+                                /*
+                                double total = stocks_total + crypto_total;
+                                aum.setText(aum.getText() + " "+total);
+                                double returnValue = ((total - (total1+total2))/(total1 + total2))*100;
+                                returnP.setText(returnP.getText() + " "+d.format(returnValue));
+                                a.add((stocks_total/total)*100);
+                                a.add((crypto_total/total)*100);
+                                pieChart.setData(getPieData(a));
+                                pieChart.invalidate();*/
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (connection != null) {
+                    connection.disconnect();
+                }
+                try {
+                    if (reader != null) {
+                        reader.close();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            return null;
+        }
+    }
+
+
+    private class cryptoPriceTask3 extends AsyncTask<String, String, String> {
+        String data = "";
+
+        protected String doInBackground(String... params) {
+
+
+            HttpURLConnection connection = null;
+            BufferedReader reader = null;
+
+            try {
+                URL url = new URL(params[0]);
+                connection = (HttpURLConnection) url.openConnection();
+                connection.connect();
+
+
+                InputStream stream = connection.getInputStream();
+
+                reader = new BufferedReader(new InputStreamReader(stream));
+
+                String line = "";
+
+                while (line != null) {
+                    line = reader.readLine();
+                    data = data + line;
+                }
+                try {
+                    JSONArray j = new JSONArray(data);
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                crypto_total = crypto_total + Double.parseDouble(j.get(j.length() - 1).toString());
+                                crypto3 = "ETH";
+                                cprice3 = Double.parseDouble(j.get(j.length()-1).toString());
                                 current_aum2.setText(current_aum2.getText() + ""+crypto_total);
+                                double crypto_return = ((crypto_total - total2)/ total2)*100;
+                                return2.setText(return2.getText() + "" + crypto_return);
 
                                 if (price1 > price2 && price1 > price3) {
                                     perform1.setText(stock1 + ":  "+price1);
@@ -362,7 +616,6 @@ public class individualClientPortfolio extends Fragment {
                                 aum.setText(aum.getText() + " "+total);
                                 double returnValue = ((total - (total1+total2))/(total1 + total2))*100;
                                 returnP.setText(returnP.getText() + " "+d.format(returnValue));
-                                List<Number> a = new ArrayList<>();
                                 a.add((stocks_total/total)*100);
                                 a.add((crypto_total/total)*100);
                                 pieChart.setData(getPieData(a));

@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.util.Log;
 
 import com.example.khazaana.R;
+import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
 public class RiskProfiling_1 extends AppCompatActivity {
@@ -25,7 +26,12 @@ public class RiskProfiling_1 extends AppCompatActivity {
         choiceChipGroup.setOnCheckedChangeListener(new ChipGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(ChipGroup chipGroup, @IdRes int i) {
+
                 Log.i(TAG, i + "");
+                for (int j = 0; j < chipGroup.getChildCount(); j++) {
+                    Chip c = (Chip) chipGroup.getChildAt(j);
+                    Log.d("TAG", "Chip Selected :" +c.getText());
+                }
             }
         });
     }

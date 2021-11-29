@@ -38,6 +38,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -50,6 +51,7 @@ public class specific_crypto extends Fragment {
     GraphView g = null;
     TextView returnP = null;
     double boughtPrice = 0;
+    DecimalFormat d = new DecimalFormat("#.###");
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -97,84 +99,7 @@ public class specific_crypto extends Fragment {
         GridLabelRenderer gridLabel = g.getGridLabelRenderer();
         gridLabel.setHorizontalAxisTitle("November 2021 Date");
         gridLabel.setVerticalAxisTitle("Price");
-        new priceTask().execute("https://finnhub-backend.herokuapp.com/price?symbol=AAPL");
-        new tickerTask().execute("https://finnhub-backend.herokuapp.com/crypto_ticker?symbol=AAPL");
-    }
-
-    private class priceTask extends AsyncTask<String, String, String> {
-        String data = "";
-
-        protected String doInBackground(String... params) {
-
-
-            HttpURLConnection connection = null;
-            BufferedReader reader = null;
-
-            try {
-                URL url = new URL(params[0]);
-                connection = (HttpURLConnection) url.openConnection();
-                connection.connect();
-
-
-                InputStream stream = connection.getInputStream();
-
-                reader = new BufferedReader(new InputStreamReader(stream));
-
-                String line = "";
-
-                while (line != null) {
-                    line = reader.readLine();
-                    data = data + line;
-                }
-                try {
-                    JSONArray j = new JSONArray(data);
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                currentP.setText("$" + j.get(j.length() - 1));
-                                priceC.setText("$" + j.get(j.length() - 2));
-                                double percent = (Double.parseDouble(j.get(j.length() - 1).toString()) - Double.parseDouble(j.get(j.length() - 2).toString()))/ Double.parseDouble(j.get(j.length() - 1).toString());
-                                percentC.setText("" + percent*100 + "%");
-                                double returnPrice = ((Double.parseDouble(j.get(j.length() - 1).toString()) - boughtPrice)/boughtPrice)*100;
-                                returnP.setText("Return: "+returnPrice+"%");
-                                if (Double.parseDouble(j.get(j.length() - 1).toString()) > Double.parseDouble(j.get(j.length() - 2).toString())) {
-                                    currentP.setTextColor(getResources().getColor(R.color.green));
-                                    priceC.setTextColor(getResources().getColor(R.color.green));
-                                    percentC.setTextColor(getResources().getColor(R.color.green));
-                                } else {
-                                    currentP.setTextColor(getResources().getColor(R.color.red));
-                                    priceC.setTextColor(getResources().getColor(R.color.red));
-                                    percentC.setTextColor(getResources().getColor(R.color.red));
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    });
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                if (connection != null) {
-                    connection.disconnect();
-                }
-                try {
-                    if (reader != null) {
-                        reader.close();
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            return null;
-        }
+        new tickerTask().execute("https://finnhub-backend.herokuapp.com/crypto_ticker?symbol=ETH-USD");
     }
 
     private class tickerTask extends AsyncTask<String, String, String> {
@@ -207,8 +132,28 @@ public class specific_crypto extends Fragment {
                         @RequiresApi(api = Build.VERSION_CODES.O)
                         @Override
                         public void run() {
-                            LineGraphSeries<DataPoint> s = null;
                             try {
+                            currentP.setText("$" + d.format(j.get(j.length() - 1)));
+                            priceC.setText("$" + d.format(j.get(j.length() - 3)));
+                            String cp = j.get(j.length() - 1).toString();
+                            String pp = j.get(j.length() - 3).toString();
+                            double currP = Double.parseDouble(cp);
+                            double prevP = Double.parseDouble(pp);
+                            double percent = (currP - prevP)/ prevP;
+                            percentC.setText("" + d.format(percent*100) + "%");
+                            double returnPrice = ((currP - boughtPrice)/boughtPrice)*100;
+                            returnP.setText("Return: "+returnPrice+"%");
+                            if (currP > prevP) {
+                                currentP.setTextColor(getResources().getColor(R.color.green));
+                                priceC.setTextColor(getResources().getColor(R.color.green));
+                                percentC.setTextColor(getResources().getColor(R.color.green));
+                            } else {
+                                currentP.setTextColor(getResources().getColor(R.color.red));
+                                priceC.setTextColor(getResources().getColor(R.color.red));
+                                percentC.setTextColor(getResources().getColor(R.color.red));
+                            }
+                            LineGraphSeries<DataPoint> s = null;
+
                                 s = new LineGraphSeries<DataPoint>(new DataPoint[]{
                                         new DataPoint((getLocalDate().getDayOfMonth())-7, Double.parseDouble(j.get(0).toString())),
                                         new DataPoint((getLocalDate().getDayOfMonth())-6, Double.parseDouble(j.get(1).toString())),
@@ -217,7 +162,7 @@ public class specific_crypto extends Fragment {
                                         new DataPoint((getLocalDate().getDayOfMonth())-3, Double.parseDouble(j.get(4).toString())),
                                         new DataPoint((getLocalDate().getDayOfMonth())-2, Double.parseDouble(j.get(5).toString())),
                                         new DataPoint((getLocalDate().getDayOfMonth())-1, Double.parseDouble(j.get(6).toString())),
-                                        new DataPoint(getLocalDate().getDayOfMonth(), Double.parseDouble(j.get(7).toString()))
+                                        new DataPoint(getLocalDate().getDayOfMonth(), Double.parseDouble(j.get(8).toString()))
                                 });
                                 g.addSeries(s);
                             } catch (JSONException e) {

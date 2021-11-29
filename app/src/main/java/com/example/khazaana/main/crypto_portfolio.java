@@ -150,9 +150,9 @@ public class crypto_portfolio extends Fragment {
             }
         });
       
-        new priceTask1().execute("https://finnhub-backend.herokuapp.com/crypto_ticker?symbol=AAPL");
-        new priceTask2().execute("https://finnhub-backend.herokuapp.com/crypto_ticker?symbol=TSLA");
-        new priceTask3().execute("https://finnhub-backend.herokuapp.com/crypto_ticker?symbol=AMZN");
+        new priceTask1().execute("https://finnhub-backend.herokuapp.com/crypto_ticker?symbol=DOGE-USD");
+        new priceTask2().execute("https://finnhub-backend.herokuapp.com/crypto_ticker?symbol=BTC-USD");
+        new priceTask3().execute("https://finnhub-backend.herokuapp.com/crypto_ticker?symbol=ETH-USD");
 
         View root = view;
         crypto3.setOnClickListener(new View.OnClickListener() {

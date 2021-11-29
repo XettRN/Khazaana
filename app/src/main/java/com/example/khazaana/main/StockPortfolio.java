@@ -168,14 +168,6 @@ public class StockPortfolio extends Fragment {
             }
         });
 
-        next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NavDirections navDirections = StockPortfolioDirections.actionStockPortfolioToCryptoPortfolio();
-                Navigation.findNavController(root).navigate(navDirections);
-            }
-        });
-
         //navigation will have to pass in the client from previous location
         //(from home or client list screen)
         String passedInClientID = "EJCyh9saTPZ9YzHvdtdN";
