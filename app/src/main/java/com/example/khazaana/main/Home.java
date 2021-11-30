@@ -80,14 +80,32 @@ public class Home extends Fragment {
         for (Home.PortfolioData item : data) {
             aum += item.aum;
         }
+
         TextView numClientsText = homeHeader.findViewById(R.id.numClients);
         TextView aumText = homeHeader.findViewById(R.id.aumSummary);
-        numClientsText.setText("Clients: " + numClients);
-        aumText.setText("AUM: " + format.format(aum));
-
         PieChart summaryPie = homeHeader.findViewById(R.id.overallSummaryPie);
-        summaryPie.setData(getSummaryPieData(data.get(0).equity)); // need to pass in total amount, not just for one client
-        summaryPie.invalidate();
+        TextView top5 = homeHeader.findViewById(R.id.topClients);
+
+        if (data.size() == 0) {
+            numClientsText.setText("Clients: 0");
+            aumText.setText("AUM: " + format.format(0));
+            List<Number> pieData = new ArrayList<>();
+            pieData.add(0);
+            pieData.add(100);
+            summaryPie.setData(getSummaryPieData(pieData)); // need to pass in total amount, not just for one client
+            summaryPie.invalidate();
+            top5.setVisibility(View.INVISIBLE);
+
+
+        } else {
+            top5.setVisibility(View.VISIBLE);
+            numClientsText.setText("Clients: " + numClients);
+            aumText.setText("AUM: " + format.format(aum));
+
+            summaryPie.setData(getSummaryPieData(data.get(0).equity)); // need to pass in total amount, not just for one client
+            summaryPie.invalidate();
+        }
+
 
         ListView listView = (ListView) getView().findViewById(R.id.listView);
         listView.addHeaderView(homeHeader, null, false);
@@ -146,15 +164,15 @@ public class Home extends Fragment {
     // Displays top 5 portfolios
     private void displayPortfolios() {
         ArrayList<Home.PortfolioData> data = new ArrayList<Home.PortfolioData>();
+        String user = FirebaseAuth.getInstance().getUid();
+        assert user != null;
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference ifas = db.collection("Authorized IFAs");
-        DocumentReference ifa = ifas.document("A5WkIbLiaub1V1bQ9CRwzLdXBSo2");
-        CollectionReference clients = ifa.collection("Clients");
-        String userID = FirebaseAuth.getInstance().getUid();
-        DocumentReference client = clients.document("2KvyW2lzjHclFAHQnTfWFFq2mYS2");
+        CollectionReference cliRef = db.collection("Authorized IFAs")
+                .document(user)
+                .collection("Clients");
 
 
-        clients.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        cliRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
