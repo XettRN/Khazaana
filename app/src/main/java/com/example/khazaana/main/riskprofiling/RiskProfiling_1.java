@@ -22,7 +22,7 @@ public class RiskProfiling_1 extends AppCompatActivity {
 
         Button nextPage = findViewById(R.id.next2);
         nextPage.setOnClickListener(this::nextPage);
-        ChipGroup choiceChipGroup = findViewById(R.id.choice_chip_group);
+        ChipGroup choiceChipGroup = findViewById(R.id.choice_chip_group_1);
         choiceChipGroup.setOnCheckedChangeListener(new ChipGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(ChipGroup chipGroup, @IdRes int i) {
