@@ -33,6 +33,8 @@ public class AddNewClient extends AppCompatActivity {
         email = findViewById(R.id.email_input);
         addClient = findViewById(R.id.addClient);
 
+        Button previousPage = findViewById(R.id.back_add_new_client);
+        previousPage.setOnClickListener(this::previousPage);
 
         addClient.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,4 +65,8 @@ public class AddNewClient extends AppCompatActivity {
 
     }
 
+    public void previousPage(View view) {
+        Intent intent = new Intent(this, IFASettings.class);
+        startActivity(intent);
+    }
 }

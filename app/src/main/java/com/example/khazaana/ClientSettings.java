@@ -22,7 +22,8 @@ public class ClientSettings extends AppCompatActivity {
         Button updatePassword = findViewById(R.id.update_password);
         updatePassword.setOnClickListener(this::goUpdatePassword);
 
-
+        Button backButton = findViewById(R.id.back_client_settings);
+        backButton.setOnClickListener(this::previousPage);
     }
 
     public void goAddIFA(View view) {
@@ -37,6 +38,11 @@ public class ClientSettings extends AppCompatActivity {
 
     public void goUpdatePassword(View view) {
         Intent intent = new Intent(this, ClientUpdatePassword.class);
+        startActivity(intent);
+    }
+
+    public void previousPage(View view) {
+        Intent intent = new Intent(this, ClientAccountSettings.class);
         startActivity(intent);
     }
 }

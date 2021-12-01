@@ -13,6 +13,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Khazaana">
         <activity
+            android:name=".IFAFees"
+            android:exported="true" />
+        <activity
+            android:name=".IFA_AccountSettings"
+            android:exported="true" />
+        <activity
             android:name=".main.NavView"
             android:exported="false" />
         <activity
@@ -159,6 +165,7 @@
         <activity
             android:name=".IFAHome"
             android:exported="true" />
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

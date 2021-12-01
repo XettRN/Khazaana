@@ -4,11 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:foregroundTint="#0B0A0A"
-    tools:context=".ClientFees">
+    tools:context=".IFAFees">
 
     <Button
-        android:id="@+id/back_client_fees"
+        android:id="@+id/back_ifa_fees"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="48dp"
         android:layout_height="48dp"
@@ -166,14 +165,13 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.598" >
-    <TextView
-        android:id="@+id/AMEX"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="AMEX **** **** **** 8945"
-        android:textSize="15sp"
-        android:padding="15sp"/>
+        <TextView
+            android:id="@+id/AMEX"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="AMEX **** **** **** 8945"
+            android:textSize="15sp"
+            android:padding="15sp"/>
     </androidx.cardview.widget.CardView>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
