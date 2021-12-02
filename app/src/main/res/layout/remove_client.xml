@@ -83,14 +83,17 @@
         android:id="@+id/last_name"
         android:layout_width="101dp"
         android:layout_height="20dp"
-        android:layout_marginBottom="496dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginBottom="580dp"
         android:fontFamily="@font/montserrat_regular"
         android:text="Last Name"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.145"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.123"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView18"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/heading"
@@ -108,6 +111,7 @@
 
 
     <View
+        android:id="@+id/view3"
         android:layout_width="400dp"
         android:layout_height="2dp"
         android:background="#DCD7D7"
@@ -141,14 +145,16 @@
         android:id="@+id/first_name"
         android:layout_width="108dp"
         android:layout_height="23dp"
-        android:layout_marginBottom="572dp"
+        android:layout_marginTop="61dp"
+        android:layout_marginBottom="664dp"
         android:fontFamily="@font/montserrat_regular"
         android:text="First Name"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.145"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.126"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view3" />
 
     <EditText
         android:id="@+id/first_name_input"
@@ -182,14 +188,17 @@
         android:id="@+id/reason"
         android:layout_width="182dp"
         android:layout_height="28dp"
-        android:layout_marginBottom="416dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="484dp"
         android:fontFamily="@font/montserrat_regular"
         android:text="Reason for removal"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.192"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.165"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView19"
+        app:layout_constraintVertical_bias="1.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
