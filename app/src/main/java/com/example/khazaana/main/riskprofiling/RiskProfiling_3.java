@@ -35,6 +35,7 @@ public class RiskProfiling_3 extends AppCompatActivity {
                 for (int j = 0; j < chipGroup.getChildCount(); j++) {
                     Chip c = (Chip) chipGroup.getChildAt(j);
                     Log.d("TAG", "Chip Selected :" +c.getText());
+                    RiskProfilingValues.setRisk_profiling_value3(String.valueOf(c.getText()));
                 }
             }
         });
