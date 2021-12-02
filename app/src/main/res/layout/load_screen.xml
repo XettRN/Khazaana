@@ -13,6 +13,7 @@
         android:clickable="true"
         android:minHeight="48dp"
         android:text="Sign Up"
+        android:fontFamily="@font/montserrat_regular"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -25,6 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="New to Khazaana?"
+        android:fontFamily="@font/montserrat_regular"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -48,9 +50,12 @@
         android:id="@+id/sign_in"
         android:layout_width="314dp"
         android:layout_height="62dp"
-        android:backgroundTint="#D3D3D3"
+        android:backgroundTint="#EAEAEA"
         android:text="Sign In With Email"
         android:textColor="@color/black"
+        app:cornerRadius="10dp"
+        android:textAllCaps="false"
+        android:fontFamily="@font/montserrat_regular"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.608"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -58,18 +63,24 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.796" />
 
-    <com.google.android.gms.common.SignInButton
+    <Button
         android:id="@+id/google_signin"
         android:layout_width="314dp"
         android:layout_height="62dp"
-        android:backgroundTint="#00000000"
+        android:backgroundTint="@android:color/white"
+        android:drawableLeft="@drawable/googleg_standard_color_18"
+        android:fontFamily="@font/montserrat_regular"
+        android:shadowRadius="1"
+        android:text="Continue with Google"
+        android:textAllCaps="false"
         android:textColor="@color/black"
+        app:cornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.608"
+        app:layout_constraintHorizontal_bias="0.607"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.671" />
+        app:layout_constraintVertical_bias="0.67" />
 
     <ImageView
         android:id="@+id/treasure_chest"

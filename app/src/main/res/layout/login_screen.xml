@@ -21,6 +21,7 @@
         android:id="@+id/loadScreen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_regular"
         android:text="@string/welcome_to_khazaana"
         android:textSize="28sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -35,6 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Email ID"
+        android:fontFamily="@font/montserrat_regular"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.064"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -46,57 +48,63 @@
     <EditText
         android:id="@+id/email_input"
         android:layout_width="344dp"
-        android:layout_height="45dp"
+        android:layout_height="50dp"
         android:backgroundTint="@color/black"
         android:inputType="text"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.447"
+        app:layout_constraintHorizontal_bias="0.428"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.516" />
+        app:layout_constraintVertical_bias="0.475" />
+
+    <EditText
+        android:id="@+id/password_input"
+        android:layout_width="344dp"
+        android:layout_height="50dp"
+        android:backgroundTint="@color/black"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@+id/sign_in"
+        app:layout_constraintHorizontal_bias="0.428"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.847" />
 
     <TextView
         android:id="@+id/password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/black"
+        android:fontFamily="@font/montserrat_regular"
         android:text="Password"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.065"
+        app:layout_constraintHorizontal_bias="0.064"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.591" />
+        app:layout_constraintVertical_bias="0.545" />
 
-    <EditText
-        android:id="@+id/password_input"
-        android:layout_width="344dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="452dp"
-        android:backgroundTint="@color/black"
-        android:inputType="text"
-        app:layout_constraintHorizontal_bias="0.447"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
+    <Button
         android:id="@+id/sign_in"
-        android:layout_width="143dp"
-        android:layout_height="53dp"
-        android:clickable="true"
-        android:shadowColor="#070707"
+        android:layout_width="122dp"
+        android:layout_height="62dp"
+        android:backgroundTint="#FFFFFF"
+        android:fontFamily="@font/montserrat_regular"
         android:text="Sign In"
-        android:textColor="@color/black"
-        app:cornerRadius="1dp"
+        android:textSize="16dp"
+        android:textAllCaps="false"
+        android:textColor="#000000"
+        app:cornerRadius="0dp"
+        app:iconTint="#610C0C"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.812"
-        app:srcCompat="@drawable/sign_in_button" />
-
+        app:layout_constraintVertical_bias="0.769"
+        app:strokeColor="#000000"
+        app:strokeWidth="1dp" />
     <!--     android:onClick="onClick" set onclick -->
 
 

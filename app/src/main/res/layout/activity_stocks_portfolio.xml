@@ -23,6 +23,9 @@
                 android:layout_width="379dp"
                 android:layout_height="37dp"
                 android:text="  Name Here"
+                android:fontFamily="@font/montserrat_bold"
+                android:textColor="@color/black"
+                android:layout_marginTop="40dp"
                 android:textSize="24sp" />
 
             <com.github.mikephil.charting.charts.PieChart
@@ -32,15 +35,18 @@
 
             </com.github.mikephil.charting.charts.PieChart>
 
-            <TextView
+            <Button
                 android:id="@+id/portfolio"
                 android:layout_width="408dp"
-                android:layout_height="50dp"
-                android:background="#000000"
+                android:layout_height="70dp"
+                android:backgroundTint="#000000"
+                android:fontFamily="@font/montserrat_regular"
                 android:text="Stocks Portfolio"
+                android:textAllCaps="false"
                 android:textAlignment="center"
                 android:textColor="#FFFFFF"
-                android:textSize="45sp" />
+                android:textSize="24sp"
+                app:cornerRadius="1dp"/>
 
             <TextView
                 android:id="@+id/stock1"
@@ -48,35 +54,44 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:text="Stock"
-                android:textColor="#000000" />
+                android:fontFamily="@font/montserrat_regular"
+                android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/boughtPrice1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="Bought Price: " />
+                android:text="Bought Price: "
+                android:fontFamily="@font/montserrat_regular"
+                android:textColor="@color/black"/>
 
             <TextView
                 android:id="@+id/currentPrice1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="Current Price: " />
+                android:text="Current Price: "
+                android:fontFamily="@font/montserrat_regular"
+                android:textColor="@color/black"/>
 
             <TextView
                 android:id="@+id/sharesOwned1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="Shares Owned: " />
+                android:text="Shares Owned: "
+                android:fontFamily="@font/montserrat_regular"
+                android:textColor="@color/black"/>
 
             <TextView
                 android:id="@+id/return1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="Return:" />
+                android:text="Return:"
+                android:fontFamily="@font/montserrat_regular"
+                android:textColor="@color/black"/>
 
             <View
                 android:id="@+id/divider3"
@@ -90,35 +105,44 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:text="Stock"
-                android:textColor="#000000" />
+                android:fontFamily="@font/montserrat_regular"
+                android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/boughtPrice2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="Bought Price: " />
+                android:text="Bought Price: "
+                android:fontFamily="@font/montserrat_regular"
+                android:textColor="@color/black"/>
 
             <TextView
                 android:id="@+id/currentPrice2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="Current Price: " />
+                android:text="Current Price: "
+                android:fontFamily="@font/montserrat_regular"
+                android:textColor="@color/black"/>
 
             <TextView
                 android:id="@+id/sharesOwned2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="Shares Owned: " />
+                android:text="Shares Owned: "
+                android:fontFamily="@font/montserrat_regular"
+                android:textColor="@color/black"/>
 
             <TextView
                 android:id="@+id/return2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="Return:" />
+                android:text="Return:"
+                android:fontFamily="@font/montserrat_regular"
+                android:textColor="@color/black"/>
 
             <View
                 android:id="@+id/divider4"
@@ -132,35 +156,44 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:text="Stock"
-                android:textColor="#000000" />
+                android:fontFamily="@font/montserrat_regular"
+                android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/boughtPrice3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="Bought Price: " />
+                android:text="Bought Price: " android:fontFamily="@font/montserrat_regular"
+                android:textColor="@color/black"
+                />
 
             <TextView
                 android:id="@+id/currentPrice3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="Current Price: " />
+                android:text="Current Price: "
+                android:fontFamily="@font/montserrat_regular"
+                android:textColor="@color/black"/>
 
             <TextView
                 android:id="@+id/sharesOwned3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="Shares Owned: " />
+                android:text="Shares Owned: "
+                android:fontFamily="@font/montserrat_regular"
+                android:textColor="@color/black"/>
 
             <TextView
                 android:id="@+id/return3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="Return:" />
+                android:text="Return:"
+                android:fontFamily="@font/montserrat_regular"
+                android:textColor="@color/black"/>
 
             <Button
                 android:id="@+id/nextScreen"
@@ -171,13 +204,16 @@
                 android:backgroundTint="#FFFFFF"
                 android:fontFamily="@font/montserrat_regular"
                 android:text="Next"
-                android:textColor="#000000"
-                app:iconTint="#610C0C"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                app:cornerRadius="1dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.577" />
+                app:layout_constraintVertical_bias="0.577"
+                app:strokeColor="#000000"
+                app:strokeWidth="1dp" />
 
         </LinearLayout>
     </ScrollView>
