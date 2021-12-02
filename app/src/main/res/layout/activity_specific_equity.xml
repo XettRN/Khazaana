@@ -115,7 +115,7 @@
                 android:fontFamily="@font/montserrat_regular"
                 android:textColor="@color/black"
                 android:layout_marginLeft="10dp"
-                android:textSize="22sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/buyingPrice"
@@ -127,7 +127,7 @@
                 android:fontFamily="@font/montserrat_regular"
                 android:textColor="@color/black"
                 android:layout_marginLeft="10dp"
-                android:textSize="22sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/returnPercent"
@@ -139,7 +139,7 @@
                 android:fontFamily="@font/montserrat_regular"
                 android:textColor="@color/black"
                 android:layout_marginLeft="10dp"
-                android:textSize="22sp" />
+                android:textSize="18sp" />
 
             <View
                 android:id="@+id/divider5"
@@ -152,13 +152,13 @@
                 android:id="@+id/analysis"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:layout_weight="1"
                 android:text="Analysis"
                 android:fontFamily="@font/montserrat_bold"
                 android:textColor="@color/black"
                 android:layout_marginLeft="10dp"
-                android:textSize="34sp"
+                android:textSize="28sp"
                 android:textStyle="bold" />
 
             <LinearLayout
@@ -169,7 +169,7 @@
 
                 <TextView
                     android:id="@+id/ratio"
-                    android:layout_width="135dp"
+                    android:layout_width="140dp"
                     android:layout_height="29dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="20dp"
@@ -178,7 +178,7 @@
                     android:fontFamily="@font/montserrat_regular"
                     android:text="Ratio Type"
                     android:textColor="@color/black"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -190,7 +190,7 @@
                     android:fontFamily="@font/montserrat_regular"
                     android:text="Value"
                     android:textColor="@color/black"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -211,7 +211,7 @@
                     android:fontFamily="@font/montserrat_regular"
                     android:textColor="@color/black"
                     android:layout_marginLeft="10dp"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/value1"
@@ -223,7 +223,7 @@
                     android:fontFamily="@font/montserrat_regular"
                     android:textColor="@color/black"
                     android:text="TextView"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
@@ -251,7 +251,7 @@
                     android:fontFamily="@font/montserrat_regular"
                     android:textColor="@color/black"
                     android:layout_marginLeft="10dp"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/value2"
@@ -263,7 +263,7 @@
                     android:text="TextView"
                     android:fontFamily="@font/montserrat_regular"
                     android:textColor="@color/black"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
@@ -291,7 +291,7 @@
                     android:fontFamily="@font/montserrat_regular"
                     android:textColor="@color/black"
                     android:layout_marginLeft="10dp"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/value3"
@@ -303,7 +303,7 @@
                     android:text="TextView"
                     android:fontFamily="@font/montserrat_regular"
                     android:textColor="@color/black"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
@@ -332,7 +332,7 @@
                     android:textColor="@color/black"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="20dp"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/value4"
@@ -343,7 +343,7 @@
                     android:fontFamily="@font/montserrat_regular"
                     android:text="TextView"
                     android:textColor="@color/black"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
             </LinearLayout>
 
         </LinearLayout>
