@@ -29,7 +29,7 @@ public class LoadScreen extends AppCompatActivity {
 
     private TextView title;
     private Button signIn;
-    private SignInButton google_signIn;
+    private Button google_signIn;
     TextView newuser;
     TextView signup;
     //public static final int RC_SIGN_IN = 1;

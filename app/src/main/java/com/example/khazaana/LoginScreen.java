@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -21,7 +22,7 @@ public class LoginScreen extends AppCompatActivity {
     EditText email;
     EditText password;
 
-    ImageView signin;
+    Button signin;
 
     FirebaseAuth fAuth;
 
