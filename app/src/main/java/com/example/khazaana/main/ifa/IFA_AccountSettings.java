@@ -1,4 +1,4 @@
-package com.example.khazaana;
+package com.example.khazaana.main.ifa;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.khazaana.R;
 import com.example.khazaana.main.Profile;
 
 public class IFA_AccountSettings extends AppCompatActivity {

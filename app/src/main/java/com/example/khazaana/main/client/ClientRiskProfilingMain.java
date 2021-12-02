@@ -1,23 +1,16 @@
-package com.example.khazaana;
+package com.example.khazaana.main.client;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Toast;
 
+import com.example.khazaana.R;
+import com.example.khazaana.main.client.ClientAccountSettings;
 import com.example.khazaana.main.riskprofiling.RiskProfiling_1;
 import com.example.khazaana.main.riskprofiling.RiskProfiling_C1;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
 
 public class ClientRiskProfilingMain extends AppCompatActivity {
     @Override

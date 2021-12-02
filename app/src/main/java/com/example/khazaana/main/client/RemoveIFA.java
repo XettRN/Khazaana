@@ -1,4 +1,4 @@
-package com.example.khazaana;
+package com.example.khazaana.main.client;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,15 +7,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.khazaana.main.riskprofiling.RiskProfiling_1;
+import com.example.khazaana.R;
+import com.example.khazaana.main.client.ClientSettings;
 
-public class ClientUpdatePassword extends AppCompatActivity {
+public class RemoveIFA extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.client_update_password);
+        setContentView(R.layout.remove_ifa);
 
-        Button backButton = findViewById(R.id.back_client_update_password);
+        Button backButton = findViewById(R.id.back_remove_ifa);
         backButton.setOnClickListener(this::previousPage);
     }
 

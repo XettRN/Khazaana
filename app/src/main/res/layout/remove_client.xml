@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context=".RemoveClient">
+    tools:context=".main.ifa.RemoveClient">
 
     <Button
         android:id="@+id/back_remove_client"
