@@ -22,16 +22,16 @@ public class ClientAccountSettings extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.client_account_settings);
-        Button profile = findViewById(R.id.profile);
+        Button profile = findViewById(R.id.client_profile);
         profile.setOnClickListener(this::goClientProfile);
 
-        Button fees = findViewById(R.id.fees);
+        Button fees = findViewById(R.id.client_fees);
         fees.setOnClickListener(this::goClientFees);
 
-        Button risk = findViewById(R.id.risk_profiling);
+        Button risk = findViewById(R.id.client_risk_profiling);
         risk.setOnClickListener(this::goRiskProfiling);
 
-        Button settings = findViewById(R.id.settings);
+        Button settings = findViewById(R.id.client_settings);
         settings.setOnClickListener(this::goClientSettings);
     }
 

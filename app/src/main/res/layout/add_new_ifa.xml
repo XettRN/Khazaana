@@ -7,7 +7,7 @@
     tools:context=".AddNewIFA">
 
     <Button
-        android:id="@+id/back_add_new_ifa"
+        android:id="@+id/back_add_ifa"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="48dp"
         android:layout_height="48dp"

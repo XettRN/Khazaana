@@ -7,7 +7,7 @@
     tools:context=".main.riskprofiling.RiskProfiling_5">
 
     <com.google.android.material.chip.ChipGroup
-        android:id="@+id/choice_chip_group"
+        android:id="@+id/choice_chip_group_5"
         android:layout_width="340dp"
         android:layout_height="456dp"
         app:chipSpacingVertical="20dp"

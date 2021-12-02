@@ -20,10 +20,18 @@ public class IFASettings extends AppCompatActivity {
 
         Button risk = findViewById(R.id.update_password);
         risk.setOnClickListener(this::goUpdatePassword);
+
+        Button backButton = findViewById(R.id.back_ifa_settings);
+        backButton.setOnClickListener(this::previousPage);
     }
 
     public void goAddClient(View view) {
         Intent intent = new Intent(this, AddNewClient.class);
+        startActivity(intent);
+    }
+
+    public void previousPage(View view) {
+        Intent intent = new Intent(this, IFA_AccountSettings.class);
         startActivity(intent);
     }
 

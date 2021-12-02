@@ -8,7 +8,7 @@
     tools:context=".RemoveClient">
 
     <Button
-        android:id="@+id/back_ifa_update_password"
+        android:id="@+id/back_remove_client"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="48dp"
         android:layout_height="48dp"

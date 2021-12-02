@@ -30,10 +30,18 @@ public class ClientRiskProfilingMain extends AppCompatActivity {
 
         Button rp2 = findViewById(R.id.risk_profiling2);
         rp2.setOnClickListener(this::rp2);
+
+        Button backButton = findViewById(R.id.back_risk_profiling_main);
+        backButton.setOnClickListener(this::previousPage);
     }
 
     public void rp1(View view) {
         Intent intent = new Intent(this, RiskProfiling_1.class);
+        startActivity(intent);
+    }
+
+    public void previousPage(View view) {
+        Intent intent = new Intent(this, ClientAccountSettings.class);
         startActivity(intent);
     }
 

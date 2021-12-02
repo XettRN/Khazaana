@@ -94,13 +94,22 @@
         <entry key="app/src/main/res/layout/activity_main2.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_portfolio.xml" value="0.21875" />
         <entry key="app/src/main/res/layout/activity_risk_profiling7.xml" value="0.22864583333333333" />
+        <entry key="app/src/main/res/layout/add_new_client.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/add_new_ifa.xml" value="0.21014492753623187" />
         <entry key="app/src/main/res/layout/client_account_settings.xml" value="0.21875" />
         <entry key="app/src/main/res/layout/client_fees.xml" value="0.24270833333333333" />
         <entry key="app/src/main/res/layout/client_profile.xml" value="0.21875" />
+        <entry key="app/src/main/res/layout/client_update_password.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/details.xml" value="0.24270833333333333" />
+        <entry key="app/src/main/res/layout/fragment_ifa_profile.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/ifa_account_settings.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/ifa_fees.xml" value="0.29583333333333334" />
+        <entry key="app/src/main/res/layout/ifa_settings.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/ifa_update_password.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/load_screen.xml" value="0.21875" />
         <entry key="app/src/main/res/layout/login_screen.xml" value="0.21875" />
+        <entry key="app/src/main/res/layout/remove_client.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/remove_ifa.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/risk_profiling_1.xml" value="0.24270833333333333" />
         <entry key="app/src/main/res/layout/risk_profiling_10.xml" value="0.22864583333333333" />
         <entry key="app/src/main/res/layout/risk_profiling_11.xml" value="0.22864583333333333" />
@@ -117,7 +126,7 @@
         <entry key="app/src/main/res/layout/risk_profiling_c2.xml" value="0.30512820512820515" />
         <entry key="app/src/main/res/layout/risk_profiling_c3.xml" value="0.30512820512820515" />
         <entry key="app/src/main/res/layout/risk_profiling_continue.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/risk_profiling_main.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/risk_profiling_main.xml" value="0.19147627104885906" />
         <entry key="app/src/main/res/layout/settings.xml" value="0.24270833333333333" />
         <entry key="app/src/main/res/layout/sign_up_general.xml" value="0.21875" />
         <entry key="app/src/main/res/layout/sign_up_options.xml" value="0.21875" />

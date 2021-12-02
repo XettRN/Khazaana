@@ -1,25 +1,27 @@
 package com.example.khazaana;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import androidx.appcompat.app.AppCompatActivity;
+import com.example.khazaana.main.riskprofiling.RiskProfiling_5;
 
-public class IFAUpdatePassword extends AppCompatActivity {
+public class IFAFees extends AppCompatActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.ifa_update_password);
+        setContentView(R.layout.ifa_fees);
 
-        Button previousPage = findViewById(R.id.back_ifa_update_password);
+        Button previousPage = findViewById(R.id.back_ifa_fees);
         previousPage.setOnClickListener(this::previousPage);
-
     }
 
     public void previousPage(View view) {
-        Intent intent = new Intent(this, IFASettings.class);
+        Intent intent = new Intent(this, IFA_AccountSettings.class);
         startActivity(intent);
     }
 }
