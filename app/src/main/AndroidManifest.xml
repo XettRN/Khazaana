@@ -13,10 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Khazaana">
         <activity
-            android:name=".IFAFees"
+            android:name=".main.ifa.IFAFees"
             android:exported="true" />
         <activity
-            android:name=".IFA_AccountSettings"
+            android:name=".main.ifa.IFA_AccountSettings"
             android:exported="true" />
         <activity
             android:name=".main.NavView"
@@ -79,13 +79,13 @@
             android:name=".main.riskprofiling.RiskProfiling_1"
             android:exported="true" />
         <activity
-            android:name=".ClientList"
+            android:name=".main.ifa.ClientList"
             android:exported="false" />
         <activity
-            android:name=".client_signup_options"
+            android:name=".main.client.client_signup_options"
             android:exported="true" />
         <activity
-            android:name=".client_registration"
+            android:name=".main.client.client_registration"
             android:exported="true" />
         <activity
             android:name=".LoadScreen"
@@ -112,34 +112,34 @@
             android:name=".sign_up_options"
             android:exported="true" />
         <activity
-            android:name=".IFARegistration"
+            android:name=".main.ifa.IFARegistration"
             android:exported="true" />
         <activity
             android:name=".userDetails"
             android:exported="true" />
         <activity
-            android:name=".ClientAccountSettings"
+            android:name=".main.client.ClientAccountSettings"
             android:exported="true" />
         <activity
-            android:name=".AddNewIFA"
+            android:name=".main.client.AddNewIFA"
             android:exported="true" />
         <activity
-            android:name=".ClientSettings"
+            android:name=".main.client.ClientSettings"
             android:exported="true" />
         <activity
-            android:name=".ClientRiskProfilingMain"
+            android:name=".main.client.ClientRiskProfilingMain"
             android:exported="true" />
         <activity
-            android:name=".ClientFees"
+            android:name=".main.client.ClientFees"
             android:exported="true" />
         <activity
-            android:name=".ClientProfile"
+            android:name=".main.client.ClientProfile"
             android:exported="true" />
         <activity
-            android:name=".RemoveIFA"
+            android:name=".main.client.RemoveIFA"
             android:exported="true" />
         <activity
-            android:name=".ClientUpdatePassword"
+            android:name=".main.client.ClientUpdatePassword"
             android:exported="true" />
         <activity
             android:name=".stocks_portfolio"
@@ -151,16 +151,16 @@
             android:name=".specific_equity"
             android:exported="true" />
         <activity
-            android:name=".AddNewClient"
+            android:name=".main.ifa.AddNewClient"
             android:exported="true" />
         <activity
-            android:name=".RemoveClient"
+            android:name=".main.ifa.RemoveClient"
             android:exported="true" />
         <activity
-            android:name=".IFAUpdatePassword"
+            android:name=".main.ifa.IFAUpdatePassword"
             android:exported="true" />
         <activity
-            android:name=".IFASettings"
+            android:name=".main.ifa.IFASettings"
             android:exported="true" />
         <activity
             android:name=".IFAHome"

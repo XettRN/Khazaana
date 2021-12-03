@@ -1,4 +1,4 @@
-package com.example.khazaana;
+package com.example.khazaana.main.ifa;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +11,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.example.khazaana.AddData;
+import com.example.khazaana.Portfolio;
+import com.example.khazaana.R;
 
 public class ClientList extends AppCompatActivity {
     @Override
