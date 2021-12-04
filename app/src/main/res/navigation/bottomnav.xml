@@ -55,6 +55,12 @@
         <action
             android:id="@+id/action_stockPortfolio_to_add_stock_frag"
             app:destination="@id/add_stock_frag" />
+        <argument
+            android:name="clientID"
+            app:argType="string" />
+        <argument
+            android:name="ifaID"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/cryptoPortfolio"
@@ -64,16 +70,31 @@
         <action
             android:id="@+id/action_cryptoPortfolio_to_addCrypto"
             app:destination="@id/addCrypto" />
-        tools:layout="@layout/fragment_crypto_portfolio">
         <action
             android:id="@+id/action_cryptoPortfolio_to_specific_crypto"
             app:destination="@id/specific_crypto" />
+        <argument
+            android:name="clientID"
+            app:argType="string" />
+        <argument
+            android:name="ifaID"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/specific_stock"
         android:name="com.example.khazaana.main.specific_stock"
         android:label="fragment_specific_stock"
-        tools:layout="@layout/fragment_specific_stock" />
+        tools:layout="@layout/fragment_specific_stock" >
+        <argument
+            android:name="clientID"
+            app:argType="string" />
+        <argument
+            android:name="ifaID"
+            app:argType="string" />
+        <argument
+            android:name="stock_name"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/individualClientPortfolio"
         android:name="com.example.khazaana.main.individualClientPortfolio"
@@ -87,6 +108,9 @@
             app:destination="@id/cryptoPortfolio" />
         <argument
             android:name="clientID"
+            app:argType="string" />
+        <argument
+            android:name="ifaID"
             app:argType="string" />
     </fragment>
     <fragment
@@ -106,11 +130,23 @@
         <action
             android:id="@+id/action_addCrypto_to_cryptoPortfolio"
             app:destination="@id/cryptoPortfolio" />
-        <argument android:name="client" />
+        <argument
+            android:name="clientID"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/specific_crypto"
         android:name="com.example.khazaana.main.specific_crypto"
         android:label="fragment_specific_crypto"
-        tools:layout="@layout/fragment_specific_crypto" />
+        tools:layout="@layout/fragment_specific_crypto" >
+        <argument
+            android:name="clientID"
+            app:argType="string" />
+        <argument
+            android:name="ifaID"
+            app:argType="string" />
+        <argument
+            android:name="crypto_name"
+            app:argType="string" />
+    </fragment>
 </navigation>

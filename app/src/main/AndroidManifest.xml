@@ -22,9 +22,6 @@
             android:name=".main.NavView"
             android:exported="false" />
         <activity
-            android:name=".individual_client_portfolio"
-            android:exported="false" />
-        <activity
             android:name=".AddData"
             android:exported="false" />
         <activity
@@ -140,15 +137,6 @@
             android:exported="true" />
         <activity
             android:name=".main.client.ClientUpdatePassword"
-            android:exported="true" />
-        <activity
-            android:name=".stocks_portfolio"
-            android:exported="true" />
-        <activity
-            android:name=".crypto_portfolio"
-            android:exported="true" />
-        <activity
-            android:name=".specific_equity"
             android:exported="true" />
         <activity
             android:name=".main.ifa.AddNewClient"

@@ -125,7 +125,7 @@ public class AddStock extends Fragment {
                     StockEntry entry = new StockEntry(auto, shares, price);
                     client.update("Stocks", FieldValue.arrayUnion(entry));
 
-                    NavDirections action = AddStockDirections.actionAddStockFragToStockPortfolio();
+                    NavDirections action = AddStockDirections.actionAddStockFragToStockPortfolio(getArguments().get("clientID").toString(), getArguments().get("ifaID").toString());
                     Navigation.findNavController(view).navigate(action);
                 }
             }

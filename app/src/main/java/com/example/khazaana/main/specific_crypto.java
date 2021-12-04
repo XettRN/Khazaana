@@ -52,6 +52,7 @@ public class specific_crypto extends Fragment {
     TextView returnP = null;
     double boughtPrice = 0;
     DecimalFormat d = new DecimalFormat("#.###");
+    TextView cName = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -70,12 +71,14 @@ public class specific_crypto extends Fragment {
         TextView cryptoOwned = view.findViewById(R.id.cryptoOwned);
         TextView buyingPrice = view.findViewById(R.id.cbuyingPrice);
         returnP = view.findViewById(R.id.creturnPercent);
+        cName = view.findViewById(R.id.crypto_name);
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference ifas = db.collection("Authorized IFAs");
-        DocumentReference ifa = ifas.document("A5WkIbLiaub1V1bQ9CRwzLdXBSo2");
+        DocumentReference ifa = ifas.document((String) getArguments().get("ifaID"));
         CollectionReference clients = ifa.collection("Clients");
-        DocumentReference client = clients.document("24pLjJbK43clJtggGDLPk9ALQfZ2");
+        DocumentReference client = clients.document((String) getArguments().get("clientID"));
+        cName.setText((String) getArguments().get("cryptoName"));
 
         client.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -87,6 +90,13 @@ public class specific_crypto extends Fragment {
                         cryptoOwned.setText("Crypto Owned: " + t.get(0).get("quantity"));
                         buyingPrice.setText("Buying Price: " + t.get(0).get("price"));
                         boughtPrice = Double.parseDouble(t.get(0).get("price").toString());
+
+                        GridLabelRenderer gridLabel = g.getGridLabelRenderer();
+                        gridLabel.setHorizontalAxisTitle("Days");
+                        gridLabel.setVerticalAxisTitle("Price");
+
+                        new tickerTask().execute("https://finnhub-backend.herokuapp.com/crypto/ticker?symbol="+getArguments().get("cryptoName"));
+
                     } else {
                         Log.d("TAG", "No such document");
                     }
@@ -96,10 +106,8 @@ public class specific_crypto extends Fragment {
             }
         });
 
-        GridLabelRenderer gridLabel = g.getGridLabelRenderer();
-        gridLabel.setHorizontalAxisTitle("November 2021 Date");
-        gridLabel.setVerticalAxisTitle("Price");
-        new tickerTask().execute("https://finnhub-backend.herokuapp.com/crypto_ticker?symbol=ETH-USD");
+
+
     }
 
     private class tickerTask extends AsyncTask<String, String, String> {
@@ -129,7 +137,6 @@ public class specific_crypto extends Fragment {
                 try {
                     JSONArray j = new JSONArray(data);
                     getActivity().runOnUiThread(new Runnable() {
-                        @RequiresApi(api = Build.VERSION_CODES.O)
                         @Override
                         public void run() {
                             try {
@@ -155,14 +162,15 @@ public class specific_crypto extends Fragment {
                             LineGraphSeries<DataPoint> s = null;
 
                                 s = new LineGraphSeries<DataPoint>(new DataPoint[]{
-                                        new DataPoint((getLocalDate().getDayOfMonth())-7, Double.parseDouble(j.get(0).toString())),
-                                        new DataPoint((getLocalDate().getDayOfMonth())-6, Double.parseDouble(j.get(1).toString())),
-                                        new DataPoint((getLocalDate().getDayOfMonth())-5, Double.parseDouble(j.get(2).toString())),
-                                        new DataPoint((getLocalDate().getDayOfMonth())-4, Double.parseDouble(j.get(3).toString())),
-                                        new DataPoint((getLocalDate().getDayOfMonth())-3, Double.parseDouble(j.get(4).toString())),
-                                        new DataPoint((getLocalDate().getDayOfMonth())-2, Double.parseDouble(j.get(5).toString())),
-                                        new DataPoint((getLocalDate().getDayOfMonth())-1, Double.parseDouble(j.get(6).toString())),
-                                        new DataPoint(getLocalDate().getDayOfMonth(), Double.parseDouble(j.get(8).toString()))
+                                        new DataPoint(0, Double.parseDouble(j.get(0).toString())),
+                                        new DataPoint(1, Double.parseDouble(j.get(1).toString())),
+                                        new DataPoint(2, Double.parseDouble(j.get(2).toString())),
+                                        new DataPoint(3, Double.parseDouble(j.get(3).toString())),
+                                        new DataPoint(4, Double.parseDouble(j.get(4).toString())),
+                                        new DataPoint(5, Double.parseDouble(j.get(5).toString())),
+                                        new DataPoint(6, Double.parseDouble(j.get(6).toString())),
+                                        new DataPoint(7, Double.parseDouble(j.get(7).toString())),
+                                        new DataPoint(8, Double.parseDouble(j.get(8).toString()))
                                 });
                                 g.addSeries(s);
                             } catch (JSONException e) {
@@ -194,10 +202,5 @@ public class specific_crypto extends Fragment {
             }
             return null;
         }
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public static LocalDate getLocalDate() {
-        return LocalDate.now();
     }
 }

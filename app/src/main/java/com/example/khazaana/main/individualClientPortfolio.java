@@ -103,9 +103,11 @@ public class individualClientPortfolio extends Fragment {
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference ifas = db.collection("Authorized IFAs");
-        DocumentReference ifa = ifas.document("A5WkIbLiaub1V1bQ9CRwzLdXBSo2");
+        DocumentReference ifa = ifas.document((String) getArguments().get("ifaID"));
         CollectionReference clients = ifa.collection("Clients");
-        DocumentReference client = clients.document("24pLjJbK43clJtggGDLPk9ALQfZ2");
+        DocumentReference client = clients.document((String) getArguments().get("clientID"));
+        Log.d("TAG", "Client ID: " + getArguments().get("clientID"));
+        Log.d("TAG", "IFA ID: " + getArguments().get("ifaID"));
 
         client.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -113,7 +115,7 @@ public class individualClientPortfolio extends Fragment {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
-                        Log.d("TAG", "DocumentSnapshot data: " + document.getData());
+                        Log.d("TAG", "Document Exists: " + document.getData());
 
                         String firstName = (String) document.get("First Name");
                         String lastName = (String) document.get("Last Name");
@@ -144,6 +146,14 @@ public class individualClientPortfolio extends Fragment {
 
                         equity = (List<Number>) document.get("Equity");
 
+                        new stockPriceTask1().execute("https://finnhub-backend.herokuapp.com/stock/price?symbol="+stocks.get(0).get("stock"));
+                        new stockPriceTask2().execute("https://finnhub-backend.herokuapp.com/stock/price?symbol="+stocks.get(1).get("stock"));
+                        new stockPriceTask3().execute("https://finnhub-backend.herokuapp.com/stock/price?symbol="+stocks.get(2).get("stock"));
+
+                        new cryptoPriceTask1().execute("https://finnhub-backend.herokuapp.com/crypto/ticker?symbol="+crypto.get(0).get("stock"));
+                        new cryptoPriceTask2().execute("https://finnhub-backend.herokuapp.com/crypto/ticker?symbol="+crypto.get(0).get("stock"));
+                        new cryptoPriceTask3().execute("https://finnhub-backend.herokuapp.com/crypto/ticker?symbol="+crypto.get(0).get("stock"));
+
                     } else {
                         Log.d("TAG", "No such document");
                     }
@@ -153,13 +163,7 @@ public class individualClientPortfolio extends Fragment {
             }
         });
 
-        new stockPriceTask1().execute("https://finnhub-backend.herokuapp.com/price?symbol=AAPL");
-        new stockPriceTask2().execute("https://finnhub-backend.herokuapp.com/price?symbol=TSLA");
-        new stockPriceTask3().execute("https://finnhub-backend.herokuapp.com/price?symbol=AMZN");
 
-        new cryptoPriceTask1().execute("https://finnhub-backend.herokuapp.com/crypto_ticker?symbol=BTC-USD");
-        new cryptoPriceTask2().execute("https://finnhub-backend.herokuapp.com/crypto_ticker?symbol=DOGE-USD");
-        new cryptoPriceTask3().execute("https://finnhub-backend.herokuapp.com/crypto_ticker?symbol=ETH-USD");
 
         View root = view;
         stockTitle.setOnClickListener(new View.OnClickListener() {
@@ -167,7 +171,7 @@ public class individualClientPortfolio extends Fragment {
             public void onClick(View view) {
                 //add fragment to bottomnav.xml so this can be written
                 NavDirections navDirections = individualClientPortfolioDirections
-                        .actionIndividualClientPortfolioToStockPortfolio();
+                        .actionIndividualClientPortfolioToStockPortfolio((String) getArguments().get("clientID"), (String) getArguments().get("ifaID"));
                 Navigation.findNavController(root).navigate(navDirections);
             }
         });
@@ -176,7 +180,7 @@ public class individualClientPortfolio extends Fragment {
             @Override
             public void onClick(View view) {
                 //add fragment to bottomnav.xml so this can be written
-                NavDirections navDirections = individualClientPortfolioDirections.actionIndividualClientPortfolioToCryptoPortfolio();
+                NavDirections navDirections = individualClientPortfolioDirections.actionIndividualClientPortfolioToCryptoPortfolio((String) getArguments().get("clientID"), (String) getArguments().get("ifaID"));
                 Navigation.findNavController(root).navigate(navDirections);
             }
         });

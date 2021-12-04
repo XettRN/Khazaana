@@ -55,6 +55,7 @@ public class specific_stock extends Fragment {
     TextView pb = null;
     TextView roe = null;
     TextView recommend = null;
+    TextView sName = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -77,12 +78,16 @@ public class specific_stock extends Fragment {
         pb = view.findViewById(R.id.value2);
         roe = view.findViewById(R.id.value3);
         recommend = view.findViewById(R.id.value4);
+        sName = view.findViewById(R.id.stock_name);
+
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference ifas = db.collection("Authorized IFAs");
-        DocumentReference ifa = ifas.document("A5WkIbLiaub1V1bQ9CRwzLdXBSo2");
+        DocumentReference ifa = ifas.document((String) getArguments().get("ifaID"));
         CollectionReference clients = ifa.collection("Clients");
-        DocumentReference client = clients.document("24pLjJbK43clJtggGDLPk9ALQfZ2");
+        DocumentReference client = clients.document((String) getArguments().get("clientID"));
+        String stock = (String) getArguments().get("stockName");
+        sName.setText(stock);
 
         client.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -94,6 +99,15 @@ public class specific_stock extends Fragment {
                         sharesOwned.setText("Shares Owned: " + t.get(0).get("quantity"));
                         buyingPrice.setText("Buying Price: " + t.get(0).get("price"));
                         boughtPrice = Double.parseDouble(t.get(0).get("price").toString());
+
+                        GridLabelRenderer gridLabel = g.getGridLabelRenderer();
+                        gridLabel.setHorizontalAxisTitle("Days");
+                        gridLabel.setVerticalAxisTitle("Price");
+
+                        new priceTask().execute("https://finnhub-backend.herokuapp.com/stock/price?symbol="+stock);
+                        new tickerTask().execute("https://finnhub-backend.herokuapp.com/stock/ticker?symbol="+stock);
+                        new ratiosTask().execute("https://finnhub-backend.herokuapp.com/stock/ratios?symbol="+stock);
+
                     } else {
                         Log.d("TAG", "No such document");
                     }
@@ -103,12 +117,8 @@ public class specific_stock extends Fragment {
             }
         });
 
-        GridLabelRenderer gridLabel = g.getGridLabelRenderer();
-        gridLabel.setHorizontalAxisTitle("November 2021 Date");
-        gridLabel.setVerticalAxisTitle("Price");
-        new priceTask().execute("https://finnhub-backend.herokuapp.com/price?symbol=AAPL");
-        new tickerTask().execute("https://finnhub-backend.herokuapp.com/ticker?symbol=AAPL");
-        new ratiosTask().execute("https://finnhub-backend.herokuapp.com/ratios?symbol=AAPL");
+
+
     }
 
     private class priceTask extends AsyncTask<String, String, String> {
@@ -213,21 +223,20 @@ public class specific_stock extends Fragment {
                 try {
                     JSONArray j = new JSONArray(data);
                     getActivity().runOnUiThread(new Runnable() {
-                        @RequiresApi(api = Build.VERSION_CODES.O)
                         @Override
                         public void run() {
                             LineGraphSeries<DataPoint> s = null;
                             try {
                                 s = new LineGraphSeries<DataPoint>(new DataPoint[]{
-                                        new DataPoint((getLocalDate().getDayOfMonth())-7, Double.parseDouble(j.get(0).toString())),
-                                        new DataPoint((getLocalDate().getDayOfMonth())-6, Double.parseDouble(j.get(1).toString())),
-                                        new DataPoint((getLocalDate().getDayOfMonth())-5, Double.parseDouble(j.get(2).toString())),
-                                        new DataPoint((getLocalDate().getDayOfMonth())-4, Double.parseDouble(j.get(3).toString())),
-                                        new DataPoint((getLocalDate().getDayOfMonth())-3, Double.parseDouble(j.get(4).toString())),
-                                        new DataPoint((getLocalDate().getDayOfMonth())-2, Double.parseDouble(j.get(5).toString())),
-                                        new DataPoint((getLocalDate().getDayOfMonth())-1, Double.parseDouble(j.get(6).toString())),
-                                        new DataPoint(getLocalDate().getDayOfMonth(), Double.parseDouble(j.get(7).toString()))
-
+                                        new DataPoint(0, Double.parseDouble(j.get(0).toString())),
+                                        new DataPoint(1, Double.parseDouble(j.get(1).toString())),
+                                        new DataPoint(2, Double.parseDouble(j.get(2).toString())),
+                                        new DataPoint(3, Double.parseDouble(j.get(3).toString())),
+                                        new DataPoint(4, Double.parseDouble(j.get(4).toString())),
+                                        new DataPoint(5, Double.parseDouble(j.get(5).toString())),
+                                        new DataPoint(6, Double.parseDouble(j.get(6).toString())),
+                                        new DataPoint(7, Double.parseDouble(j.get(7).toString())),
+                                        new DataPoint(8, Double.parseDouble(j.get(8).toString()))
                                 });
                                 g.addSeries(s);
                             } catch (JSONException e) {
@@ -325,10 +334,5 @@ public class specific_stock extends Fragment {
             }
             return null;
         }
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public static LocalDate getLocalDate() {
-        return LocalDate.now();
     }
 }

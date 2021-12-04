@@ -104,7 +104,7 @@ public class Clients extends Fragment {
             public void onClick(View view) {
                 //add fragment to bottomnav.xml so this can be written
                 NavDirections navDirections = ClientsDirections
-                        .actionClientsFragToIndividualClientPortfolio(clientID);
+                        .actionClientsFragToIndividualClientPortfolio((String) getArguments().get("clientID"), (String) getArguments().get("ifaID"));
                 Navigation.findNavController(root).navigate(navDirections);
             }
         });

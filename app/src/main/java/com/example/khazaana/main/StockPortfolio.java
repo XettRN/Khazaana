@@ -1,6 +1,5 @@
 package com.example.khazaana.main;
 
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -16,13 +15,9 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.khazaana.R;
-import com.example.khazaana.crypto_portfolio;
-import com.example.khazaana.specific_equity;
-import com.example.khazaana.stocks_portfolio;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -111,9 +106,9 @@ public class StockPortfolio extends Fragment {
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference ifas = db.collection("Authorized IFAs");
-        DocumentReference ifa = ifas.document("A5WkIbLiaub1V1bQ9CRwzLdXBSo2");
+        DocumentReference ifa = ifas.document((String) getArguments().get("ifaID"));
         CollectionReference clients = ifa.collection("Clients");
-        DocumentReference client = clients.document("24pLjJbK43clJtggGDLPk9ALQfZ2");
+        DocumentReference client = clients.document((String) getArguments().get("clientID"));
 
         client.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -148,6 +143,9 @@ public class StockPortfolio extends Fragment {
                         buyingPrice3 = Double.parseDouble(t.get(2).get("price").toString());
                         q3 = Double.parseDouble(t.get(2).get("quantity").toString());
 
+                        new priceTask1().execute("https://finnhub-backend.herokuapp.com/stock/price?symbol="+t.get(0).get("stock"));
+                        new priceTask2().execute("https://finnhub-backend.herokuapp.com/stock/price?symbol="+t.get(1).get("stock"));
+                        new priceTask3().execute("https://finnhub-backend.herokuapp.com/stock/price?symbol="+t.get(2).get("stock"));
 
                     } else {
                         Log.d("TAG", "No such document");
@@ -163,7 +161,7 @@ public class StockPortfolio extends Fragment {
             @Override
             public void onClick(View view) {
                 //add fragment to bottomnav.xml so this can be written
-                NavDirections navDirections = StockPortfolioDirections.actionStockPortfolioToSpecificStock();
+                NavDirections navDirections = StockPortfolioDirections.actionStockPortfolioToSpecificStock((String) getArguments().get("clientID"), (String) getArguments().get("ifaID"), ""+t.get(0).get("stock"));
                 Navigation.findNavController(root).navigate(navDirections);
             }
         });
@@ -194,9 +192,7 @@ public class StockPortfolio extends Fragment {
             }
         });
       
-        new priceTask1().execute("https://finnhub-backend.herokuapp.com/price?symbol=AAPL");
-        new priceTask2().execute("https://finnhub-backend.herokuapp.com/price?symbol=TSLA");
-        new priceTask3().execute("https://finnhub-backend.herokuapp.com/price?symbol=AMZN");
+
     }
 
     private class priceTask1 extends AsyncTask<String, String, String> {

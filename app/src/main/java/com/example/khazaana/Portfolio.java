@@ -53,7 +53,6 @@ public class Portfolio extends AppCompatActivity {
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), individual_client_portfolio.class));
             }
         });
 
