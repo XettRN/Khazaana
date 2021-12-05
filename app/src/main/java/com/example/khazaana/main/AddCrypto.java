@@ -35,7 +35,8 @@ public class AddCrypto extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        String clientID = AddCryptoArgs.fromBundle(getArguments()).getClient();
+        String clientID = getArguments().get("clientID").toString();
+        String ifaID = getArguments().get("ifaID").toString();
 
         String user = FirebaseAuth.getInstance().getUid();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -65,7 +66,7 @@ public class AddCrypto extends Fragment {
                     CryptoEntry entry = new CryptoEntry(auto, amount);
                     client.update("Crypto", FieldValue.arrayUnion(entry));
 
-                    NavDirections action = AddCryptoDirections.actionAddCryptoToCryptoPortfolio();
+                    NavDirections action = AddCryptoDirections.actionAddCryptoToCryptoPortfolio(clientID, ifaID);
                     Navigation.findNavController(view).navigate(action);
                 }
             }

@@ -65,7 +65,7 @@ public class Home extends Fragment {
             public void onClick(View view) {
                 //add fragment to bottomnav.xml so this can be written
                 NavDirections navDirections = HomeDirections.
-                        actionHomeFragToIndividualClientPortfolio("EJCyh9saTPZ9YzHvdtdN");
+                        actionHomeFragToIndividualClientPortfolio("0XrVoWLAJKemkzYxw2fVdh6bLWm1", FirebaseAuth.getInstance().getCurrentUser().getUid());
                 Navigation.findNavController(root).navigate(navDirections);
             }
         });

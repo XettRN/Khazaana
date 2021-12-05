@@ -103,11 +103,17 @@ public class crypto_portfolio extends Fragment {
         pieChart.setTransparentCircleRadius(0f);
         pieChart.getLegend().setEnabled(false);
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        /*FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference ifas = db.collection("Authorized IFAs");
         DocumentReference ifa = ifas.document("A5WkIbLiaub1V1bQ9CRwzLdXBSo2");
         CollectionReference clients = ifa.collection("Clients");
-        DocumentReference client = clients.document("24pLjJbK43clJtggGDLPk9ALQfZ2");
+        DocumentReference client = clients.document("24pLjJbK43clJtggGDLPk9ALQfZ2");*/
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference ifas = db.collection("Authorized IFAs");
+        DocumentReference ifa = ifas.document((String) getArguments().get("ifaID"));
+        CollectionReference clients = ifa.collection("Clients");
+        DocumentReference client = clients.document((String) getArguments().get("clientID"));
 
         client.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -141,6 +147,10 @@ public class crypto_portfolio extends Fragment {
                         buyingPrice3 = Double.parseDouble(t.get(2).get("price").toString());
                         q3 = Double.parseDouble(t.get(2).get("quantity").toString());
 
+                        new priceTask1().execute("https://finnhub-backend.herokuapp.com/crypto/ticker?symbol="+t.get(0).get("stock"));
+                        new priceTask2().execute("https://finnhub-backend.herokuapp.com/crypto/ticker?symbol="+t.get(1).get("stock"));
+                        new priceTask3().execute("https://finnhub-backend.herokuapp.com/crypto/ticker?symbol="+t.get(2).get("stock"));
+
                     } else {
                         Log.d("TAG", "No such document");
                     }
@@ -150,16 +160,14 @@ public class crypto_portfolio extends Fragment {
             }
         });
       
-        new priceTask1().execute("https://finnhub-backend.herokuapp.com/crypto_ticker?symbol=DOGE-USD");
-        new priceTask2().execute("https://finnhub-backend.herokuapp.com/crypto_ticker?symbol=BTC-USD");
-        new priceTask3().execute("https://finnhub-backend.herokuapp.com/crypto_ticker?symbol=ETH-USD");
+
 
         View root = view;
         crypto3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //add fragment to bottomnav.xml so this can be written
-                NavDirections navDirections = crypto_portfolioDirections.actionCryptoPortfolioToSpecificCrypto();
+                NavDirections navDirections = crypto_portfolioDirections.actionCryptoPortfolioToSpecificCrypto((String) getArguments().get("clientID"), (String) getArguments().get("ifaID"),""+t.get(2).get("stock"));
                 Navigation.findNavController(root).navigate(navDirections);
             }
         });
