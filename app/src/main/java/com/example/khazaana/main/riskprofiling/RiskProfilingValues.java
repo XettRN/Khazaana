@@ -297,6 +297,9 @@ public class RiskProfilingValues {
 
     public static int getRisk_profiling_scoreC1() {
         String rpc1 = getRisk_profiling_valueC1();
+        if (rpc1.equals("")) {
+            return 0;
+        }
         HashMap <String, Integer> rpc1_dictionary = new HashMap<>();
         rpc1_dictionary.put("Investment losing value", 5);
         rpc1_dictionary.put("Money invested", 10);
@@ -308,6 +311,9 @@ public class RiskProfilingValues {
 
     public static int getRisk_profiling_scoreC2() {
         String rpc2 = getRisk_profiling_valueC2();
+        if (rpc2.equals("")) {
+            return 0;
+        }
         HashMap <String, Integer> rpc2_dictionary = new HashMap<>();
         rpc2_dictionary.put("Strongly Agree", 15);
         rpc2_dictionary.put("Agree", 12);
@@ -320,6 +326,9 @@ public class RiskProfilingValues {
 
     public static int getRisk_profiling_scoreC3() {
         String rpc3 = getRisk_profiling_valueC3();
+        if (rpc3.equals("")) {
+            return 0;
+        }
         HashMap <String, Integer> rpc3_dictionary = new HashMap<>();
         rpc3_dictionary.put("Strongly Agree", 3);
         rpc3_dictionary.put("Agree", 6);
@@ -331,7 +340,52 @@ public class RiskProfilingValues {
     }
 
     public static String returnProfiling() {
-        
-        return "Moderate";
+        int s1 = getRisk_profiling_score1();
+        int s2 = getRisk_profiling_score2();
+        int s3 = getRisk_profiling_score3();
+        int s4 = getRisk_profiling_score4();
+        int s5 = getRisk_profiling_score5();
+        int s6 = getRisk_profiling_score6();
+        int s7 = getRisk_profiling_score7();
+        int s8 = getRisk_profiling_score8();
+        int s9 = getRisk_profiling_score9();
+        int s10 = getRisk_profiling_score10();
+        int s11 = getRisk_profiling_score11();
+        int s12 = getRisk_profiling_score12();
+        int c1 = getRisk_profiling_scoreC1();
+        int c2 = getRisk_profiling_scoreC2();
+        int c3 = getRisk_profiling_scoreC3();
+
+        int sum = s1 + s2 + s3 + s4 + s5 + s6 + s7 + s8 + s9 + s10 + s11 + s12 + c1 + c3 + c2;
+
+        if (sum <= 40) {
+            return "Conservative";
+        } else if (sum <= 80) {
+            return "Moderate";
+        } else {
+            return "Aggressive";
+        }
+    }
+
+    public static String[] returnProfilingArray() {
+        String s1 = getRisk_profiling_value1();
+        String s2 = getRisk_profiling_value1();
+        String s3 = getRisk_profiling_value1();
+        String s4 = getRisk_profiling_value1();
+        String s5 = getRisk_profiling_value1();
+        String s6 = getRisk_profiling_value1();
+        String s7 = getRisk_profiling_value1();
+        String s8 = getRisk_profiling_value1();
+        String s9 = getRisk_profiling_value1();
+        String s10 = getRisk_profiling_value1();
+        String s11 = getRisk_profiling_value1();
+        String s12 = getRisk_profiling_value1();
+        String C1 = getRisk_profiling_valueC1();
+        String C2 = getRisk_profiling_valueC1();
+        String C3 = getRisk_profiling_valueC1();
+
+        String[] rp_array = {s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, C1, C2, C3};
+
+        return rp_array;
     }
 }
