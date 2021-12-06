@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.khazaana.MainActivity;
 import com.example.khazaana.Portfolio;
 import com.example.khazaana.R;
 import com.github.mikephil.charting.charts.PieChart;
@@ -56,19 +57,19 @@ public class Home extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         displayPortfolios();
-        Button next = view.findViewById(R.id.button18);
-
-        View root = view;
-
-        next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //add fragment to bottomnav.xml so this can be written
-                NavDirections navDirections = HomeDirections.
-                        actionHomeFragToIndividualClientPortfolio("0XrVoWLAJKemkzYxw2fVdh6bLWm1", FirebaseAuth.getInstance().getCurrentUser().getUid());
-                Navigation.findNavController(root).navigate(navDirections);
-            }
-        });
+//        Button next = view.findViewById(R.id.button18);
+//
+//        View root = view;
+//
+//        next.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                //add fragment to bottomnav.xml so this can be written
+//                NavDirections navDirections = HomeDirections.
+//                        actionHomeFragToIndividualClientPortfolio("0XrVoWLAJKemkzYxw2fVdh6bLWm1", FirebaseAuth.getInstance().getCurrentUser().getUid());
+//                Navigation.findNavController(root).navigate(navDirections);
+//            }
+//        });
     }
     // calculates summary of aum, benchmark, etc
     private void calculateSummary(ArrayList<Home.PortfolioData> data) {
@@ -190,9 +191,10 @@ public class Home extends Fragment {
                             double aum = calculateAUM(stocks); // need to calculate
                             double return_perc = 0;
                             double benchmarkReturn = 10;
+
                             // TODO: figure out return and benchmark return
                             data.add(new Home.PortfolioData(firstName + " " + lastName, aum, return_perc,
-                                    benchmarkReturn, equity));
+                                    benchmarkReturn, equity, document.getId()));
                             Log.d("TAG", "LIST SIZE: " + data.size());
                         } else {
                             Log.d("TAG", "No such document");
@@ -254,6 +256,17 @@ public class Home extends Fragment {
                 mainViewHolder.aum.setText("AUM: " + format.format(getItem(position).aum));
                 mainViewHolder.return_perc.setText("Return: " + getItem(position).return_perc + "%");
                 mainViewHolder.benchmarkReturn.setText("Benchmark Return: " + getItem(position).benchmarkReturn + "%");
+                View root = mainViewHolder.clientName.getRootView();
+                mainViewHolder.clientName.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        //add fragment to bottomnav.xml so this can be written
+                        NavDirections navDirections = HomeDirections.
+                                actionHomeFragToIndividualClientPortfolio(getItem(position).cliendId, FirebaseAuth.getInstance().getCurrentUser().getUid());
+                        Navigation.findNavController(root).navigate(navDirections);
+                    }
+                });
+
             }
             return convertView;
         }
@@ -274,14 +287,16 @@ public class Home extends Fragment {
         public double return_perc;
         public double benchmarkReturn;
         public List<Number> equity;
+        public String cliendId;
 
         public PortfolioData(String clientName, double aum, double return_perc,
-                             double benchmarkReturn, List<Number> equity) {
+                             double benchmarkReturn, List<Number> equity, String clientId) {
             this.clientName = clientName;
             this.aum = aum;
             this.return_perc = return_perc;
             this.benchmarkReturn = benchmarkReturn;
             this.equity = equity;
+            this.cliendId = clientId;
         }
     }
 }
