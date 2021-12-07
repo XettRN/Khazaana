@@ -47,6 +47,7 @@ public class AddCrypto extends Fragment {
 
         AutoCompleteTextView autoText = view.findViewById(R.id.cryptoAuto);
         TextInputEditText amountText = view.findViewById(R.id.field_crypto_amount);
+        TextInputEditText priceText = view.findViewById(R.id.field_crypto_price);
 
         String[] currencies = getResources().getStringArray(R.array.cryptocurrencies);
         autoText.setAdapter(new ArrayAdapter<String>(requireContext(),
@@ -56,14 +57,16 @@ public class AddCrypto extends Fragment {
         addCrypto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (autoText.getText().length() <= 0 || amountText.getText().length() <= 0) {
+                if (autoText.getText().length() <= 0 || amountText.getText().length() <= 0 ||
+                    priceText.getText().length() <= 0) {
                     Toast.makeText(getContext(), "Please input crypto details", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     String auto = autoText.getText().toString();
                     float amount = Float.parseFloat(amountText.getText().toString());
+                    float price = Float.parseFloat(priceText.getText().toString());
 
-                    CryptoEntry entry = new CryptoEntry(auto, amount);
+                    AssetEntry entry = new AssetEntry(auto, amount, price);
                     client.update("Crypto", FieldValue.arrayUnion(entry));
 
                     NavDirections action = AddCryptoDirections.actionAddCryptoToCryptoPortfolio(clientID, ifaID);

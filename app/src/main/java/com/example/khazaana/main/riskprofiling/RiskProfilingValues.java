@@ -1,5 +1,6 @@
 package com.example.khazaana.main.riskprofiling;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class RiskProfilingValues {
@@ -367,24 +368,39 @@ public class RiskProfilingValues {
         }
     }
 
-    public static String[] returnProfilingArray() {
+    public static ArrayList<String> returnProfilingArray() {
         String s1 = getRisk_profiling_value1();
-        String s2 = getRisk_profiling_value1();
-        String s3 = getRisk_profiling_value1();
-        String s4 = getRisk_profiling_value1();
-        String s5 = getRisk_profiling_value1();
-        String s6 = getRisk_profiling_value1();
-        String s7 = getRisk_profiling_value1();
-        String s8 = getRisk_profiling_value1();
-        String s9 = getRisk_profiling_value1();
-        String s10 = getRisk_profiling_value1();
-        String s11 = getRisk_profiling_value1();
-        String s12 = getRisk_profiling_value1();
+        String s2 = getRisk_profiling_value2();
+        String s3 = getRisk_profiling_value3();
+        String s4 = getRisk_profiling_value4();
+        String s5 = getRisk_profiling_value5();
+        String s6 = getRisk_profiling_value6();
+        String s7 = getRisk_profiling_value7();
+        String s8 = getRisk_profiling_value8();
+        String s9 = getRisk_profiling_value9();
+        String s10 = getRisk_profiling_value10();
+        String s11 = getRisk_profiling_value11();
+        String s12 = getRisk_profiling_value12();
         String C1 = getRisk_profiling_valueC1();
-        String C2 = getRisk_profiling_valueC1();
-        String C3 = getRisk_profiling_valueC1();
+        String C2 = getRisk_profiling_valueC2();
+        String C3 = getRisk_profiling_valueC3();
 
-        String[] rp_array = {s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, C1, C2, C3};
+        ArrayList<String> rp_array = new ArrayList<>();
+        rp_array.add(s1);
+        rp_array.add(s2);
+        rp_array.add(s3);
+        rp_array.add(s4);
+        rp_array.add(s5);
+        rp_array.add(s6);
+        rp_array.add(s7);
+        rp_array.add(s8);
+        rp_array.add(s9);
+        rp_array.add(s10);
+        rp_array.add(s11);
+        rp_array.add(s12);
+        rp_array.add(C1);
+        rp_array.add(C2);
+        rp_array.add(C3);
 
         return rp_array;
     }

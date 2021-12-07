@@ -1,5 +1,6 @@
 package com.example.khazaana.main;
 
+import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -35,9 +36,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.security.CryptoPrimitive;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.List;
@@ -79,23 +82,77 @@ public class specific_crypto extends Fragment {
         CollectionReference clients = ifa.collection("Clients");
         DocumentReference client = clients.document((String) getArguments().get("clientID"));
         cName.setText((String) getArguments().get("cryptoName"));
+        Log.d("TAG", "Crypto Name" + getArguments().get("crypto_name"));
 
         client.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         List<Map> t = (List<Map>) document.get("Crypto");
-                        cryptoOwned.setText("Crypto Owned: " + t.get(0).get("quantity"));
-                        buyingPrice.setText("Buying Price: " + t.get(0).get("price"));
-                        boughtPrice = Double.parseDouble(t.get(0).get("price").toString());
+                        String cryptoName = (String) getArguments().get("cryptoName");
+                        for (int i = 0; i < t.size(); i++) {
+                            Log.d("TAG", "Current Crypto" + t.get(i).get("stock"));
+                            if (t.get(i).get("stock") == cryptoName) {
+                                cryptoOwned.setText("Crypto Owned: " + t.get(i).get("quantity"));
+                                buyingPrice.setText("Buying Price: " + t.get(i).get("price"));
+                                boughtPrice = Double.parseDouble(t.get(i).get("price").toString());
+                            }
+                        }
+
 
                         GridLabelRenderer gridLabel = g.getGridLabelRenderer();
                         gridLabel.setHorizontalAxisTitle("Days");
                         gridLabel.setVerticalAxisTitle("Price");
 
-                        new tickerTask().execute("https://finnhub-backend.herokuapp.com/crypto/ticker?symbol="+getArguments().get("cryptoName"));
+
+                        Double[] cryptoTicker;
+                        if (cryptoName == "ETH-USD") {
+                            cryptoTicker = CryptoStorage.getEthereum();
+                        } else if (cryptoName == "BTC-USD") {
+                            cryptoTicker = CryptoStorage.getBitcoin();
+                        } else {
+                            cryptoTicker = CryptoStorage.getDogecoin();
+                        }
+
+                        currentP.setText("$" + d.format(cryptoTicker[cryptoTicker.length - 1]));
+                        priceC.setText("$" + d.format(cryptoTicker[cryptoTicker.length - 2]));
+                        String cp = cryptoTicker[cryptoTicker.length - 1].toString();
+                        String pp = cryptoTicker[cryptoTicker.length - 2].toString();
+                        double currP = Double.parseDouble(cp);
+                        double prevP = Double.parseDouble(pp);
+                        double percent = (currP - prevP) / prevP;
+                        percentC.setText("" + d.format(percent * 100) + "%");
+                        double returnPrice = ((currP - boughtPrice) / boughtPrice) * 100;
+                        returnP.setText("Return: " + returnPrice + "%");
+
+                        if (currP > prevP) {
+                            currentP.setTextColor(getResources().getColor(R.color.green));
+                            priceC.setTextColor(getResources().getColor(R.color.green));
+                            percentC.setTextColor(getResources().getColor(R.color.green));
+                        } else {
+                            currentP.setTextColor(getResources().getColor(R.color.red));
+                            priceC.setTextColor(getResources().getColor(R.color.red));
+                            percentC.setTextColor(getResources().getColor(R.color.red));
+                        }
+
+                        LineGraphSeries<DataPoint> s = new LineGraphSeries<DataPoint>(new DataPoint[]{
+                                new DataPoint(0, cryptoTicker[0]),
+                                new DataPoint(1, cryptoTicker[1]),
+                                new DataPoint(2, cryptoTicker[2]),
+                                new DataPoint(3, cryptoTicker[3]),
+                                new DataPoint(4, cryptoTicker[4]),
+                                new DataPoint(5, cryptoTicker[5]),
+                                new DataPoint(6, cryptoTicker[6]),
+                                new DataPoint(7, cryptoTicker[7]),
+                                new DataPoint(8, cryptoTicker[8])
+                        });
+
+                        g.addSeries(s);
+
+//                        new tickerTask().execute("https://finnhub-backend.herokuapp.com/crypto/ticker?symbol="+getArguments().get("cryptoName"));
 
                     } else {
                         Log.d("TAG", "No such document");
@@ -105,102 +162,100 @@ public class specific_crypto extends Fragment {
                 }
             }
         });
-
-
-
-    }
-
-    private class tickerTask extends AsyncTask<String, String, String> {
-        String data = "";
-
-        protected String doInBackground(String... params) {
-
-
-            HttpURLConnection connection = null;
-            BufferedReader reader = null;
-            try {
-                URL url = new URL(params[0]);
-                connection = (HttpURLConnection) url.openConnection();
-                connection.connect();
-
-
-                InputStream stream = connection.getInputStream();
-
-                reader = new BufferedReader(new InputStreamReader(stream));
-
-                String line = "";
-
-                while (line != null) {
-                    line = reader.readLine();
-                    data = data + line;
-                }
-                try {
-                    JSONArray j = new JSONArray(data);
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                            currentP.setText("$" + d.format(j.get(j.length() - 1)));
-                            priceC.setText("$" + d.format(j.get(j.length() - 3)));
-                            String cp = j.get(j.length() - 1).toString();
-                            String pp = j.get(j.length() - 3).toString();
-                            double currP = Double.parseDouble(cp);
-                            double prevP = Double.parseDouble(pp);
-                            double percent = (currP - prevP)/ prevP;
-                            percentC.setText("" + d.format(percent*100) + "%");
-                            double returnPrice = ((currP - boughtPrice)/boughtPrice)*100;
-                            returnP.setText("Return: "+returnPrice+"%");
-                            if (currP > prevP) {
-                                currentP.setTextColor(getResources().getColor(R.color.green));
-                                priceC.setTextColor(getResources().getColor(R.color.green));
-                                percentC.setTextColor(getResources().getColor(R.color.green));
-                            } else {
-                                currentP.setTextColor(getResources().getColor(R.color.red));
-                                priceC.setTextColor(getResources().getColor(R.color.red));
-                                percentC.setTextColor(getResources().getColor(R.color.red));
-                            }
-                            LineGraphSeries<DataPoint> s = null;
-
-                                s = new LineGraphSeries<DataPoint>(new DataPoint[]{
-                                        new DataPoint(0, Double.parseDouble(j.get(0).toString())),
-                                        new DataPoint(1, Double.parseDouble(j.get(1).toString())),
-                                        new DataPoint(2, Double.parseDouble(j.get(2).toString())),
-                                        new DataPoint(3, Double.parseDouble(j.get(3).toString())),
-                                        new DataPoint(4, Double.parseDouble(j.get(4).toString())),
-                                        new DataPoint(5, Double.parseDouble(j.get(5).toString())),
-                                        new DataPoint(6, Double.parseDouble(j.get(6).toString())),
-                                        new DataPoint(7, Double.parseDouble(j.get(7).toString())),
-                                        new DataPoint(8, Double.parseDouble(j.get(8).toString()))
-                                });
-                                g.addSeries(s);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-
-                        }
-                    });
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                if (connection != null) {
-                    connection.disconnect();
-                }
-                try {
-                    if (reader != null) {
-                        reader.close();
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            return null;
-        }
     }
 }
+
+//    private class tickerTask extends AsyncTask<String, String, String> {
+//        String data = "";
+//
+//        protected String doInBackground(String... params) {
+//
+//
+//            HttpURLConnection connection = null;
+//            BufferedReader reader = null;
+//            try {
+//                URL url = new URL(params[0]);
+//                connection = (HttpURLConnection) url.openConnection();
+//                connection.connect();
+//
+//
+//                InputStream stream = connection.getInputStream();
+//
+//                reader = new BufferedReader(new InputStreamReader(stream));
+//
+//                String line = "";
+//
+//                while (line != null) {
+//                    line = reader.readLine();
+//                    data = data + line;
+//                }
+//                try {
+//                    JSONArray j = new JSONArray(data);
+//                    getActivity().runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            try {
+//                            currentP.setText("$" + d.format(j.get(j.length() - 1)));
+//                            priceC.setText("$" + d.format(j.get(j.length() - 3)));
+//                            String cp = j.get(j.length() - 1).toString();
+//                            String pp = j.get(j.length() - 3).toString();
+//                            double currP = Double.parseDouble(cp);
+//                            double prevP = Double.parseDouble(pp);
+//                            double percent = (currP - prevP)/ prevP;
+//                            percentC.setText("" + d.format(percent*100) + "%");
+//                            double returnPrice = ((currP - boughtPrice)/boughtPrice)*100;
+//                            returnP.setText("Return: "+returnPrice+"%");
+//                            if (currP > prevP) {
+//                                currentP.setTextColor(getResources().getColor(R.color.green));
+//                                priceC.setTextColor(getResources().getColor(R.color.green));
+//                                percentC.setTextColor(getResources().getColor(R.color.green));
+//                            } else {
+//                                currentP.setTextColor(getResources().getColor(R.color.red));
+//                                priceC.setTextColor(getResources().getColor(R.color.red));
+//                                percentC.setTextColor(getResources().getColor(R.color.red));
+//                            }
+//                            LineGraphSeries<DataPoint> s = null;
+//
+//                                s = new LineGraphSeries<DataPoint>(new DataPoint[]{
+//                                        new DataPoint(0, Double.parseDouble(j.get(0).toString())),
+//                                        new DataPoint(1, Double.parseDouble(j.get(1).toString())),
+//                                        new DataPoint(2, Double.parseDouble(j.get(2).toString())),
+//                                        new DataPoint(3, Double.parseDouble(j.get(3).toString())),
+//                                        new DataPoint(4, Double.parseDouble(j.get(4).toString())),
+//                                        new DataPoint(5, Double.parseDouble(j.get(5).toString())),
+//                                        new DataPoint(6, Double.parseDouble(j.get(6).toString())),
+//                                        new DataPoint(7, Double.parseDouble(j.get(7).toString())),
+//                                        new DataPoint(8, Double.parseDouble(j.get(8).toString()))
+//                                });
+//                                g.addSeries(s);
+//                            } catch (JSONException e) {
+//                                e.printStackTrace();
+//                            }
+//
+//                        }
+//                    });
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//
+//
+//            } catch (MalformedURLException e) {
+//                e.printStackTrace();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            } finally {
+//                if (connection != null) {
+//                    connection.disconnect();
+//                }
+//                try {
+//                    if (reader != null) {
+//                        reader.close();
+//                    }
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//            return null;
+//        }
+//    }
+//}

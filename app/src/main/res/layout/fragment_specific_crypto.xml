@@ -6,35 +6,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".main.specific_crypto">
 
-    <TextView
-        android:id="@+id/crypto_name"
+    <ScrollView
+        android:id="@+id/scrollView4"
         android:layout_width="wrap_content"
-        android:layout_height="44dp"
-        android:layout_marginStart="15dp"
-        android:background="#FFFFFF"
-        android:text="ETH"
-        android:textColor="#000000"
-        android:textSize="22dp"
-        android:shadowColor="@color/black"
-        android:fontFamily="@font/montserrat_bold"
-
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.045" />
-
-    <ScrollView
-        android:id="@+id/scrollView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="-250dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/crypto_name"
+        app:layout_constraintVertical_bias="0.058"
         tools:ignore="SpeakableTextPresentCheck">
 
         <LinearLayout
@@ -45,9 +26,24 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:layout_marginLeft="5dp"
+                android:layout_weight="1"
                 android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/crypto_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="44dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="#FFFFFF"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:shadowColor="@color/black"
+                    android:text="ETH"
+
+                    android:textColor="#000000"
+                    android:textSize="22dp" />
 
                 <TextView
                     android:id="@+id/ccurrent_price"
@@ -57,9 +53,9 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
                     android:layout_weight="1"
+                    android:fontFamily="@font/montserrat_bold"
                     android:text="TextView"
                     android:textColor="@color/green"
-                    android:fontFamily="@font/montserrat_bold"
                     android:textSize="20dp" />
 
                 <TextView
@@ -70,9 +66,9 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
                     android:layout_weight="1"
+                    android:fontFamily="@font/montserrat_bold"
                     android:text="TextView"
                     android:textColor="@color/green"
-                    android:fontFamily="@font/montserrat_bold"
                     android:textSize="20dp" />
 
                 <TextView
@@ -83,9 +79,9 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
                     android:layout_weight="1"
+                    android:fontFamily="@font/montserrat_bold"
                     android:text="TextView"
                     android:textColor="@color/green"
-                    android:fontFamily="@font/montserrat_bold"
                     android:textSize="20dp" />
 
             </LinearLayout>
@@ -94,64 +90,64 @@
                 android:id="@+id/clineGraph"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:layout_margin="15dp"
-                android:layout_centerInParent="true" />
+                android:layout_centerInParent="true"
+                android:layout_margin="15dp" />
 
             <TextView
                 android:id="@+id/cryptoOwned"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:layout_marginLeft="15dp"
+                android:layout_marginTop="20dp"
                 android:layout_weight="1"
+                android:fontFamily="@font/montserrat_regular"
                 android:text="Crypto Owned :"
                 android:textColor="@color/black"
-                android:fontFamily="@font/montserrat_regular"
                 android:textSize="15dp" />
 
             <TextView
                 android:id="@+id/cbuyingPrice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
                 android:layout_marginTop="10dp"
                 android:layout_weight="1"
-                android:text="Buying Price :"
-                android:layout_marginLeft="15dp"
-                android:textColor="@color/black"
                 android:fontFamily="@font/montserrat_regular"
+                android:text="Buying Price :"
+                android:textColor="@color/black"
                 android:textSize="15dp" />
 
             <TextView
                 android:id="@+id/creturnPercent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
                 android:layout_marginTop="10dp"
                 android:layout_weight="1"
-                android:text="Return :"
-                android:layout_marginLeft="15dp"
-                android:textColor="@color/black"
                 android:fontFamily="@font/montserrat_regular"
+                android:text="Return :"
+                android:textColor="@color/black"
                 android:textSize="15dp" />
 
             <View
                 android:id="@+id/divider5"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_weight="1"
                 android:layout_marginTop="5dp"
+                android:layout_weight="1"
                 android:background="?android:attr/listDivider" />
 
             <TextView
                 android:id="@+id/analysis"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:layout_weight="1"
+                android:fontFamily="@font/montserrat_bold"
                 android:text="Analysis"
                 android:textColor="@color/black"
-                android:fontFamily="@font/montserrat_bold"
                 android:textSize="20dp" />
 
             <View
