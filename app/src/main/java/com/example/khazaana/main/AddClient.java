@@ -58,8 +58,8 @@ public class AddClient extends Fragment {
                 }
                 else {
                     Map<String, Object> data = new HashMap<>();
-                    StockEntry[] stocks = {};
-                    CryptoEntry[] crypto = {};
+                    AssetEntry[] stocks = {};
+                    AssetEntry[] crypto = {};
                     data.put("First Name", first);
                     data.put("Last Name", last);
                     data.put("Stocks", stocks);

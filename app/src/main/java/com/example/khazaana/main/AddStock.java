@@ -122,10 +122,12 @@ public class AddStock extends Fragment {
                     float shares = Float.parseFloat(sharesText.getText().toString());
                     float price = Float.parseFloat(priceText.getText().toString());
 
-                    StockEntry entry = new StockEntry(auto, shares, price);
+                    AssetEntry entry = new AssetEntry(auto, price, shares);
                     client.update("Stocks", FieldValue.arrayUnion(entry));
 
-                    NavDirections action = AddStockDirections.actionAddStockFragToStockPortfolio(getArguments().get("clientID").toString(), getArguments().get("ifaID").toString());
+                    NavDirections action = AddStockDirections.actionAddStockFragToStockPortfolio(
+                            getArguments().get("clientID").toString(),
+                            getArguments().get("ifaID").toString());
                     Navigation.findNavController(view).navigate(action);
                 }
             }
