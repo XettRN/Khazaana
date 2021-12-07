@@ -29,8 +29,7 @@
     <fragment
         android:id="@+id/profile_frag"
         android:name="com.example.khazaana.main.Profile"
-        android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" >
+        android:label="fragment_profile">
         <action
             android:id="@+id/action_profile_frag_to_IFA_AccountSettings"
             app:destination="@id/IFA_AccountSettings" />
@@ -153,9 +152,49 @@
             android:name="crypto_name"
             app:argType="string" />
     </fragment>
-    <activity
+    <fragment
         android:id="@+id/IFA_AccountSettings"
         android:name="com.example.khazaana.main.ifa.IFA_AccountSettings"
         android:label="ifa_account_settings"
-        tools:layout="@layout/ifa_account_settings" />
+        tools:layout="@layout/ifa_account_settings" >
+        <action
+            android:id="@+id/action_IFA_AccountSettings_to_profile_frag"
+            app:destination="@id/profile_frag" />
+        <action
+            android:id="@+id/action_IFA_AccountSettings_to_IFASettings"
+            app:destination="@id/IFASettings" />
+    </fragment>
+    <fragment
+        android:id="@+id/IFASettings"
+        android:name="com.example.khazaana.main.ifa.IFASettings"
+        android:label="ifa_settings"
+        tools:layout="@layout/ifa_settings" >
+        <action
+            android:id="@+id/action_IFASettings_to_IFA_AccountSettings"
+            app:destination="@id/IFA_AccountSettings" />
+        <action
+            android:id="@+id/action_IFASettings_to_IFAUpdatePassword"
+            app:destination="@id/IFAUpdatePassword" />
+        <action
+            android:id="@+id/action_IFASettings_to_removeClient2"
+            app:destination="@id/removeClient2" />
+    </fragment>
+    <fragment
+        android:id="@+id/IFAUpdatePassword"
+        android:name="com.example.khazaana.main.ifa.IFAUpdatePassword"
+        android:label="ifa_update_password"
+        tools:layout="@layout/ifa_update_password" >
+        <action
+            android:id="@+id/action_IFAUpdatePassword_to_IFASettings"
+            app:destination="@id/IFASettings" />
+    </fragment>
+    <fragment
+        android:id="@+id/removeClient2"
+        android:name="com.example.khazaana.main.ifa.RemoveClient"
+        android:label="remove_client"
+        tools:layout="@layout/remove_client" >
+        <action
+            android:id="@+id/action_removeClient2_to_IFASettings"
+            app:destination="@id/IFASettings" />
+    </fragment>
 </navigation>

@@ -79,7 +79,7 @@
         app:strokeWidth="1dp" />
 
     <Button
-        android:id="@+id/update_password"
+        android:id="@+id/ifa_update_password"
         android:layout_width="307dp"
         android:layout_height="90dp"
         android:backgroundTint="#00000000"

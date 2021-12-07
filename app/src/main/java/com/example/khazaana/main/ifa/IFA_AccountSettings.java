@@ -1,45 +1,50 @@
 package com.example.khazaana.main.ifa;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.khazaana.R;
-import com.example.khazaana.main.Profile;
 
-public class IFA_AccountSettings extends AppCompatActivity {
+public class IFA_AccountSettings extends Fragment {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.ifa_account_settings);
-
-        Button profile = findViewById(R.id.ifa_profile);
-        profile.setOnClickListener(this::ifaProfile);
-
-        Button fees = findViewById(R.id.ifa_fees);
-        fees.setOnClickListener(this::ifaFees);
-
-        Button settings = findViewById(R.id.ifa_settings);
-        settings.setOnClickListener(this::ifaSettings);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.ifa_account_settings, container, false);
     }
 
-    public void ifaProfile(View view) {
-        Intent intent = new Intent(this, Profile.class);
-        startActivity(intent);
-    }
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-    public void ifaFees(View view) {
-        Intent intent = new Intent(this, IFAFees.class);
-        startActivity(intent);
-    }
+        Button profile = view.findViewById(R.id.ifa_profile);
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavDirections action = IFA_AccountSettingsDirections.actionIFAAccountSettingsToProfileFrag();
+                Navigation.findNavController(view).navigate(action);
+            }
+        });
 
-    public void ifaSettings(View view) {
-        Intent intent = new Intent(this, IFASettings.class);
-        startActivity(intent);
+        Button settings = view.findViewById(R.id.ifa_settings);
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavDirections action = IFA_AccountSettingsDirections.actionIFAAccountSettingsToIFASettings();
+                Navigation.findNavController(view).navigate(action);
+            }
+        });
     }
-
 }
