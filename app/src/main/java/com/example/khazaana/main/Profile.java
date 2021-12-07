@@ -1,5 +1,6 @@
 package com.example.khazaana.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.khazaana.R;
+import com.example.khazaana.main.client.ClientRiskProfilingMain;
 
 public class Profile extends Fragment {
     @Override
@@ -33,6 +35,14 @@ public class Profile extends Fragment {
             public void onClick(View view) {
                 NavDirections action = ProfileDirections.actionProfileFragToIFAAccountSettings();
                 Navigation.findNavController(view).navigate(action);
+            }
+        });
+        Button risk_profiling = view.findViewById(R.id.risks2);
+        risk_profiling.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), ClientRiskProfilingMain.class);
+                startActivity(intent);
             }
         });
     }

@@ -80,33 +80,33 @@
     <EditText
         android:id="@+id/first_name_input"
         android:layout_width="344dp"
-        android:layout_height="45dp"
+        android:layout_height="48dp"
         android:backgroundTint="@color/black"
-        android:inputType="text"
-        android:hint="Iron"
         android:fontFamily="@font/montserrat_regular"
+        android:hint="Iron"
+        android:inputType="text"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.326"
+        app:layout_constraintHorizontal_bias="0.313"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.472" />
+        app:layout_constraintVertical_bias="0.484" />
 
 
     <EditText
         android:id="@+id/last_name_input"
         android:layout_width="344dp"
-        android:layout_height="45dp"
+        android:layout_height="48dp"
         android:backgroundTint="@color/black"
         android:fontFamily="@font/montserrat_regular"
         android:hint="Man"
         android:inputType="text"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.326"
+        app:layout_constraintHorizontal_bias="0.313"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.571" />
+        app:layout_constraintVertical_bias="0.597" />
 
     <TextView
         android:id="@+id/last_name"
@@ -115,27 +115,26 @@
         android:fontFamily="@font/montserrat_regular"
         android:text="Last Name"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.063"
+        app:layout_constraintHorizontal_bias="0.062"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.532" />
-
+        app:layout_constraintVertical_bias="0.546" />
 
     <EditText
         android:id="@+id/email_input"
         android:layout_width="344dp"
-        android:layout_height="45dp"
+        android:layout_height="48dp"
         android:backgroundTint="@color/black"
         android:fontFamily="@font/montserrat_regular"
         android:hint="man.iron@yahoo.com"
         android:inputType="text"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.326"
+        app:layout_constraintHorizontal_bias="0.313"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.668" />
+        app:layout_constraintVertical_bias="0.71" />
 
     <TextView
         android:id="@+id/email"
@@ -144,11 +143,11 @@
         android:fontFamily="@font/montserrat_regular"
         android:text="Email"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.062"
+        app:layout_constraintHorizontal_bias="0.056"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.626" />
+        app:layout_constraintVertical_bias="0.653" />
 
     <ImageView
         android:id="@+id/imageView5"
@@ -161,6 +160,17 @@
         app:layout_constraintStart_toEndOf="@+id/profile_icon"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_baseline_add_a_photo_24" />
+
+    <Button
+        android:id="@+id/risks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Risk Profiling"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/email_input"
+        app:layout_constraintVertical_bias="0.486" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

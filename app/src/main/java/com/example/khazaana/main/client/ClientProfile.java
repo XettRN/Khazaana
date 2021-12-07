@@ -41,5 +41,14 @@ public class ClientProfile extends Fragment {
 
             }
         });
+
+        Button risk_profiling = view.findViewById(R.id.risks);
+        risk_profiling.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), ClientRiskProfilingMain.class);
+                startActivity(intent);
+            }
+        });
     }
 }

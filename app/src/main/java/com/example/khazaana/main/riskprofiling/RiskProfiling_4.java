@@ -26,16 +26,18 @@ public class RiskProfiling_4 extends AppCompatActivity {
         Button previousPage = findViewById(R.id.button4);
         previousPage.setOnClickListener(this::previousPage);
 
-        ChipGroup choiceChipGroup = findViewById(R.id.choice_chip_group_4);
-        choiceChipGroup.setOnCheckedChangeListener(new ChipGroup.OnCheckedChangeListener() {
+        ChipGroup choiceChipGroup4 = findViewById(R.id.choice_chip_group_4);
+        choiceChipGroup4.setOnCheckedChangeListener(new ChipGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(ChipGroup chipGroup, @IdRes int i) {
 
                 Log.i("RP4", i + "");
                 for (int j = 0; j < chipGroup.getChildCount(); j++) {
                     Chip c = (Chip) chipGroup.getChildAt(j);
-                    Log.d("TAG", "Chip Selected :" +c.getText());
-                    RiskProfilingValues.setRisk_profiling_value4(String.valueOf(c.getText()));
+                    if (c.isChecked()) {
+                        Log.d("TAG", "Chip Selected :" + c.getText());
+                        RiskProfilingValues.setRisk_profiling_value4(String.valueOf(c.getText()));
+                    }
                 }
             }
         });
