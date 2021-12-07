@@ -18,7 +18,7 @@
         android:id="@+id/clients_frag"
         android:name="com.example.khazaana.main.Clients"
         android:label="fragment_clients"
-        tools:layout="@layout/fragment_clients" >
+        tools:layout="@layout/fragment_clients">
         <action
             android:id="@+id/action_clients_frag_to_add_client_frag"
             app:destination="@id/add_client_frag" />
@@ -30,12 +30,16 @@
         android:id="@+id/profile_frag"
         android:name="com.example.khazaana.main.Profile"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profile_frag_to_IFA_AccountSettings"
+            app:destination="@id/IFA_AccountSettings" />
+    </fragment>
     <fragment
         android:id="@+id/add_stock_frag"
         android:name="com.example.khazaana.main.AddStock"
         android:label="fragment_add_stock"
-        tools:layout="@layout/fragment_add_stock" >
+        tools:layout="@layout/fragment_add_stock">
         <argument android:name="client" />
         <action
             android:id="@+id/action_add_stock_frag_to_stockPortfolio"
@@ -149,4 +153,9 @@
             android:name="crypto_name"
             app:argType="string" />
     </fragment>
+    <activity
+        android:id="@+id/IFA_AccountSettings"
+        android:name="com.example.khazaana.main.ifa.IFA_AccountSettings"
+        android:label="ifa_account_settings"
+        tools:layout="@layout/ifa_account_settings" />
 </navigation>
