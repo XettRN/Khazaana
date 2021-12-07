@@ -360,7 +360,7 @@ public class RiskProfilingValues {
 
         if (sum <= 40) {
             return "Conservative";
-        } else if (sum <= 80) {
+        } else if (sum <= 90) {
             return "Moderate";
         } else {
             return "Aggressive";

@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Khazaana">
         <activity
+            android:name=".main.ifa.RiskProfiling_SpecificClient"
+            android:exported="true" />
+        <activity
             android:name=".main.ifa.IFAFees"
             android:exported="true" />
         <activity
