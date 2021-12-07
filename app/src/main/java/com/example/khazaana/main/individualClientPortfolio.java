@@ -282,6 +282,14 @@ public class individualClientPortfolio extends Fragment {
                                 crypto_total = crypto_total + Double.parseDouble(j.get(j.length() - 1).toString());
                                 crypto1 = "BTC";
                                 cprice1 = Double.parseDouble(j.get(j.length() - 1).toString());
+
+                                // Save bitcoin data
+                                Double[] btc = new Double[9];
+                                for (int i = 0; i < j.length(); i++) {
+                                    btc[i] = Double.parseDouble(j.get(i).toString());
+                                }
+                                CryptoStorage.setBitcoin(btc);
+
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -417,6 +425,14 @@ public class individualClientPortfolio extends Fragment {
                                 crypto_total = crypto_total + Double.parseDouble(j.get(j.length() - 1).toString());
                                 crypto2 = "DOGE";
                                 cprice2 = Double.parseDouble(j.get(j.length() - 1).toString());
+
+                                // Save dogecoin data
+                                Double[] doge = new Double[9];
+                                for (int i = 0; i < j.length(); i++) {
+                                    doge[i] = Double.parseDouble(j.get(i).toString());
+                                }
+                                CryptoStorage.setDogecoin(doge);
+
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -589,6 +605,14 @@ public class individualClientPortfolio extends Fragment {
                                 crypto_total = crypto_total + Double.parseDouble(j.get(j.length() - 1).toString());
                                 crypto3 = "ETH";
                                 cprice3 = Double.parseDouble(j.get(j.length()-1).toString());
+
+                                // Save ethereum data
+                                Double[] eth = new Double[9];
+                                for (int i = 0; i < j.length(); i++) {
+                                    eth[i] = Double.parseDouble(j.get(i).toString());
+                                }
+                                CryptoStorage.setEthereum(eth);
+
                                 current_aum2.setText(current_aum2.getText() + ""+crypto_total);
                                 double crypto_return = ((crypto_total - total2)/ total2)*100;
                                 return2.setText(return2.getText() + "" + crypto_return);

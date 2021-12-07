@@ -44,6 +44,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 
 public class crypto_portfolio extends Fragment {
@@ -147,9 +148,55 @@ public class crypto_portfolio extends Fragment {
                         buyingPrice3 = Double.parseDouble(t.get(2).get("price").toString());
                         q3 = Double.parseDouble(t.get(2).get("quantity").toString());
 
-                        new priceTask1().execute("https://finnhub-backend.herokuapp.com/crypto/ticker?symbol="+t.get(0).get("stock"));
-                        new priceTask2().execute("https://finnhub-backend.herokuapp.com/crypto/ticker?symbol="+t.get(1).get("stock"));
-                        new priceTask3().execute("https://finnhub-backend.herokuapp.com/crypto/ticker?symbol="+t.get(2).get("stock"));
+//                        new priceTask1().execute("https://finnhub-backend.herokuapp.com/crypto/ticker?symbol="+t.get(0).get("stock"));
+//                        new priceTask2().execute("https://finnhub-backend.herokuapp.com/crypto/ticker?symbol="+t.get(1).get("stock"));
+//                        new priceTask3().execute("https://finnhub-backend.herokuapp.com/crypto/ticker?symbol="+t.get(2).get("stock"));
+
+                        String cryptoName1 = (String) t.get(0).get("stock");
+                        Double[] cryptoTicker1;
+                        if (cryptoName1.equals("ETH")) {
+                            cryptoTicker1 = CryptoStorage.getEthereum();
+                        } else if (cryptoName1.equals("BTC")) {
+                            cryptoTicker1 = CryptoStorage.getBitcoin();
+                        } else {
+                            cryptoTicker1 = CryptoStorage.getDogecoin();
+                        }
+
+                        currentP1.setText("Current Price: $" + cryptoTicker1[cryptoTicker1.length - 1]);
+                        cp1 = cryptoTicker1[cryptoTicker1.length - 1];
+                        double returnS1 = ((cp1 - buyingPrice1)/buyingPrice1)*100;
+                        return1.setText("Return: "+returnS1+"%");
+
+                        String cryptoName2 = (String) t.get(1).get("stock");
+                        Double[] cryptoTicker2;
+                        if (cryptoName1.equals("ETH")) {
+                            cryptoTicker2 = CryptoStorage.getEthereum();
+                        } else if (Objects.equals(cryptoName1, "BTC")) {
+                            cryptoTicker2 = CryptoStorage.getBitcoin();
+                        } else {
+                            cryptoTicker2 = CryptoStorage.getDogecoin();
+                        }
+
+                        currentP2.setText("Current Price: $" + cryptoTicker2[cryptoTicker2.length - 1]);
+                        cp2 = cryptoTicker1[cryptoTicker2.length - 1];
+                        double returnS2 = ((cp2 - buyingPrice2)/buyingPrice2)*100;
+                        return2.setText("Return: "+returnS2+"%");
+
+                        String cryptoName3 = (String) t.get(2).get("stock");
+                        Double[] cryptoTicker3;
+                        if (cryptoName1.equals("ETH")) {
+                            cryptoTicker3 = CryptoStorage.getEthereum();
+                        } else if (cryptoName1.equals("BTC")) {
+                            cryptoTicker3 = CryptoStorage.getBitcoin();
+                        } else {
+                            cryptoTicker3 = CryptoStorage.getDogecoin();
+                        }
+
+                        currentP3.setText("Current Price: $" + cryptoTicker3[cryptoTicker3.length - 1]);
+                        cp3 = cryptoTicker3[cryptoTicker3.length - 1];
+                        double returnS3 = ((cp3 - buyingPrice3)/buyingPrice3)*100;
+                        return3.setText("Return: "+returnS3+"%");
+
 
                     } else {
                         Log.d("TAG", "No such document");
