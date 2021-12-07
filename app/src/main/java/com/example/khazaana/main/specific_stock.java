@@ -86,7 +86,7 @@ public class specific_stock extends Fragment {
         DocumentReference ifa = ifas.document((String) getArguments().get("ifaID"));
         CollectionReference clients = ifa.collection("Clients");
         DocumentReference client = clients.document((String) getArguments().get("clientID"));
-        String stock = (String) getArguments().get("stockName");
+        String stock = (String) getArguments().get("stock_name");
         sName.setText(stock);
 
         client.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {

@@ -40,8 +40,10 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class individualClientPortfolio extends Fragment {
 
@@ -151,8 +153,8 @@ public class individualClientPortfolio extends Fragment {
                         new stockPriceTask3().execute("https://finnhub-backend.herokuapp.com/stock/price?symbol="+stocks.get(2).get("stock"));
 
                         new cryptoPriceTask1().execute("https://finnhub-backend.herokuapp.com/crypto/ticker?symbol="+crypto.get(0).get("stock"));
-                        new cryptoPriceTask2().execute("https://finnhub-backend.herokuapp.com/crypto/ticker?symbol="+crypto.get(0).get("stock"));
-                        new cryptoPriceTask3().execute("https://finnhub-backend.herokuapp.com/crypto/ticker?symbol="+crypto.get(0).get("stock"));
+                        new cryptoPriceTask2().execute("https://finnhub-backend.herokuapp.com/crypto/ticker?symbol="+crypto.get(1).get("stock"));
+                        new cryptoPriceTask3().execute("https://finnhub-backend.herokuapp.com/crypto/ticker?symbol="+crypto.get(2).get("stock"));
 
                     } else {
                         Log.d("TAG", "No such document");
@@ -218,7 +220,7 @@ public class individualClientPortfolio extends Fragment {
                         public void run() {
                             try {
                                 stocks_total = stocks_total + Double.parseDouble(j.get("current price").toString());
-                                stock1 = "APPL";
+                                stock1 = Objects.requireNonNull(stocks.get(0).get("stock")).toString();
                                 price1 = Double.parseDouble(j.get("current price").toString());
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -280,15 +282,23 @@ public class individualClientPortfolio extends Fragment {
                         public void run() {
                             try {
                                 crypto_total = crypto_total + Double.parseDouble(j.get(j.length() - 1).toString());
-                                crypto1 = "BTC";
+                                crypto1 = Objects.requireNonNull(crypto.get(0).get("stock")).toString();
                                 cprice1 = Double.parseDouble(j.get(j.length() - 1).toString());
 
-                                // Save bitcoin data
-                                Double[] btc = new Double[9];
+                                Double[] price = new Double[9];
                                 for (int i = 0; i < j.length(); i++) {
-                                    btc[i] = Double.parseDouble(j.get(i).toString());
+                                    price[i] = Double.parseDouble(j.get(i).toString());
                                 }
-                                CryptoStorage.setBitcoin(btc);
+                                if (crypto1.equals("BTC-USD")) {
+                                    CryptoStorage.setBitcoin(price);
+                                    Log.d("TAG", "Run1.1: " + Arrays.toString(CryptoStorage.getBitcoin()));
+                                } else if (crypto1.equals("ETH-USD")) {
+                                    CryptoStorage.setEthereum(price);
+                                    Log.d("TAG", "Run2.1: " + Arrays.toString(CryptoStorage.getEthereum()));
+                                } else {
+                                    CryptoStorage.setDogecoin(price);
+                                    Log.d("TAG", "Run3.1: " + Arrays.toString(CryptoStorage.getDogecoin()));
+                                }
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -360,7 +370,7 @@ public class individualClientPortfolio extends Fragment {
                         public void run() {
                             try {
                                 stocks_total = stocks_total + Double.parseDouble(j.get("current price").toString());
-                                stock2 = "TSLA";
+                                stock2 = Objects.requireNonNull(stocks.get(1).get("stock")).toString();
                                 price2 = Double.parseDouble(j.get("current price").toString());
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -423,15 +433,23 @@ public class individualClientPortfolio extends Fragment {
                         public void run() {
                             try {
                                 crypto_total = crypto_total + Double.parseDouble(j.get(j.length() - 1).toString());
-                                crypto2 = "DOGE";
+                                crypto2 = Objects.requireNonNull(crypto.get(1).get("stock")).toString();
                                 cprice2 = Double.parseDouble(j.get(j.length() - 1).toString());
 
-                                // Save dogecoin data
-                                Double[] doge = new Double[9];
+                                Double[] price = new Double[9];
                                 for (int i = 0; i < j.length(); i++) {
-                                    doge[i] = Double.parseDouble(j.get(i).toString());
+                                    price[i] = Double.parseDouble(j.get(i).toString());
                                 }
-                                CryptoStorage.setDogecoin(doge);
+                                if (crypto2.equals("BTC-USD")) {
+                                    CryptoStorage.setBitcoin(price);
+                                    Log.d("TAG", "Run1.2: " + Arrays.toString(CryptoStorage.getBitcoin()));
+                                } else if (crypto2.equals("ETH-USD")) {
+                                    CryptoStorage.setEthereum(price);
+                                    Log.d("TAG", "Run2.2: " + Arrays.toString(CryptoStorage.getEthereum()));
+                                } else {
+                                    CryptoStorage.setDogecoin(price);
+                                    Log.d("TAG", "Run3.2: " + Arrays.toString(CryptoStorage.getDogecoin()));
+                                }
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -505,7 +523,7 @@ public class individualClientPortfolio extends Fragment {
                                 current_aum1.setText(current_aum1.getText()+""+stocks_total);
                                 double stocks_return = ((stocks_total - total1)/ total1)*100;
                                 return1.setText(return1.getText() + "" + stocks_return);
-                                stock3 = "AMZN";
+                                stock3 = Objects.requireNonNull(stocks.get(2).get("stock")).toString();
                                 price3 = Double.parseDouble(j.get("current price").toString());
                                 //current_aum2.setText(current_aum2.getText() + ""+crypto_total);
 
@@ -603,15 +621,23 @@ public class individualClientPortfolio extends Fragment {
                         public void run() {
                             try {
                                 crypto_total = crypto_total + Double.parseDouble(j.get(j.length() - 1).toString());
-                                crypto3 = "ETH";
+                                crypto3 = Objects.requireNonNull(crypto.get(2).get("stock")).toString();
                                 cprice3 = Double.parseDouble(j.get(j.length()-1).toString());
 
-                                // Save ethereum data
-                                Double[] eth = new Double[9];
+                                Double[] price = new Double[9];
                                 for (int i = 0; i < j.length(); i++) {
-                                    eth[i] = Double.parseDouble(j.get(i).toString());
+                                    price[i] = Double.parseDouble(j.get(i).toString());
                                 }
-                                CryptoStorage.setEthereum(eth);
+                                if (crypto3.equals("BTC-USD")) {
+                                    CryptoStorage.setBitcoin(price);
+                                    Log.d("TAG", "Run1.3: " + Arrays.toString(CryptoStorage.getBitcoin()));
+                                } else if (crypto3.equals("ETH-USD")) {
+                                    CryptoStorage.setEthereum(price);
+                                    Log.d("TAG", "Run2.3: " + Arrays.toString(CryptoStorage.getEthereum()));
+                                } else {
+                                    CryptoStorage.setDogecoin(price);
+                                    Log.d("TAG", "Run3.3: " + Arrays.toString(CryptoStorage.getDogecoin()));
+                                }
 
                                 current_aum2.setText(current_aum2.getText() + ""+crypto_total);
                                 double crypto_return = ((crypto_total - total2)/ total2)*100;

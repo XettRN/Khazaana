@@ -113,7 +113,7 @@ public class client_registration extends AppCompatActivity {
                             eq.add(25);
                             eq.add(75);
                             ArrayList<Triplet> stocks = new ArrayList<>();
-                            Triplet t1 = new Triplet("APPL", 100.0, 50);
+                            Triplet t1 = new Triplet("AAPL", 100.0, 50);
                             Triplet t2 = new Triplet("TSLA", 500.0, 5);
                             Triplet t3 = new Triplet("AMZN",1245.76, 3.78);
                             stocks.add(t1);

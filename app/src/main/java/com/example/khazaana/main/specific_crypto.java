@@ -82,6 +82,7 @@ public class specific_crypto extends Fragment {
         CollectionReference clients = ifa.collection("Clients");
         DocumentReference client = clients.document((String) getArguments().get("clientID"));
         cName.setText((String) getArguments().get("cryptoName"));
+        Log.d("TAG", "Crypto Name" + getArguments().get("crypto_name"));
 
         client.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @SuppressLint("SetTextI18n")
@@ -91,28 +92,35 @@ public class specific_crypto extends Fragment {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         List<Map> t = (List<Map>) document.get("Crypto");
-                        cryptoOwned.setText("Crypto Owned: " + t.get(0).get("quantity"));
-                        buyingPrice.setText("Buying Price: " + t.get(0).get("price"));
-                        boughtPrice = Double.parseDouble(t.get(0).get("price").toString());
+                        String cryptoName = (String) getArguments().get("cryptoName");
+                        for (int i = 0; i < t.size(); i++) {
+                            Log.d("TAG", "Current Crypto" + t.get(i).get("stock"));
+                            if (t.get(i).get("stock") == cryptoName) {
+                                cryptoOwned.setText("Crypto Owned: " + t.get(i).get("quantity"));
+                                buyingPrice.setText("Buying Price: " + t.get(i).get("price"));
+                                boughtPrice = Double.parseDouble(t.get(i).get("price").toString());
+                            }
+                        }
+
 
                         GridLabelRenderer gridLabel = g.getGridLabelRenderer();
                         gridLabel.setHorizontalAxisTitle("Days");
                         gridLabel.setVerticalAxisTitle("Price");
 
-                        String cryptoName = (String) getArguments().get("cryptoName");
+
                         Double[] cryptoTicker;
-                        if (cryptoName == "ETH") {
+                        if (cryptoName == "ETH-USD") {
                             cryptoTicker = CryptoStorage.getEthereum();
-                        } else if (cryptoName == "BTC") {
+                        } else if (cryptoName == "BTC-USD") {
                             cryptoTicker = CryptoStorage.getBitcoin();
                         } else {
                             cryptoTicker = CryptoStorage.getDogecoin();
                         }
 
                         currentP.setText("$" + d.format(cryptoTicker[cryptoTicker.length - 1]));
-                        priceC.setText("$" + d.format(cryptoTicker[cryptoTicker.length - 3]));
+                        priceC.setText("$" + d.format(cryptoTicker[cryptoTicker.length - 2]));
                         String cp = cryptoTicker[cryptoTicker.length - 1].toString();
-                        String pp = cryptoTicker[cryptoTicker.length - 3].toString();
+                        String pp = cryptoTicker[cryptoTicker.length - 2].toString();
                         double currP = Double.parseDouble(cp);
                         double prevP = Double.parseDouble(pp);
                         double percent = (currP - prevP) / prevP;
@@ -132,14 +140,14 @@ public class specific_crypto extends Fragment {
 
                         LineGraphSeries<DataPoint> s = new LineGraphSeries<DataPoint>(new DataPoint[]{
                                 new DataPoint(0, cryptoTicker[0]),
-                                new DataPoint(1, cryptoTicker[0]),
-                                new DataPoint(2, cryptoTicker[0]),
-                                new DataPoint(3, cryptoTicker[0]),
-                                new DataPoint(4, cryptoTicker[0]),
-                                new DataPoint(5, cryptoTicker[0]),
-                                new DataPoint(6, cryptoTicker[0]),
-                                new DataPoint(7, cryptoTicker[0]),
-                                new DataPoint(8, cryptoTicker[0])
+                                new DataPoint(1, cryptoTicker[1]),
+                                new DataPoint(2, cryptoTicker[2]),
+                                new DataPoint(3, cryptoTicker[3]),
+                                new DataPoint(4, cryptoTicker[4]),
+                                new DataPoint(5, cryptoTicker[5]),
+                                new DataPoint(6, cryptoTicker[6]),
+                                new DataPoint(7, cryptoTicker[7]),
+                                new DataPoint(8, cryptoTicker[8])
                         });
 
                         g.addSeries(s);

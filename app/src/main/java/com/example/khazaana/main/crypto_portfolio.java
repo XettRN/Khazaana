@@ -42,6 +42,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -154,48 +155,84 @@ public class crypto_portfolio extends Fragment {
 
                         String cryptoName1 = (String) t.get(0).get("stock");
                         Double[] cryptoTicker1;
-                        if (cryptoName1.equals("ETH")) {
-                            cryptoTicker1 = CryptoStorage.getEthereum();
-                        } else if (cryptoName1.equals("BTC")) {
+                        if (Objects.equals(cryptoName1, "DOGE-USD")) {
+                            cryptoTicker1 = CryptoStorage.getDogecoin();
+                        } else if (Objects.equals(cryptoName1, "BTC-USD")) {
                             cryptoTicker1 = CryptoStorage.getBitcoin();
                         } else {
-                            cryptoTicker1 = CryptoStorage.getDogecoin();
+                            cryptoTicker1 = CryptoStorage.getEthereum();
                         }
+                        Log.d("TAG", "Crypto1: " + cryptoName1);
+                        Log.d("TAG", "CryptoTicker1: " + Arrays.toString(cryptoTicker1));
 
                         currentP1.setText("Current Price: $" + cryptoTicker1[cryptoTicker1.length - 1]);
                         cp1 = cryptoTicker1[cryptoTicker1.length - 1];
                         double returnS1 = ((cp1 - buyingPrice1)/buyingPrice1)*100;
+                        Log.d("TAG", "CurrentPrice: " + cp1);
+                        Log.d("TAG", "BuyingPrice: " + buyingPrice1);
+                        Log.d("TAG", "Return: " + returnS1);
                         return1.setText("Return: "+returnS1+"%");
+
+
+
 
                         String cryptoName2 = (String) t.get(1).get("stock");
                         Double[] cryptoTicker2;
-                        if (cryptoName1.equals("ETH")) {
-                            cryptoTicker2 = CryptoStorage.getEthereum();
-                        } else if (Objects.equals(cryptoName1, "BTC")) {
+                        if (Objects.equals(cryptoName2, "BTC-USD")) {
                             cryptoTicker2 = CryptoStorage.getBitcoin();
+                        } else if (Objects.equals(cryptoName2, "ETH-USD")) {
+                            cryptoTicker2 = CryptoStorage.getEthereum();
                         } else {
                             cryptoTicker2 = CryptoStorage.getDogecoin();
                         }
+                        Log.d("TAG", "Crypto2: " + cryptoName2);
+                        Log.d("TAG", "CryptoTicker2: " + Arrays.toString(cryptoTicker2));
 
                         currentP2.setText("Current Price: $" + cryptoTicker2[cryptoTicker2.length - 1]);
-                        cp2 = cryptoTicker1[cryptoTicker2.length - 1];
+                        cp2 = cryptoTicker2[cryptoTicker2.length - 1];
                         double returnS2 = ((cp2 - buyingPrice2)/buyingPrice2)*100;
+                        Log.d("TAG", "CurrentPrice: " + cp2);
+                        Log.d("TAG", "BuyingPrice: " + buyingPrice2);
+                        Log.d("TAG", "Return: " + returnS2);
                         return2.setText("Return: "+returnS2+"%");
+
+
+
 
                         String cryptoName3 = (String) t.get(2).get("stock");
                         Double[] cryptoTicker3;
-                        if (cryptoName1.equals("ETH")) {
+                        if (Objects.equals(cryptoName3, "ETH-USD")) {
                             cryptoTicker3 = CryptoStorage.getEthereum();
-                        } else if (cryptoName1.equals("BTC")) {
+                        } else if (Objects.equals(cryptoName3, "BTC-USD")) {
                             cryptoTicker3 = CryptoStorage.getBitcoin();
                         } else {
                             cryptoTicker3 = CryptoStorage.getDogecoin();
                         }
+                        Log.d("TAG", "Crypto3: " + cryptoName3);
+                        Log.d("TAG", "CryptoTicker3: " + Arrays.toString(cryptoTicker3));
 
                         currentP3.setText("Current Price: $" + cryptoTicker3[cryptoTicker3.length - 1]);
                         cp3 = cryptoTicker3[cryptoTicker3.length - 1];
                         double returnS3 = ((cp3 - buyingPrice3)/buyingPrice3)*100;
+                        Log.d("TAG", "CurrentPrice: " + cp3);
+                        Log.d("TAG", "BuyingPrice: " + buyingPrice3);
+                        Log.d("TAG", "Return: " + returnS3);
                         return3.setText("Return: "+returnS3+"%");
+
+                        double total = cp1*q1 + cp2*q2 + cp3*q3;
+                        double invst1 = cp1*q1 / total;
+                        double invst2 = cp2*q2 / total;
+                        double invst3 = cp3*q3 / total;
+                        Log.d("TAG", "Invst1: " + invst1);
+                        Log.d("TAG", "Invst2: " + invst2);
+                        Log.d("TAG", "Invst3: " + invst3);
+
+                        crypto = new ArrayList<>();
+                        crypto.add(invst1);
+                        crypto.add(invst2);
+                        crypto.add(invst3);
+                        pieChart.setData(getPieData(crypto));
+                        pieChart.invalidate();
 
 
                     } else {
@@ -214,7 +251,7 @@ public class crypto_portfolio extends Fragment {
             @Override
             public void onClick(View view) {
                 //add fragment to bottomnav.xml so this can be written
-                NavDirections navDirections = crypto_portfolioDirections.actionCryptoPortfolioToSpecificCrypto((String) getArguments().get("clientID"), (String) getArguments().get("ifaID"),""+t.get(2).get("stock"));
+                NavDirections navDirections = crypto_portfolioDirections.actionCryptoPortfolioToSpecificCrypto((String) getArguments().get("clientID"), (String) getArguments().get("ifaID"), (String) t.get(2).get("stock"));
                 Navigation.findNavController(root).navigate(navDirections);
             }
         });
@@ -415,6 +452,9 @@ public class crypto_portfolio extends Fragment {
                                 double invst1 = cp1*q1 / total;
                                 double invst2 = cp2*q2 / total;
                                 double invst3 = cp3*q3 / total;
+                                Log.d("TAG", "Invst1: " + invst1);
+                                Log.d("TAG", "Invst1: " + invst2);
+                                Log.d("TAG", "Invst1: " + invst3);
 
                                 crypto = new ArrayList<>();
                                 crypto.add(invst1);
