@@ -189,8 +189,8 @@
 
     <TextView
         android:id="@+id/textView36"
-        android:layout_width="320dp"
-        android:layout_height="35dp"
+        android:layout_width="343dp"
+        android:layout_height="37dp"
         android:fontFamily="@font/roboto_bold"
         android:text="What is your objective behind investing?"
         android:textAlignment="center"
@@ -200,10 +200,9 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.152" />
+        app:layout_constraintVertical_bias="0.149" />
 
     <Button
         android:id="@+id/next10"

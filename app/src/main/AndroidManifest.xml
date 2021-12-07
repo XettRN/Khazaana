@@ -115,7 +115,7 @@
             android:name=".main.ifa.IFARegistration"
             android:exported="true" />
         <activity
-            android:name=".userDetails"
+            android:name=".main.client.userDetails"
             android:exported="true" />
         <activity
             android:name=".main.client.ClientAccountSettings"

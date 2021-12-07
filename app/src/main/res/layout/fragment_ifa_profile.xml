@@ -7,6 +7,17 @@
     tools:context=".LoadScreen">
 
     <Button
+        android:id="@+id/risks2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Risk Profiling"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/email_input"
+        app:layout_constraintVertical_bias="0.486" />
+
+    <Button
         android:id="@+id/back_ifa_profile"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="48dp"
