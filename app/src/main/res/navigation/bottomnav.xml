@@ -197,4 +197,9 @@
             android:id="@+id/action_removeClient2_to_IFASettings"
             app:destination="@id/IFASettings" />
     </fragment>
+    <fragment
+        android:id="@+id/deleteStock"
+        android:name="com.example.khazaana.main.DeleteStock"
+        android:label="fragment_delete_stock"
+        tools:layout="@layout/fragment_delete_stock" />
 </navigation>
