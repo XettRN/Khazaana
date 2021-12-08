@@ -160,7 +160,7 @@ public class Home extends Fragment {
     private double calculateAUM(List<Map> stocks) {
         if (stocks != null) {
             double totalS = 0;
-            for (int i = 0; i < 3; i++) {
+            for (int i = 0; i < stocks.size(); i++) {
                 totalS = totalS + Double.parseDouble(stocks.get(i).get("price").toString()) * Double.parseDouble(stocks.get(i).get("quantity").toString());
             }
             return totalS;

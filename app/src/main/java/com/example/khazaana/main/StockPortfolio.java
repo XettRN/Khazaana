@@ -168,7 +168,7 @@ public class StockPortfolio extends Fragment {
 
         //navigation will have to pass in the client from previous location
         //(from home or client list screen)
-        String passedInClientID = "EJCyh9saTPZ9YzHvdtdN";
+        String passedInClientID = (String) getArguments().get("clientID");
 
         String user = FirebaseAuth.getInstance().getUid();
         DocumentReference clientID = db.collection("Authorized IFAs")
@@ -187,6 +187,9 @@ public class StockPortfolio extends Fragment {
                             .actionStockPortfolioToAddStockFrag(clientID.getId());
                     Navigation.findNavController(view).navigate(navDirections);
                     return true;
+                }
+                if (i == R.id.delete_asset_button) {
+                    NavDirections navDirections;
                 }
                 return StockPortfolio.super.onOptionsItemSelected(item);
             }

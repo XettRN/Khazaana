@@ -80,7 +80,7 @@ public class Clients extends Fragment {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         Log.d("CLIENTS", document.getId() + " => " + document.getData());
                         String fullName = document.get("First Name") + " " + document.get("Last Name");
-                        addClientToList(view, fullName, params, layout, "EJCyh9saTPZ9YzHvdtdN");
+                        addClientToList(view, fullName, params, layout, document.getId());
                     }
                 }
                 else {
@@ -104,7 +104,8 @@ public class Clients extends Fragment {
             public void onClick(View view) {
                 //add fragment to bottomnav.xml so this can be written
                 NavDirections navDirections = ClientsDirections
-                        .actionClientsFragToIndividualClientPortfolio((String) getArguments().get("clientID"), (String) getArguments().get("ifaID"));
+                        .actionClientsFragToIndividualClientPortfolio(clientID,
+                                FirebaseAuth.getInstance().getUid());
                 Navigation.findNavController(root).navigate(navDirections);
             }
         });

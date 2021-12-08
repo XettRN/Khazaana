@@ -7,5 +7,10 @@
         android:icon="@drawable/ic_baseline_add_24"
         android:title="AddAsset"
         app:showAsAction="always"/>
+    <item
+        android:id="@+id/delete_asset_button"
+        android:icon="@drawable/ic_baseline_delete_24"
+        android:title="RemoveAsset"
+        app:showAsAction="always" />
 
 </menu>
