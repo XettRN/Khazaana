@@ -39,7 +39,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-public class IFAHome extends Fragment {
+public class Home extends Fragment {
     private NumberFormat format = NumberFormat.getCurrencyInstance(Locale.US);
 
     @Override
@@ -68,13 +68,13 @@ public class IFAHome extends Fragment {
 //        });
     }
     // calculates summary of aum, benchmark, etc
-    private void calculateSummary(ArrayList<IFAHome.PortfolioData> data) {
+    private void calculateSummary(ArrayList<Home.PortfolioData> data) {
         // TODO: calculate equity summary
         LayoutInflater factory = getLayoutInflater();
         View homeHeader = factory.inflate(R.layout.fragment_home_summary, null);
         int numClients = data.size();
         double aum = 0; // calculate total aum
-        for (IFAHome.PortfolioData item : data) {
+        for (Home.PortfolioData item : data) {
             aum += item.aum;
         }
 
@@ -134,7 +134,7 @@ public class IFAHome extends Fragment {
     }
 
     // Finds the top 5 portfolios to display given a list of client portfolio data
-    private ArrayList<IFAHome.PortfolioData> filterPortfolios(ArrayList<IFAHome.PortfolioData> data) {
+    private ArrayList<Home.PortfolioData> filterPortfolios(ArrayList<Home.PortfolioData> data) {
         if (data.size() <= 5) {
             return data;
         } else {
@@ -149,7 +149,7 @@ public class IFAHome extends Fragment {
                         return 0;
                 }
             });
-            ArrayList<IFAHome.PortfolioData> filterdList = new ArrayList<>();
+            ArrayList<Home.PortfolioData> filterdList = new ArrayList<>();
             for (int i = 0; i < 5; i++) {
                 filterdList.add(data.get(i));
             }
@@ -170,7 +170,7 @@ public class IFAHome extends Fragment {
 
     // Displays top 5 portfolios
     private void displayPortfolios() {
-        ArrayList<IFAHome.PortfolioData> data = new ArrayList<IFAHome.PortfolioData>();
+        ArrayList<Home.PortfolioData> data = new ArrayList<Home.PortfolioData>();
         String user = FirebaseAuth.getInstance().getUid();
         assert user != null;
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -199,7 +199,7 @@ public class IFAHome extends Fragment {
                             double benchmarkReturn = 10;
 
                             // TODO: figure out return and benchmark return
-                            data.add(new IFAHome.PortfolioData(firstName + " " + lastName, aum, return_perc,
+                            data.add(new Home.PortfolioData(firstName + " " + lastName, aum, return_perc,
                                     benchmarkReturn, equity, document.getId()));
                             Log.d("TAG", "LIST SIZE: " + data.size());
                         } else {
@@ -207,11 +207,11 @@ public class IFAHome extends Fragment {
                         }
                     }
 
-                    ArrayList<IFAHome.PortfolioData> top5Data = filterPortfolios(data);
+                    ArrayList<Home.PortfolioData> top5Data = filterPortfolios(data);
                     calculateSummary(data);
 
                     ListView listView = (ListView) getView().findViewById(R.id.listView);
-                    listView.setAdapter(new IFAHome.MyListAdapter(getContext(), R.layout.ifa_home_client_summary_item, top5Data));
+                    listView.setAdapter(new Home.MyListAdapter(getContext(), R.layout.ifa_home_client_summary_item, top5Data));
 
                 } else {
                     Log.d("TAG", "get failed with ", task.getException());
@@ -233,9 +233,9 @@ public class IFAHome extends Fragment {
     }
 
 
-    private class MyListAdapter extends ArrayAdapter<IFAHome.PortfolioData> {
+    private class MyListAdapter extends ArrayAdapter<Home.PortfolioData> {
         private int layout;
-        private MyListAdapter(@NonNull Context context, int resource, @NonNull List<IFAHome.PortfolioData> objects) {
+        private MyListAdapter(@NonNull Context context, int resource, @NonNull List<Home.PortfolioData> objects) {
             super(context, resource, objects);
             layout = resource;
         }
@@ -243,11 +243,11 @@ public class IFAHome extends Fragment {
         @NonNull
         @Override
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-            IFAHome.ViewHolder mainViewHolder = null;
+            Home.ViewHolder mainViewHolder = null;
             if (convertView == null) {
                 LayoutInflater inflater = LayoutInflater.from(getContext());
                 convertView = inflater.inflate(layout, parent, false);
-                IFAHome.ViewHolder viewHolder = new IFAHome.ViewHolder();
+                Home.ViewHolder viewHolder = new Home.ViewHolder();
                 viewHolder.clientName = (TextView) convertView.findViewById(R.id.client_name);
                 viewHolder.pieChart = (PieChart) convertView.findViewById(R.id.pieChart);
                 viewHolder.aum = (TextView) convertView.findViewById(R.id.aum);
@@ -255,7 +255,7 @@ public class IFAHome extends Fragment {
                 viewHolder.benchmarkReturn = (TextView) convertView.findViewById(R.id.bench_return);
                 convertView.setTag(viewHolder);
             } else {
-                mainViewHolder = (IFAHome.ViewHolder) convertView.getTag();
+                mainViewHolder = (Home.ViewHolder) convertView.getTag();
                 mainViewHolder.clientName.setText(getItem(position).clientName);
                 mainViewHolder.pieChart.setData(getPieData(getItem(position).equity));
                 mainViewHolder.pieChart.invalidate();
@@ -267,7 +267,7 @@ public class IFAHome extends Fragment {
                     @Override
                     public void onClick(View view) {
                         //add fragment to bottomnav.xml so this can be written
-                        NavDirections navDirections = IFAHomeDirections.
+                        NavDirections navDirections = HomeDirections.
                                 actionHomeFragToIndividualClientPortfolio(getItem(position).cliendId, FirebaseAuth.getInstance().getCurrentUser().getUid());
                         Navigation.findNavController(root).navigate(navDirections);
                     }
