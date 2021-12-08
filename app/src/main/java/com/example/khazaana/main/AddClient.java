@@ -24,7 +24,9 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class AddClient extends Fragment {
@@ -58,8 +60,8 @@ public class AddClient extends Fragment {
                 }
                 else {
                     Map<String, Object> data = new HashMap<>();
-                    AssetEntry[] stocks = {};
-                    AssetEntry[] crypto = {};
+                    ArrayList<AssetEntry> stocks = new ArrayList<>();
+                    ArrayList<AssetEntry> crypto = new ArrayList<>();
                     data.put("First Name", first);
                     data.put("Last Name", last);
                     data.put("Stocks", stocks);
