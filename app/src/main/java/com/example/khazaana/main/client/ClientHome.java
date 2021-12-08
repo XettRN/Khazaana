@@ -1,4 +1,4 @@
-package com.example.khazaana.main;
+package com.example.khazaana.main.client;
 
 import android.content.Context;
 import android.os.Bundle;
