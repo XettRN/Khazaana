@@ -142,9 +142,6 @@
             android:name=".main.client.ClientUpdatePassword"
             android:exported="true" />
         <activity
-            android:name=".main.ifa.AddNewClient"
-            android:exported="true" />
-        <activity
             android:name=".main.ifa.RemoveClient"
             android:exported="true" />
         <activity
