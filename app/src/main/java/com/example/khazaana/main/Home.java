@@ -14,12 +14,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.khazaana.MainActivity;
-import com.example.khazaana.Portfolio;
 import com.example.khazaana.R;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
@@ -30,7 +27,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -85,7 +81,7 @@ public class Home extends Fragment {
         TextView numClientsText = homeHeader.findViewById(R.id.numClients);
         TextView aumText = homeHeader.findViewById(R.id.aumSummary);
         PieChart summaryPie = homeHeader.findViewById(R.id.overallSummaryPie);
-        TextView top5 = homeHeader.findViewById(R.id.topClients);
+        TextView top5 = homeHeader.findViewById(R.id.topPerformers);
 
         if (data.size() == 0) {
             numClientsText.setText("Clients: 0");
@@ -103,7 +99,17 @@ public class Home extends Fragment {
             numClientsText.setText("Clients: " + numClients);
             aumText.setText("AUM: " + format.format(aum));
 
-            summaryPie.setData(getSummaryPieData(data.get(0).equity)); // need to pass in total amount, not just for one client
+            double equitySum = 0;
+            double debtSum = 0;
+            for (PortfolioData element : data) {
+                equitySum += (long) element.equity.get(0);
+                debtSum += (long) element.equity.get(1);
+            }
+            List<Number> list = new ArrayList<>();
+            list.add((long) (equitySum/numClients));
+            list.add( (long) (debtSum/numClients));
+
+            summaryPie.setData(getSummaryPieData(list)); // need to pass in total amount, not just for one client
             summaryPie.invalidate();
         }
 
@@ -202,10 +208,10 @@ public class Home extends Fragment {
                     }
 
                     ArrayList<Home.PortfolioData> top5Data = filterPortfolios(data);
-                    calculateSummary(top5Data);
+                    calculateSummary(data);
 
                     ListView listView = (ListView) getView().findViewById(R.id.listView);
-                    listView.setAdapter(new Home.MyListAdapter(getContext(), R.layout.client_summary_item, top5Data));
+                    listView.setAdapter(new Home.MyListAdapter(getContext(), R.layout.ifa_home_client_summary_item, top5Data));
 
                 } else {
                     Log.d("TAG", "get failed with ", task.getException());

@@ -18,7 +18,7 @@
             android:text="Summary"
             android:textSize="30dp"
             android:translationX="20dp"
-            android:translationY="70dp"
+            android:translationY="30dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -62,14 +62,14 @@
             android:gravity="center|center_vertical"
             android:text="Clients:"
             android:textSize="15dp"
-            app:layout_constraintBottom_toTopOf="@+id/topClients"
+            app:layout_constraintBottom_toTopOf="@+id/topPerformers"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.65"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/aumSummary" />
 
         <TextView
-            android:id="@+id/topClients"
+            android:id="@+id/topPerformers"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
