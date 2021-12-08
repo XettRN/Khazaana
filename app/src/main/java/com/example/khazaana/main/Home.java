@@ -208,7 +208,7 @@ public class Home extends Fragment {
                     }
 
                     ArrayList<Home.PortfolioData> top5Data = filterPortfolios(data);
-                    calculateSummary(top5Data);
+                    calculateSummary(data);
 
                     ListView listView = (ListView) getView().findViewById(R.id.listView);
                     listView.setAdapter(new Home.MyListAdapter(getContext(), R.layout.ifa_home_client_summary_item, top5Data));
