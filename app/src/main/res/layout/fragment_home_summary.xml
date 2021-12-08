@@ -18,7 +18,7 @@
             android:text="Summary"
             android:textSize="30dp"
             android:translationX="20dp"
-            android:translationY="70dp"
+            android:translationY="30dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
