@@ -145,6 +145,9 @@
         <argument
             android:name="clientID"
             app:argType="string" />
+        <argument
+            android:name="ifaID"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/specific_crypto"
@@ -230,6 +233,9 @@
             app:destination="@id/cryptoPortfolio" />
         <argument
             android:name="clientID"
+            app:argType="string" />
+        <argument
+            android:name="ifaID"
             app:argType="string" />
     </fragment>
 </navigation>

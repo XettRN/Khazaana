@@ -1,7 +1,6 @@
 package com.example.khazaana.main;
 
 import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,19 +17,11 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.khazaana.CallAPI;
 import com.example.khazaana.R;
-import com.example.khazaana.RequestSingleton;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -38,21 +29,10 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -105,7 +85,7 @@ public class StockPortfolio extends Fragment {
                 if (task.isSuccessful()) {
                     DocumentSnapshot doc = task.getResult();
                     if (doc.exists()) {
-                        TextView name = view.findViewById(R.id.stock_client_name);
+                        TextView name = view.findViewById(R.id.crypto_client_name);
                         name.setText(doc.get("First Name") + " " + doc.get("Last Name"));
 
                         List<Map> list = (List<Map>) doc.get("Stocks");
@@ -282,7 +262,6 @@ public class StockPortfolio extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull StockAdapter.ViewHolder holder, int position) {
             AssetEntry entry = stocks.get(position);
-            float calcReturn = 0;
 
             CallAPI call = new CallAPI();
             call.calcStock(getContext(), entry, new CallAPI.StockListener() {

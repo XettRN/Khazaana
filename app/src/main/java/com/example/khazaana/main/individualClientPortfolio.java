@@ -101,8 +101,6 @@ public class individualClientPortfolio extends Fragment {
     double totalAUM;
     double finalReturn;
 
-    int counter;
-
     TextView aum;
     TextView totalReturn;
     TextView totalBench;
@@ -186,7 +184,6 @@ public class individualClientPortfolio extends Fragment {
                         double totalAssets = stocks.size() + crypto.size();
 
                         CallAPI callAPI = new CallAPI();
-                        counter = 0;
 
                         //calculations and api calls
                         if (stocks.size() > 0) {
@@ -202,7 +199,7 @@ public class individualClientPortfolio extends Fragment {
                                 callAPI.calcStock(getContext(), a, new CallAPI.StockListener() {
                                     @Override
                                     public void OnError(String message) {
-                                        Toast.makeText(getContext(), "Error!", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
                                     }
 
                                     @Override
@@ -220,7 +217,6 @@ public class individualClientPortfolio extends Fragment {
                                         totalAUM += (stockPrice * a.getQuantity());
                                         returnStock += (stockReturn * a.getQuantity());
                                         finalReturn += (stockReturn * a.getQuantity());
-                                        counter++;
 
                                         stockInitAUM.setText("Initial AUM: " + initStock);
                                         stockCurrAUM.setText("Current AUM: " + totalStock);
@@ -241,7 +237,48 @@ public class individualClientPortfolio extends Fragment {
                             stockBench.setText(stockBench.getText() + " 0");
                         }
                         if (crypto.size() > 0) {
-                            //calcCrypto(crypto);
+                            for (int i = 0; i < crypto.size(); i++) {
+                                AssetEntry a = new AssetEntry();
+                                a.setStock(crypto.get(i).get("stock").toString());
+                                a.setPrice(Float.parseFloat(stocks.get(i).get("price").toString()));
+                                a.setQuantity(Float.parseFloat(stocks.get(i).get("quantity").toString()));
+
+                                initCrypto += a.getPrice();
+                                initAUM += a.getPrice();
+
+                                callAPI.calcCrypto(getContext(), a, new CallAPI.CryptoListener() {
+                                    @Override
+                                    public void OnError(String message) {
+                                        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+                                    }
+
+                                    @Override
+                                    public void OnResponse(String name, double cryptoPrice, double cryptoReturn) {
+                                        if (cryptoPrice > perf1Price) {
+                                            perf1Price = cryptoPrice;
+                                            firstPerf.setText(name);
+                                        }
+                                        else if (cryptoPrice > perf2Price) {
+                                            perf2Price = cryptoPrice;
+                                            secPerf.setText(name);
+                                        }
+
+                                        totalCrypto += (cryptoPrice * a.getQuantity());
+                                        totalAUM += (cryptoPrice * a.getQuantity());
+                                        returnCrypto += (cryptoReturn * a.getQuantity());
+                                        finalReturn += (cryptoReturn * a.getQuantity());
+
+                                        cryptoInitAUM.setText("Initial AUM: " + initCrypto);
+                                        cryptoCurrAUM.setText("Current AUM: " + totalCrypto);
+                                        cryptoReturnText.setText("Return: " + returnCrypto);
+                                        cryptoBench.setText("Benchmark Return: " + (0.1 * initCrypto));
+
+                                        aum.setText("AUM " + totalAUM);
+                                        totalReturn.setText("Return: " + finalReturn);
+                                        totalBench.setText("Benchmark Return: " + (0.1 * initAUM));
+                                    }
+                                });
+                            }
                         }
                         else {
                             cryptoInitAUM.setText(cryptoInitAUM.getText() + " 0");
@@ -284,95 +321,6 @@ public class individualClientPortfolio extends Fragment {
                 Navigation.findNavController(root).navigate(navDirections);
             }
         });
-    }
-
-    private void calcCrypto(List<Map> crypto) {
-        String url = "https://finnhub-backend.herokuapp.com/crypto/ticker?symbol=";
-        initCrypto = 0;
-        totalCrypto = 0;
-
-        for (int i = 0; i < crypto.size() - 1; i++) {
-            initCrypto += Double.parseDouble(crypto.get(i).get("price").toString());
-            String complete = url + crypto.get(i).get("stock");
-            Log.d("IND_PORT", complete);
-            final String name = crypto.get(i).get("stock").toString();
-            final double quantity = Double.parseDouble(crypto.get(i).get("quantity").toString());
-            JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, complete,
-                    null, new Response.Listener<JSONArray>() {
-                @Override
-                public void onResponse(JSONArray response) {
-                    try {
-                        double cryptoPrice = Double
-                                .parseDouble(response.get(response.length() - 1).toString())
-                                * quantity;
-                        if (cryptoPrice > perf1Price) {
-                            perf1Price = cryptoPrice;
-                            firstPerf.setText(name);
-                        }
-                        else if (cryptoPrice > perf2Price) {
-                            perf2Price = cryptoPrice;
-                            secPerf.setText(name);
-                        }
-                        totalCrypto += cryptoPrice;
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(getContext(), "Error!", Toast.LENGTH_SHORT).show();
-                }
-            });
-            RequestSingleton.getInstance(getContext()).addToRequestQueue(request);
-        }
-
-        //final request, update view
-        initCrypto += Double.parseDouble(crypto.get(crypto.size() - 1).get("price").toString());
-        String complete = url + crypto.get(crypto.size() - 1).get("stock");
-        Log.d("IND_PORT", complete);
-        final String name = crypto.get(crypto.size() - 1).get("stock").toString();
-        final double quantity = Double.parseDouble(crypto.get(crypto.size() - 1).get("quantity").toString());
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, complete,
-                null, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-                try {
-                    double cryptoPrice = Double
-                            .parseDouble(response.get(response.length() - 1).toString())
-                            * quantity;
-                    if (cryptoPrice > perf1Price) {
-                        perf1Price = cryptoPrice;
-                        firstPerf.setText(name);
-                    }
-                    else if (cryptoPrice > perf2Price) {
-                        perf2Price = cryptoPrice;
-                        secPerf.setText(name);
-                    }
-                    totalCrypto += cryptoPrice;
-
-                    double calcReturn = totalCrypto - initCrypto;
-                    cryptoInitAUM.setText(cryptoInitAUM.getText() + " " + initCrypto);
-                    cryptoCurrAUM.setText(cryptoCurrAUM.getText() + " " + totalCrypto);
-                    cryptoReturnText.setText(cryptoReturnText.getText() + " " + calcReturn);
-                    cryptoBench.setText(cryptoBench.getText() + " " + (initCrypto * 1.1));
-
-                    totalAUM += totalCrypto;
-                    finalReturn += calcReturn;
-                    aum.setText("AUM " + totalAUM);
-                    totalReturn.setText("Return: " + finalReturn);
-                    totalBench.setText("Benchmark Return: " + (finalReturn * 1.1));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(), "Error!", Toast.LENGTH_SHORT).show();
-            }
-        });
-        RequestSingleton.getInstance(getContext()).addToRequestQueue(request);
     }
 
     /*
