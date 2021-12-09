@@ -184,7 +184,7 @@ public class individualClientPortfolio extends Fragment {
                             stockBench.setText(stockBench.getText() + " 0");
                         }
                         if (crypto.size() > 0) {
-                            calcCrypto(crypto);
+                            //calcCrypto(crypto);
                         }
                         else {
                             cryptoInitAUM.setText(cryptoInitAUM.getText() + " 0");
@@ -234,10 +234,9 @@ public class individualClientPortfolio extends Fragment {
         initStock = 0;
         totalStock = 0;
 
-        for (int i = 0; i < stocks.size() - 1; i++) {
+        for (int i = 0; i < stocks.size(); i++) {
             initStock += Double.parseDouble(stocks.get(i).get("price").toString());
             String complete = url + stocks.get(i).get("stock");
-            Log.d("IND_PORT", complete);
             final String name = stocks.get(i).get("stock").toString();
             final double quantity = Double.parseDouble(stocks.get(i).get("quantity").toString());
             JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, complete,
@@ -246,6 +245,7 @@ public class individualClientPortfolio extends Fragment {
                 public void onResponse(JSONObject response) {
                     try {
                         double stockPrice = response.getDouble("current price") * quantity;
+                        Log.d("IND_PORT", "" + stockPrice);
                         if (stockPrice > perf1Price) {
                             perf1Price = stockPrice;
                             firstPerf.setText(name);
@@ -255,6 +255,18 @@ public class individualClientPortfolio extends Fragment {
                             secPerf.setText(name);
                         }
                         totalStock += stockPrice;
+
+                        double calcReturn = totalStock - initStock;
+                        stockInitAUM.setText("Initial AUM: " + initStock);
+                        stockCurrAUM.setText("Current AUM: " + totalStock);
+                        stockReturn.setText("Return: " + calcReturn);
+                        stockBench.setText("Benchmark: " + (initStock * 1.1));
+
+                        totalAUM += totalStock;
+                        finalReturn += calcReturn;
+                        aum.setText("AUM " + totalAUM);
+                        totalReturn.setText("Return: " + finalReturn);
+                        totalBench.setText("Benchmark Return: " + (finalReturn * 1.1));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -267,8 +279,7 @@ public class individualClientPortfolio extends Fragment {
             });
             RequestSingleton.getInstance(getContext()).addToRequestQueue(request);
         }
-
-        //final request, update view
+        /*
         initStock += Double.parseDouble(stocks.get(stocks.size() - 1) .get("price").toString());
         String complete = url + stocks.get(stocks.size() - 1).get("stock");
         Log.d("IND_PORT", complete);
@@ -313,6 +324,7 @@ public class individualClientPortfolio extends Fragment {
             }
         });
         RequestSingleton.getInstance(getContext()).addToRequestQueue(request);
+        */
     }
 
     private void calcCrypto(List<Map> crypto) {

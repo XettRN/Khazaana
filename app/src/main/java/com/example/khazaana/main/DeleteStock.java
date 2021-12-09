@@ -42,7 +42,7 @@ public class DeleteStock extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        String ifaID = FirebaseAuth.getInstance().getUid();
+        String ifaID = DeleteStockArgs.fromBundle(getArguments()).getIfaID();
         String clientID = DeleteStockArgs.fromBundle(getArguments()).getClientID();
         String user = FirebaseAuth.getInstance().getUid();
         assert user != null;
@@ -95,8 +95,10 @@ public class DeleteStock extends Fragment {
                             if (doc.exists()) {
                                 List<Map> stocks = (List<Map>) doc.get("Stocks");
                                 assert stocks != null;
+                                boolean found = false;
                                 for (int i = 0; i < stocks.size(); i++) {
                                     if (auto.getText().toString().equals(stocks.get(i).get("stock").toString())) {
+                                        found = true;
                                         cliRef.update("Stocks",
                                                 FieldValue.arrayRemove(stocks.get(i)));
                                         NavDirections action = DeleteStockDirections
@@ -104,7 +106,12 @@ public class DeleteStock extends Fragment {
                                         Navigation.findNavController(view).navigate(action);
                                     }
                                 }
-                                Toast.makeText(getContext(), "No such stock", Toast.LENGTH_SHORT).show();
+                                if (found) {
+                                    Toast.makeText(getContext(), "Deleted stock", Toast.LENGTH_SHORT).show();
+                                }
+                                else {
+                                    Toast.makeText(getContext(), "No such stock", Toast.LENGTH_SHORT).show();
+                                }
                             }
                             else {
                                 Log.d("DEL_STOCK", "Document doesn't exist");

@@ -1,5 +1,6 @@
 package com.example.khazaana.main;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -9,15 +10,26 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.khazaana.R;
+import com.example.khazaana.RequestSingleton;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -47,6 +59,7 @@ import java.util.Map;
 public class StockPortfolio extends Fragment {
     List<Map> t = null;
 
+    /*
     TextView currentP1 = null;
     TextView currentP2 = null;
     TextView currentP3 = null;
@@ -63,6 +76,8 @@ public class StockPortfolio extends Fragment {
     double q2 = 0;
     double q3 = 0;
     List<Number> stocks = null;
+    */
+    RecyclerView recyclerView;
     PieChart pieChart = null;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -75,6 +90,48 @@ public class StockPortfolio extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        String clientID = StockPortfolioArgs.fromBundle(getArguments()).getClientID();
+        String ifaID = StockPortfolioArgs.fromBundle(getArguments()).getIfaID();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference client = db.collection("Authorized IFAs")
+                .document(ifaID)
+                .collection("Clients")
+                .document(clientID);
+
+        client.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot doc = task.getResult();
+                    if (doc.exists()) {
+                        TextView name = view.findViewById(R.id.stock_client_name);
+                        name.setText(doc.get("First Name") + " " + doc.get("Last Name"));
+
+                        List<Map> list = (List<Map>) doc.get("Stocks");
+                        ArrayList<AssetEntry> entries = new ArrayList<>();
+                        for (int i = 0; i < list.size(); i++) {
+                            AssetEntry a = new AssetEntry();
+                            a.setStock(list.get(i).get("stock").toString());
+                            a.setPrice(Float.parseFloat(list.get(i).get("price").toString()));
+                            a.setQuantity(Float.parseFloat(list.get(i).get("quantity").toString()));
+                            entries.add(a);
+                        }
+
+                        recyclerView = view.findViewById(R.id.stockRecycler);
+                        recyclerView.setAdapter(new StockAdapter(entries, getContext()));
+                        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                    }
+                    else {
+                        Log.d("STOCKS", "Document doesn't exist");
+                    }
+                }
+                else {
+                    Log.d("STOCKS", "Get failed with", task.getException());
+                }
+            }
+        });
+
+        /*
         //changed all findViewById to view.findViewById
         TextView textView = view.findViewById(R.id.name);
 
@@ -176,6 +233,8 @@ public class StockPortfolio extends Fragment {
                 .collection("Clients")
                 .document(passedInClientID);
 
+         */
+
         Toolbar stockBar = view.findViewById(R.id.stockBar);
         stockBar.inflateMenu(R.menu.asset_toolbar);
         stockBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
@@ -184,12 +243,15 @@ public class StockPortfolio extends Fragment {
                 int i = item.getItemId();
                 if (i == R.id.add_asset_button) {
                     NavDirections navDirections = StockPortfolioDirections
-                            .actionStockPortfolioToAddStockFrag(clientID.getId());
+                            .actionStockPortfolioToAddStockFrag(clientID, ifaID);
                     Navigation.findNavController(view).navigate(navDirections);
                     return true;
                 }
                 if (i == R.id.delete_asset_button) {
-                    NavDirections navDirections;
+                    NavDirections navDirections = StockPortfolioDirections
+                            .actionStockPortfolioToDeleteStock(clientID, ifaID);
+                    Navigation.findNavController(view).navigate(navDirections);
+                    return true;
                 }
                 return StockPortfolio.super.onOptionsItemSelected(item);
             }
@@ -198,6 +260,86 @@ public class StockPortfolio extends Fragment {
 
     }
 
+    private class StockAdapter extends RecyclerView.Adapter<StockAdapter.ViewHolder> {
+        private final ArrayList<AssetEntry> stocks;
+        private final Context context;
+
+        public StockAdapter(ArrayList<AssetEntry> list, Context ct) {
+            stocks = list;
+            context = ct;
+        }
+
+        @NonNull
+        @Override
+        public StockAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(context)
+                    .inflate(R.layout.asset_item, parent, false);
+
+            return new StockAdapter.ViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull StockAdapter.ViewHolder holder, int position) {
+            AssetEntry entry = stocks.get(position);
+            float calcReturn = 0;
+
+            calcStock(entry, holder.currPrice, holder.assetReturn);
+            holder.asset.setText(entry.getStock());
+            holder.boughtPrice.setText(holder.boughtPrice.getText() + " " + entry.getPrice());
+            holder.owned.setText("Shares: " + entry.getQuantity());
+        }
+
+        @Override
+        public int getItemCount() {
+            return stocks.size();
+        }
+
+        private class ViewHolder extends RecyclerView.ViewHolder {
+            public TextView asset;
+            public TextView boughtPrice;
+            public TextView currPrice;
+            public TextView owned;
+            public TextView assetReturn;
+
+            public ViewHolder(@NonNull View itemView) {
+                super(itemView);
+
+                asset = itemView.findViewById(R.id.item_name);
+                boughtPrice = itemView.findViewById(R.id.last_bought_price);
+                currPrice = itemView.findViewById(R.id.asset_price);
+                owned = itemView.findViewById(R.id.assets_owned);
+                assetReturn = itemView.findViewById(R.id.asset_return);
+            }
+        }
+    }
+
+    private void calcStock(AssetEntry stock, TextView textPrice, TextView textReturn) {
+        String url = "https://finnhub-backend.herokuapp.com/stock/price?symbol=";
+        String complete = url + stock.getStock();
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, complete,
+                null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    double stockPrice = stock.getQuantity() * response.getDouble("current price");
+                    double stockReturn = stockPrice - stock.getPrice();
+
+                    textPrice.setText(textPrice.getText() + " " + stockPrice);
+                    textReturn.setText(textReturn.getText() + " " + stockReturn);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(), "Error!", Toast.LENGTH_SHORT).show();
+            }
+        });
+        RequestSingleton.getInstance(getContext()).addToRequestQueue(request);
+    }
+
+    /*
     private class priceTask1 extends AsyncTask<String, String, String> {
         String data = "";
 
@@ -402,6 +544,7 @@ public class StockPortfolio extends Fragment {
             return null;
         }
     }
+    */
 
     private PieData getPieData(List<Number> list) {
         ArrayList<PieEntry> entries = new ArrayList<>();

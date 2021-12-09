@@ -33,7 +33,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -80,7 +79,7 @@ public class crypto_portfolio extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        TextView textView = view.findViewById(R.id.name);
+        TextView textView = view.findViewById(R.id.stock_client_name);
         TextView crypto1 = view.findViewById(R.id.crypto1);
         TextView boughtPrice1 = view.findViewById(R.id.cboughtPrice1);
         TextView cryptoOwned1 = view.findViewById(R.id.cryptoOwned1);

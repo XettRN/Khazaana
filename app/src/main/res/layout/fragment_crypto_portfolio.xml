@@ -28,7 +28,7 @@
                 android:theme="?attr/actionBarTheme" />
 
             <TextView
-                android:id="@+id/name"
+                android:id="@+id/stock_client_name"
                 android:layout_width="379dp"
                 android:layout_height="37dp"
                 android:text="  Name Here"
