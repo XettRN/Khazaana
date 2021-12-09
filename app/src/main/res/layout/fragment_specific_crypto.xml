@@ -6,16 +6,54 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".main.specific_crypto">
 
+    <Button
+        android:id="@+id/sout2"
+        android:layout_width="143dp"
+        android:layout_height="49dp"
+        android:backgroundTint="#FFFFFF"
+        android:fontFamily="@font/montserrat_regular"
+        android:text="SIGN OUT"
+        android:textAllCaps="false"
+        android:textColor="#000000"
+        android:textSize="16dp"
+        app:cornerRadius="0dp"
+        app:iconTint="#610C0C"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:strokeColor="#000000"
+        app:strokeWidth="1dp" />
+
+    <TextView
+        android:id="@+id/cryp_name"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="314dp"
+        android:background="#FFFFFF"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="APPL"
+        android:textColor="#000000"
+        android:textSize="22dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ScrollView
         android:id="@+id/scrollView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.058"
+        app:layout_constraintVertical_bias="0.232"
         tools:ignore="SpeakableTextPresentCheck">
 
         <LinearLayout
@@ -26,30 +64,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="5dp"
                 android:layout_weight="1"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/crypto_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="44dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="#FFFFFF"
-                    android:fontFamily="@font/montserrat_bold"
-                    android:shadowColor="@color/black"
-                    android:text="ETH"
-
-                    android:textColor="#000000"
-                    android:textSize="22dp" />
-
-                <TextView
                     android:id="@+id/ccurrent_price"
-                    android:layout_width="86dp"
+                    android:layout_width="132dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="5dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
                     android:layout_weight="1"
@@ -60,9 +82,9 @@
 
                 <TextView
                     android:id="@+id/cpriceChange"
-                    android:layout_width="86dp"
+                    android:layout_width="124dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="5dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
                     android:layout_weight="1"
@@ -73,9 +95,9 @@
 
                 <TextView
                     android:id="@+id/cpercentChange"
-                    android:layout_width="86dp"
+                    android:layout_width="133dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="5dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
                     android:layout_weight="1"
@@ -128,35 +150,6 @@
                 android:text="Return :"
                 android:textColor="@color/black"
                 android:textSize="15dp" />
-
-            <View
-                android:id="@+id/divider5"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="5dp"
-                android:layout_weight="1"
-                android:background="?android:attr/listDivider" />
-
-            <TextView
-                android:id="@+id/analysis"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_weight="1"
-                android:fontFamily="@font/montserrat_bold"
-                android:text="Analysis"
-                android:textColor="@color/black"
-                android:textSize="20dp" />
-
-            <View
-                android:id="@+id/divider8"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="10dp"
-                android:layout_weight="1"
-                android:background="?android:attr/listDivider" />
 
         </LinearLayout>
     </ScrollView>

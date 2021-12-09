@@ -62,10 +62,14 @@ public class AddClient extends Fragment {
                     Map<String, Object> data = new HashMap<>();
                     ArrayList<AssetEntry> stocks = new ArrayList<>();
                     ArrayList<AssetEntry> crypto = new ArrayList<>();
+                    ArrayList<Number> equity = new ArrayList<>();
+                    equity.add(50);
+                    equity.add(50);
                     data.put("First Name", first);
                     data.put("Last Name", last);
                     data.put("Stocks", stocks);
                     data.put("Crypto", crypto);
+                    data.put("Equity", equity);
 
                     clients.add(data).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                         @Override

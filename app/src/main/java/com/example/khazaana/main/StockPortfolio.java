@@ -166,6 +166,24 @@ public class StockPortfolio extends Fragment {
             }
         });
 
+        stock2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //add fragment to bottomnav.xml so this can be written
+                NavDirections navDirections = StockPortfolioDirections.actionStockPortfolioToSpecificStock((String) getArguments().get("clientID"), (String) getArguments().get("ifaID"), ""+t.get(1).get("stock"));
+                Navigation.findNavController(root).navigate(navDirections);
+            }
+        });
+
+        stock3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //add fragment to bottomnav.xml so this can be written
+                NavDirections navDirections = StockPortfolioDirections.actionStockPortfolioToSpecificStock((String) getArguments().get("clientID"), (String) getArguments().get("ifaID"), ""+t.get(2).get("stock"));
+                Navigation.findNavController(root).navigate(navDirections);
+            }
+        });
+
         //navigation will have to pass in the client from previous location
         //(from home or client list screen)
         String passedInClientID = (String) getArguments().get("clientID");

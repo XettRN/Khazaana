@@ -94,23 +94,21 @@
                 android:id="@+id/performer1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="10dp"
-                android:text="TextView"
-                android:layout_marginLeft="15dp"
-                android:textColor="@color/black"
                 android:fontFamily="@font/montserrat_regular"
+                android:textColor="@color/black"
                 android:textSize="15dp" />
 
             <TextView
                 android:id="@+id/performer2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:text="TextView"
                 android:layout_marginLeft="15dp"
-                android:textColor="@color/black"
+                android:layout_marginBottom="10dp"
                 android:fontFamily="@font/montserrat_regular"
+                android:textColor="@color/black"
                 android:textSize="15dp" />
 
             <Button
@@ -162,7 +160,7 @@
                 android:textSize="15dp" />
 
             <TextView
-                android:id="@+id/equity_return"
+                android:id="@+id/stock_return"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
@@ -173,7 +171,7 @@
                 android:textSize="15dp" />
 
             <TextView
-                android:id="@+id/equity_return_bench"
+                android:id="@+id/stock_return_bench"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"

@@ -13,9 +13,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.khazaana.R;
+import com.example.khazaana.RequestSingleton;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -23,6 +31,7 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -47,6 +56,7 @@ import java.util.Objects;
 
 public class individualClientPortfolio extends Fragment {
 
+    /*
     PieChart pieChart = null;
     TextView perform1 = null;
     TextView perform2 = null;
@@ -72,6 +82,34 @@ public class individualClientPortfolio extends Fragment {
     TextView returnP = null;
     DecimalFormat d = new DecimalFormat("#.####");
     List<Number> a = null;
+    */
+    double initStock;
+    double totalStock;
+    double initCrypto;
+    double totalCrypto;
+    String perf1Name;
+    String perf2Name;
+    double perf1Price;
+    double perf2Price;
+    String tempName;
+    double tempQuan;
+
+    double totalAUM;
+    double finalReturn;
+
+    TextView aum;
+    TextView totalReturn;
+    TextView totalBench;
+    TextView firstPerf;
+    TextView secPerf;
+    TextView stockInitAUM;
+    TextView stockCurrAUM;
+    TextView stockReturn;
+    TextView stockBench;
+    TextView cryptoInitAUM;
+    TextView cryptoCurrAUM;
+    TextView cryptoReturn;
+    TextView cryptoBench;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -83,89 +121,92 @@ public class individualClientPortfolio extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        perf1Name = "";
+        perf2Name = "";
+        perf1Price = 0;
+        perf2Price = 0;
+
+        //get view elements
         TextView name = view.findViewById(R.id.clientName);
-        pieChart = view.findViewById(R.id.pieChart3);
-        aum = view.findViewById(R.id.aum);
-        returnP = view.findViewById(R.id.returnP);
-        TextView bench_return = view.findViewById(R.id.bench_return);
-        perform1 = view.findViewById(R.id.performer1);
-        perform2 = view.findViewById(R.id.performer2);
-        initial_aum1 = view.findViewById(R.id.initial_aum1);
-        current_aum1 = view.findViewById(R.id.current_aum1);
-        return1 = view.findViewById(R.id.equity_return);
-        TextView bench_return1 = view.findViewById(R.id.equity_return_bench);
-        initial_aum2 = view.findViewById(R.id.initial_aum2);
-        current_aum2 = view.findViewById(R.id.current_aum2);
-        return2 = view.findViewById(R.id.crypto_return);
-        TextView bench_return2 = view.findViewById(R.id.crypto_return_bench);
         TextView stockTitle = view.findViewById(R.id.stocks);
         TextView cryptoTitle = view.findViewById(R.id.cryptoTitle);
-        a = new ArrayList<>();
+        aum = view.findViewById(R.id.aum);
+        totalReturn = view.findViewById(R.id.returnP);
+        totalBench = view.findViewById(R.id.bench_return);
+        firstPerf = view.findViewById(R.id.performer1);
+        secPerf = view.findViewById(R.id.performer2);
+        stockInitAUM = view.findViewById(R.id.initial_aum1);
+        stockCurrAUM = view.findViewById(R.id.current_aum1);
+        stockReturn = view.findViewById(R.id.stock_return);
+        stockBench = view.findViewById(R.id.stock_return_bench);
+        cryptoInitAUM = view.findViewById(R.id.initial_aum2);
+        cryptoCurrAUM = view.findViewById(R.id.current_aum2);
+        cryptoReturn = view.findViewById(R.id.crypto_return);
+        cryptoBench = view.findViewById(R.id.crypto_return_bench);
 
-
+        //fetch client document from database
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference ifas = db.collection("Authorized IFAs");
-        DocumentReference ifa = ifas.document((String) getArguments().get("ifaID"));
-        CollectionReference clients = ifa.collection("Clients");
-        DocumentReference client = clients.document((String) getArguments().get("clientID"));
-        Log.d("TAG", "Client ID: " + getArguments().get("clientID"));
-        Log.d("TAG", "IFA ID: " + getArguments().get("ifaID"));
+        String ifaID = individualClientPortfolioArgs.fromBundle(getArguments()).getIfaID();
+        String clientID = individualClientPortfolioArgs.fromBundle(getArguments()).getClientID();
+        DocumentReference client = db.collection("Authorized IFAs")
+                .document(ifaID)
+                .collection("Clients")
+                .document(clientID);
 
+        //update layout with data
         client.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        Log.d("TAG", "Document Exists: " + document.getData());
+                    DocumentSnapshot doc = task.getResult();
+                    if (doc.exists()) {
+                        //set client name
+                        String firstName = (String) doc.get("First Name");
+                        String lastName = (String) doc.get("Last Name");
+                        name.setText(firstName + " " + lastName);
 
-                        String firstName = (String) document.get("First Name");
-                        String lastName = (String) document.get("Last Name");
-                        name.setText(" " + firstName + " " + lastName);
-
-                        stocks = (List<Map>) document.get("Stocks");
+                        //get client portfolio assets
+                        List<Map> stocks = (List<Map>) doc.get("Stocks");
                         assert stocks != null;
-                        double totalS = 0;
-                        for (int i = 0; i < 3; i++) {
-                            totalS = totalS + Double.parseDouble(stocks.get(i).get("price").toString()) * Double.parseDouble(stocks.get(i).get("quantity").toString());
-                        }
-                        initial_aum1.setText(initial_aum1.getText() + " " + totalS);
-                        total1 = totalS;
-                        bench_return1.setText(bench_return1.getText() + " 10%");
-
-                        crypto = (List<Map>) document.get("Crypto");
+                        List<Map> crypto = (List<Map>) doc.get("Crypto");
                         assert crypto != null;
-                        double totalC = 0;
-                        for (int i = 0; i < 3; i++) {
-                            totalC = totalC + Double.parseDouble(crypto.get(i).get("price").toString()) * Double.parseDouble(crypto.get(i).get("quantity").toString());
+                        double totalAssets = stocks.size() + crypto.size();
+
+                        //calculations and api calls
+                        if (stocks.size() > 0) {
+                            calcStocks(stocks);
                         }
-                        initial_aum2.setText(initial_aum2.getText() + " " + totalC);
-                        total2 = totalC;
-                        //return2.setText(return2.getText() + " 16%");
-                        bench_return2.setText(bench_return2.getText() + " 10%");
-
-                        bench_return.setText(bench_return.getText() + " 10%");
-
-                        equity = (List<Number>) document.get("Equity");
-
-                        new stockPriceTask1().execute("https://finnhub-backend.herokuapp.com/stock/price?symbol="+stocks.get(0).get("stock"));
-                        new stockPriceTask2().execute("https://finnhub-backend.herokuapp.com/stock/price?symbol="+stocks.get(1).get("stock"));
-                        new stockPriceTask3().execute("https://finnhub-backend.herokuapp.com/stock/price?symbol="+stocks.get(2).get("stock"));
-
-                        new cryptoPriceTask1().execute("https://finnhub-backend.herokuapp.com/crypto/ticker?symbol="+crypto.get(0).get("stock"));
-                        new cryptoPriceTask2().execute("https://finnhub-backend.herokuapp.com/crypto/ticker?symbol="+crypto.get(1).get("stock"));
-                        new cryptoPriceTask3().execute("https://finnhub-backend.herokuapp.com/crypto/ticker?symbol="+crypto.get(2).get("stock"));
-
-                    } else {
-                        Log.d("TAG", "No such document");
+                        else {
+                            stockInitAUM.setText(stockInitAUM.getText() + " 0");
+                            stockCurrAUM.setText(stockCurrAUM.getText() + " 0");
+                            stockReturn.setText(stockReturn.getText() + " 0");
+                            stockBench.setText(stockBench.getText() + " 0");
+                        }
+                        if (crypto.size() > 0) {
+                            calcCrypto(crypto);
+                        }
+                        else {
+                            cryptoInitAUM.setText(cryptoInitAUM.getText() + " 0");
+                            cryptoCurrAUM.setText(cryptoCurrAUM.getText() + " 0");
+                            cryptoReturn.setText(cryptoReturn.getText() + " 0");
+                            cryptoBench.setText(cryptoBench.getText() + " 0");
+                        }
+                        if (stocks.size() == 0 && crypto.size() == 0) {
+                            aum.setText("AUM 0");
+                            totalReturn.setText("Return: 0");
+                            totalBench.setText("Benchmark Return: 0");
+                        }
                     }
-                } else {
-                    Log.d("TAG", "get failed with ", task.getException());
+                    else {
+                        Log.d("IND_PORT", "Document doesn't exist");
+                    }
+                }
+                else {
+                    Log.d("IND_PORT", "Get failed with", task.getException());
                 }
             }
         });
-
-
 
         View root = view;
         stockTitle.setOnClickListener(new View.OnClickListener() {
@@ -188,6 +229,218 @@ public class individualClientPortfolio extends Fragment {
         });
     }
 
+    private void calcStocks(List<Map> stocks) {
+        String url = "https://finnhub-backend.herokuapp.com/stock/price?symbol=";
+        initStock = 0;
+        totalStock = 0;
+
+        for (int i = 0; i < stocks.size() - 1; i++) {
+            initStock += Double.parseDouble(stocks.get(i).get("price").toString());
+            String complete = url + stocks.get(i).get("stock");
+            Log.d("IND_PORT", complete);
+            final String name = stocks.get(i).get("stock").toString();
+            final double quantity = Double.parseDouble(stocks.get(i).get("quantity").toString());
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, complete,
+                    null, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    try {
+                        double stockPrice = response.getDouble("current price") * quantity;
+                        if (stockPrice > perf1Price) {
+                            perf1Price = stockPrice;
+                            firstPerf.setText(name);
+                        }
+                        else if (stockPrice > perf2Price) {
+                            perf2Price = stockPrice;
+                            secPerf.setText(name);
+                        }
+                        totalStock += stockPrice;
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(getContext(), "Error!", Toast.LENGTH_SHORT).show();
+                }
+            });
+            RequestSingleton.getInstance(getContext()).addToRequestQueue(request);
+        }
+
+        //final request, update view
+        initStock += Double.parseDouble(stocks.get(stocks.size() - 1) .get("price").toString());
+        String complete = url + stocks.get(stocks.size() - 1).get("stock");
+        Log.d("IND_PORT", complete);
+        final String name = (String) stocks.get(stocks.size() - 1).get("stock");
+        final double quantity = Double.parseDouble(stocks.get(stocks.size() - 1).get("quantity").toString());
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, complete,
+                null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    double stockPrice = response.getDouble("current price") * quantity;
+                    Log.d("IND_PORT", "" + stockPrice);
+                    if (stockPrice > perf1Price) {
+                        perf1Price = stockPrice;
+                        firstPerf.setText(name);
+                    }
+                    else if (stockPrice > perf2Price) {
+                        perf2Price = stockPrice;
+                        secPerf.setText(name);
+                    }
+                    totalStock += stockPrice;
+
+                    double calcReturn = totalStock - initStock;
+                    stockInitAUM.setText(stockInitAUM.getText() + " " + initStock);
+                    stockCurrAUM.setText(stockCurrAUM.getText() + " " + totalStock);
+                    stockReturn.setText(stockReturn.getText() + " " + calcReturn);
+                    stockBench.setText(stockBench.getText() + " " + (initStock * 1.1));
+
+                    totalAUM += totalStock;
+                    finalReturn += calcReturn;
+                    aum.setText("AUM " + totalAUM);
+                    totalReturn.setText("Return: " + finalReturn);
+                    totalBench.setText("Benchmark Return: " + (finalReturn * 1.1));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(), "Error!", Toast.LENGTH_SHORT).show();
+            }
+        });
+        RequestSingleton.getInstance(getContext()).addToRequestQueue(request);
+    }
+
+    private void calcCrypto(List<Map> crypto) {
+        String url = "https://finnhub-backend.herokuapp.com/crypto/ticker?symbol=";
+        initCrypto = 0;
+        totalCrypto = 0;
+
+        for (int i = 0; i < crypto.size() - 1; i++) {
+            initCrypto += Double.parseDouble(crypto.get(i).get("price").toString());
+            String complete = url + crypto.get(i).get("stock");
+            Log.d("IND_PORT", complete);
+            final String name = crypto.get(i).get("stock").toString();
+            final double quantity = Double.parseDouble(crypto.get(i).get("quantity").toString());
+            JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, complete,
+                    null, new Response.Listener<JSONArray>() {
+                @Override
+                public void onResponse(JSONArray response) {
+                    Double[] price = new Double[9];
+                    for (int j = 0; j < response.length(); j++) {
+                        try {
+                            price[j] = Double.parseDouble(response.get(j).toString());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    if (name.equals("BTC-USD")) {
+                        CryptoStorage.setBitcoin(price);
+                        Log.d("TAG", "Run1.1: " + Arrays.toString(CryptoStorage.getBitcoin()));
+                    } else if (name.equals("ETH-USD")) {
+                        CryptoStorage.setEthereum(price);
+                        Log.d("TAG", "Run2.1: " + Arrays.toString(CryptoStorage.getEthereum()));
+                    } else {
+                        CryptoStorage.setDogecoin(price);
+                        Log.d("TAG", "Run3.1: " + Arrays.toString(CryptoStorage.getDogecoin()));
+                    }
+                    try {
+                        double cryptoPrice = Double
+                                .parseDouble(response.get(response.length() - 1).toString())
+                                * quantity;
+                        if (cryptoPrice > perf1Price) {
+                            perf1Price = cryptoPrice;
+                            firstPerf.setText(name);
+                        }
+                        else if (cryptoPrice > perf2Price) {
+                            perf2Price = cryptoPrice;
+                            secPerf.setText(name);
+                        }
+                        totalCrypto += cryptoPrice;
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(getContext(), "Error!", Toast.LENGTH_SHORT).show();
+                }
+            });
+            RequestSingleton.getInstance(getContext()).addToRequestQueue(request);
+        }
+
+        //final request, update view
+        initCrypto += Double.parseDouble(crypto.get(crypto.size() - 1).get("price").toString());
+        String complete = url + crypto.get(crypto.size() - 1).get("stock");
+        Log.d("IND_PORT", complete);
+        final String name = crypto.get(crypto.size() - 1).get("stock").toString();
+        final double quantity = Double.parseDouble(crypto.get(crypto.size() - 1).get("quantity").toString());
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, complete,
+                null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                Double[] price = new Double[9];
+                for (int j = 0; j < response.length(); j++) {
+                    try {
+                        price[j] = Double.parseDouble(response.get(j).toString());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (name.equals("BTC-USD")) {
+                    CryptoStorage.setBitcoin(price);
+                    Log.d("TAG", "Run1.1: " + Arrays.toString(CryptoStorage.getBitcoin()));
+                } else if (name.equals("ETH-USD")) {
+                    CryptoStorage.setEthereum(price);
+                    Log.d("TAG", "Run2.1: " + Arrays.toString(CryptoStorage.getEthereum()));
+                } else {
+                    CryptoStorage.setDogecoin(price);
+                    Log.d("TAG", "Run3.1: " + Arrays.toString(CryptoStorage.getDogecoin()));
+                }
+                try {
+                    double cryptoPrice = Double
+                            .parseDouble(response.get(response.length() - 1).toString())
+                            * quantity;
+                    if (cryptoPrice > perf1Price) {
+                        perf1Price = cryptoPrice;
+                        firstPerf.setText(name);
+                    }
+                    else if (cryptoPrice > perf2Price) {
+                        perf2Price = cryptoPrice;
+                        secPerf.setText(name);
+                    }
+                    totalCrypto += cryptoPrice;
+
+                    double calcReturn = totalCrypto - initCrypto;
+                    cryptoInitAUM.setText(cryptoInitAUM.getText() + " " + initCrypto);
+                    cryptoCurrAUM.setText(cryptoCurrAUM.getText() + " " + totalCrypto);
+                    cryptoReturn.setText(cryptoReturn.getText() + " " + calcReturn);
+                    cryptoBench.setText(cryptoBench.getText() + " " + (initCrypto * 1.1));
+
+                    totalAUM += totalCrypto;
+                    finalReturn += calcReturn;
+                    aum.setText("AUM " + totalAUM);
+                    totalReturn.setText("Return: " + finalReturn);
+                    totalBench.setText("Benchmark Return: " + (finalReturn * 1.1));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(), "Error!", Toast.LENGTH_SHORT).show();
+            }
+        });
+        RequestSingleton.getInstance(getContext()).addToRequestQueue(request);
+    }
+
+    /*
     private class stockPriceTask1 extends AsyncTask<String, String, String> {
         String data = "";
 
@@ -550,16 +803,6 @@ public class individualClientPortfolio extends Fragment {
                                     }
                                 }
 
-                                /*
-                                double total = stocks_total + crypto_total;
-                                aum.setText(aum.getText() + " "+total);
-                                double returnValue = ((total - (total1+total2))/(total1 + total2))*100;
-                                returnP.setText(returnP.getText() + " "+d.format(returnValue));
-                                a.add((stocks_total/total)*100);
-                                a.add((crypto_total/total)*100);
-                                pieChart.setData(getPieData(a));
-                                pieChart.invalidate();*/
-
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -715,4 +958,5 @@ public class individualClientPortfolio extends Fragment {
 
         return new PieData(pieDataSet);
     }
+    */
 }
