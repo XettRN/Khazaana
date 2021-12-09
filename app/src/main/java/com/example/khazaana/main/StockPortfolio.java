@@ -28,6 +28,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.khazaana.CallAPI;
 import com.example.khazaana.R;
 import com.example.khazaana.RequestSingleton;
 import com.github.mikephil.charting.charts.PieChart;
@@ -283,7 +284,19 @@ public class StockPortfolio extends Fragment {
             AssetEntry entry = stocks.get(position);
             float calcReturn = 0;
 
-            calcStock(entry, holder.currPrice, holder.assetReturn);
+            CallAPI call = new CallAPI();
+            call.calcStock(getContext(), entry, new CallAPI.StockListener() {
+                @Override
+                public void OnError(String message) {
+                    Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void OnResponse(String name, double stockPrice, double stockReturn) {
+                    holder.currPrice.setText(holder.currPrice.getText() + " " + stockPrice);
+                    holder.assetReturn.setText(holder.assetReturn.getText() + " " + stockReturn);
+                }
+            });
             holder.asset.setText(entry.getStock());
             holder.boughtPrice.setText(holder.boughtPrice.getText() + " " + entry.getPrice());
             holder.owned.setText("Shares: " + entry.getQuantity());
@@ -313,31 +326,6 @@ public class StockPortfolio extends Fragment {
         }
     }
 
-    private void calcStock(AssetEntry stock, TextView textPrice, TextView textReturn) {
-        String url = "https://finnhub-backend.herokuapp.com/stock/price?symbol=";
-        String complete = url + stock.getStock();
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, complete,
-                null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    double stockPrice = stock.getQuantity() * response.getDouble("current price");
-                    double stockReturn = stockPrice - stock.getPrice();
-
-                    textPrice.setText(textPrice.getText() + " " + stockPrice);
-                    textReturn.setText(textReturn.getText() + " " + stockReturn);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(), "Error!", Toast.LENGTH_SHORT).show();
-            }
-        });
-        RequestSingleton.getInstance(getContext()).addToRequestQueue(request);
-    }
 
     /*
     private class priceTask1 extends AsyncTask<String, String, String> {
