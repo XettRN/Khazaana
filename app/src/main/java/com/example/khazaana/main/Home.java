@@ -16,8 +16,14 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.khazaana.R;
+import com.example.khazaana.RequestSingleton;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -31,6 +37,9 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -38,6 +47,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Random;
 
 public class Home extends Fragment {
     private NumberFormat format = NumberFormat.getCurrencyInstance(Locale.US);
@@ -67,6 +77,87 @@ public class Home extends Fragment {
 //            }
 //        });
     }
+    double initStock = 0;
+    double totalStock = 0;
+    double perf1Price = 0;
+    double perf2Price = 0;
+    double calcReturn = 0;
+
+    private double calcStocks(List<Map> stocks) {
+        String url = "https://finnhub-backend.herokuapp.com/stock/price?symbol=";
+        if (stocks == null || stocks.size() < 1) {
+            return 0;
+        }
+        for (int i = 0; i < stocks.size() - 1; i++) {
+            initStock += Double.parseDouble(stocks.get(i).get("price").toString());
+            String complete = url + stocks.get(i).get("stock");
+            Log.d("IND_PORT", complete);
+            final String name = stocks.get(i).get("stock").toString();
+            final double quantity = Double.parseDouble(stocks.get(i).get("quantity").toString());
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, complete,
+                    null, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    try {
+                        double stockPrice = response.getDouble("current price") * quantity;
+                        if (stockPrice > perf1Price) {
+                            perf1Price = stockPrice;
+                        }
+                        else if (stockPrice > perf2Price) {
+                            perf2Price = stockPrice;
+                        }
+                        totalStock += stockPrice;
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(getContext(), "Error!", Toast.LENGTH_SHORT).show();
+                }
+            });
+            RequestSingleton.getInstance(getContext()).addToRequestQueue(request);
+
+        }
+
+        //final request, update view
+        initStock += Double.parseDouble(stocks.get(stocks.size() - 1) .get("price").toString());
+        String complete = url + stocks.get(stocks.size() - 1).get("stock");
+        Log.d("IND_PORT", complete);
+        final String name = (String) stocks.get(stocks.size() - 1).get("stock");
+        final double quantity = Double.parseDouble(stocks.get(stocks.size() - 1).get("quantity").toString());
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, complete,
+                null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    double stockPrice = response.getDouble("current price") * quantity;
+                    Log.d("IND_PORT", "" + stockPrice);
+                    if (stockPrice > perf1Price) {
+                        perf1Price = stockPrice;
+                    }
+                    else if (stockPrice > perf2Price) {
+                        perf2Price = stockPrice;
+                    }
+                    totalStock += stockPrice;
+
+                    calcReturn = totalStock - initStock;
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(), "Error!", Toast.LENGTH_SHORT).show();
+            }
+        });
+        RequestSingleton.getInstance(getContext()).addToRequestQueue(request);
+        return calcReturn;
+    }
+
     // calculates summary of aum, benchmark, etc
     private void calculateSummary(ArrayList<Home.PortfolioData> data) {
         // TODO: calculate equity summary
@@ -195,7 +286,13 @@ public class Home extends Fragment {
                             List<Number> equity = (List<Number>) document.get("Equity");
 
                             double aum = calculateAUM(stocks); // need to calculate
-                            double return_perc = 0;
+                            // double return_perc = calcStocks(stocks); need to calculate return
+                            Random number = new Random(); // change this later
+                            double return_perc = number.nextInt(20) + 20;
+
+                            if (aum == 0) {
+                                return_perc = 0;
+                            }
                             double benchmarkReturn = 10;
 
                             // TODO: figure out return and benchmark return
