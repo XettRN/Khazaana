@@ -161,7 +161,7 @@
                 android:textSize="22sp" />
 
             <TextView
-                android:id="@+id/equity_return"
+                android:id="@+id/stock_return"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
@@ -172,7 +172,7 @@
                 android:textSize="22sp" />
 
             <TextView
-                android:id="@+id/equity_return_bench"
+                android:id="@+id/stock_return_bench"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"

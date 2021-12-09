@@ -64,6 +64,9 @@
         <argument
             android:name="ifaID"
             app:argType="string" />
+        <action
+            android:id="@+id/action_stockPortfolio_to_deleteStock"
+            app:destination="@id/deleteStock" />
     </fragment>
     <fragment
         android:id="@+id/cryptoPortfolio"
@@ -82,6 +85,9 @@
         <argument
             android:name="ifaID"
             app:argType="string" />
+        <action
+            android:id="@+id/action_cryptoPortfolio_to_deleteCrypto"
+            app:destination="@id/deleteCrypto" />
     </fragment>
     <fragment
         android:id="@+id/specific_stock"
@@ -201,5 +207,23 @@
         android:id="@+id/deleteStock"
         android:name="com.example.khazaana.main.DeleteStock"
         android:label="fragment_delete_stock"
-        tools:layout="@layout/fragment_delete_stock" />
+        tools:layout="@layout/fragment_delete_stock" >
+        <action
+            android:id="@+id/action_deleteStock_to_stockPortfolio"
+            app:destination="@id/stockPortfolio" />
+        <argument android:name="clientID"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/deleteCrypto"
+        android:name="com.example.khazaana.main.DeleteCrypto"
+        android:label="fragment_delete_crypto"
+        tools:layout="@layout/fragment_delete_crypto" >
+        <action
+            android:id="@+id/action_deleteCrypto_to_cryptoPortfolio"
+            app:destination="@id/cryptoPortfolio" />
+        <argument
+            android:name="clientID"
+            app:argType="string" />
+    </fragment>
 </navigation>

@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".main.DeleteStock">
+    tools:context=".main.DeleteCrypto">
 
 
     <Button
@@ -15,7 +15,7 @@
         android:layout_marginTop="32dp"
         android:backgroundTint="@color/white"
         android:fontFamily="@font/montserrat_regular"
-        android:text="Delete Stock"
+        android:text="Delete Crypto"
         android:textAllCaps="false"
         android:textColor="@color/black"
         app:cornerRadius="1dp"
@@ -33,7 +33,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="300dp"
         android:layout_marginEnd="32dp"
-        android:hint="Stock Name"
+        android:hint="Cryptocurrency"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -51,7 +51,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/montserrat_medium"
-        android:text="Delete Stocks"
+        android:text="Delete Crypto"
         android:textColor="#000000"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"

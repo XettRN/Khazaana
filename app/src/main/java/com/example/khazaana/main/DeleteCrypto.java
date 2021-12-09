@@ -30,12 +30,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class DeleteStock extends Fragment {
+public class DeleteCrypto extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_delete_stock, container, false);
+        return inflater.inflate(R.layout.fragment_delete_crypto, container, false);
     }
 
     @Override
@@ -58,11 +58,11 @@ public class DeleteStock extends Fragment {
                 if (task.isSuccessful()) {
                     DocumentSnapshot doc = task.getResult();
                     if (doc.exists()) {
-                        List<Map> stocks = (List<Map>) doc.get("Stocks");
-                        assert stocks != null;
+                        List<Map> crypto = (List<Map>) doc.get("Crypto");
+                        assert crypto != null;
                         ArrayList<String> list = new ArrayList<>();
-                        for (int i = 0; i < stocks.size(); i++) {
-                            list.add(stocks.get(i).get("stock").toString());
+                        for (int i = 0; i < crypto.size(); i++) {
+                            list.add(crypto.get(i).get("stock").toString());
                         }
 
                         AutoCompleteTextView auto = view.findViewById(R.id.deleteCryptoAuto);
@@ -70,11 +70,11 @@ public class DeleteStock extends Fragment {
                                 R.layout.dropdown_item, list));
                     }
                     else {
-                        Log.d("DEL_STOCK", "Document doesn't exist");
+                        Log.d("DEL_CRYPTO", "Document doesn't exist");
                     }
                 }
                 else {
-                    Log.d("DEL_STOCK", "Error getting document: ", task.getException());
+                    Log.d("DEL_CRYPTO", "Error getting document: ", task.getException());
                 }
             }
         });
@@ -85,7 +85,7 @@ public class DeleteStock extends Fragment {
             @Override
             public void onClick(View view) {
                 if (auto.getText().length() <= 0) {
-                    Toast.makeText(getContext(), "Please enter stock", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Please enter currency", Toast.LENGTH_SHORT).show();
                 }
                 cliRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
@@ -93,25 +93,25 @@ public class DeleteStock extends Fragment {
                         if (task.isSuccessful()) {
                             DocumentSnapshot doc = task.getResult();
                             if (doc.exists()) {
-                                List<Map> stocks = (List<Map>) doc.get("Stocks");
-                                assert stocks != null;
-                                for (int i = 0; i < stocks.size(); i++) {
-                                    if (auto.getText().toString().equals(stocks.get(i).get("stock").toString())) {
+                                List<Map> crypto = (List<Map>) doc.get("Crypto");
+                                assert crypto != null;
+                                for (int i = 0; i < crypto.size(); i++) {
+                                    if (auto.getText().toString().equals(crypto.get(i).get("stock").toString())) {
                                         cliRef.update("Stocks",
-                                                FieldValue.arrayRemove(stocks.get(i)));
-                                        NavDirections action = DeleteStockDirections
-                                                .actionDeleteStockToStockPortfolio(clientID, ifaID);
+                                                FieldValue.arrayRemove(crypto.get(i)));
+                                        NavDirections action = DeleteCryptoDirections
+                                                .actionDeleteCryptoToCryptoPortfolio(clientID, ifaID);
                                         Navigation.findNavController(view).navigate(action);
                                     }
                                 }
-                                Toast.makeText(getContext(), "No such stock", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "No such currency", Toast.LENGTH_SHORT).show();
                             }
                             else {
-                                Log.d("DEL_STOCK", "Document doesn't exist");
+                                Log.d("DEL_CRYPTO", "Document doesn't exist");
                             }
                         }
                         else {
-                            Log.d("DEL_STOCK", "Error getting document: ",
+                            Log.d("DEL_CRYPTO", "Error getting document: ",
                                     task.getException());
                         }
                     }
