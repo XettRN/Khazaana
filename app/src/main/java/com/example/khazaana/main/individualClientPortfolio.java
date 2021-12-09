@@ -323,6 +323,216 @@ public class individualClientPortfolio extends Fragment {
         });
     }
 
+    private void calcStocks(List<Map> stocks) {
+        String url = "https://finnhub-backend.herokuapp.com/stock/price?symbol=";
+        initStock = 0;
+        totalStock = 0;
+
+        for (int i = 0; i < stocks.size() - 1; i++) {
+            initStock += Double.parseDouble(stocks.get(i).get("price").toString());
+            String complete = url + stocks.get(i).get("stock");
+            Log.d("IND_PORT", complete);
+            final String name = stocks.get(i).get("stock").toString();
+            final double quantity = Double.parseDouble(stocks.get(i).get("quantity").toString());
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, complete,
+                    null, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    try {
+                        double stockPrice = response.getDouble("current price") * quantity;
+                        if (stockPrice > perf1Price) {
+                            perf1Price = stockPrice;
+                            firstPerf.setText(name);
+                        }
+                        else if (stockPrice > perf2Price) {
+                            perf2Price = stockPrice;
+                            secPerf.setText(name);
+                        }
+                        totalStock += stockPrice;
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(getContext(), "Error!", Toast.LENGTH_SHORT).show();
+                }
+            });
+            RequestSingleton.getInstance(getContext()).addToRequestQueue(request);
+        }
+
+        //final request, update view
+        initStock += Double.parseDouble(stocks.get(stocks.size() - 1) .get("price").toString());
+        String complete = url + stocks.get(stocks.size() - 1).get("stock");
+        Log.d("IND_PORT", complete);
+        final String name = (String) stocks.get(stocks.size() - 1).get("stock");
+        final double quantity = Double.parseDouble(stocks.get(stocks.size() - 1).get("quantity").toString());
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, complete,
+                null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    double stockPrice = response.getDouble("current price") * quantity;
+                    Log.d("IND_PORT", "" + stockPrice);
+                    if (stockPrice > perf1Price) {
+                        perf1Price = stockPrice;
+                        firstPerf.setText(name);
+                    }
+                    else if (stockPrice > perf2Price) {
+                        perf2Price = stockPrice;
+                        secPerf.setText(name);
+                    }
+                    totalStock += stockPrice;
+
+                    double calcReturn = totalStock - initStock;
+                    stockInitAUM.setText(stockInitAUM.getText() + " " + initStock);
+                    stockCurrAUM.setText(stockCurrAUM.getText() + " " + totalStock);
+                    stockReturn.setText(stockReturn.getText() + " " + calcReturn);
+                    stockBench.setText(stockBench.getText() + " " + (initStock * 1.1));
+
+                    totalAUM += totalStock;
+                    finalReturn += calcReturn;
+                    aum.setText("AUM " + totalAUM);
+                    totalReturn.setText("Return: " + finalReturn);
+                    totalBench.setText("Benchmark Return: " + (finalReturn * 1.1));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(), "Error!", Toast.LENGTH_SHORT).show();
+            }
+        });
+        RequestSingleton.getInstance(getContext()).addToRequestQueue(request);
+    }
+
+    private void calcCrypto(List<Map> crypto) {
+        String url = "https://finnhub-backend.herokuapp.com/crypto/ticker?symbol=";
+        initCrypto = 0;
+        totalCrypto = 0;
+
+        for (int i = 0; i < crypto.size() - 1; i++) {
+            initCrypto += Double.parseDouble(crypto.get(i).get("price").toString());
+            String complete = url + crypto.get(i).get("stock");
+            Log.d("IND_PORT", complete);
+            final String name = crypto.get(i).get("stock").toString();
+            final double quantity = Double.parseDouble(crypto.get(i).get("quantity").toString());
+            JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, complete,
+                    null, new Response.Listener<JSONArray>() {
+                @Override
+                public void onResponse(JSONArray response) {
+                    Double[] price = new Double[9];
+                    for (int j = 0; j < response.length(); j++) {
+                        try {
+                            price[j] = Double.parseDouble(response.get(j).toString());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    if (name.equals("BTC-USD")) {
+                        CryptoStorage.setBitcoin(price);
+                        Log.d("TAG", "Run1.1: " + Arrays.toString(CryptoStorage.getBitcoin()));
+                    } else if (name.equals("ETH-USD")) {
+                        CryptoStorage.setEthereum(price);
+                        Log.d("TAG", "Run2.1: " + Arrays.toString(CryptoStorage.getEthereum()));
+                    } else {
+                        CryptoStorage.setDogecoin(price);
+                        Log.d("TAG", "Run3.1: " + Arrays.toString(CryptoStorage.getDogecoin()));
+                    }
+                    try {
+                        double cryptoPrice = Double
+                                .parseDouble(response.get(response.length() - 1).toString())
+                                * quantity;
+                        if (cryptoPrice > perf1Price) {
+                            perf1Price = cryptoPrice;
+                            firstPerf.setText(name);
+                        }
+                        else if (cryptoPrice > perf2Price) {
+                            perf2Price = cryptoPrice;
+                            secPerf.setText(name);
+                        }
+                        totalCrypto += cryptoPrice;
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(getContext(), "Error!", Toast.LENGTH_SHORT).show();
+                }
+            });
+            RequestSingleton.getInstance(getContext()).addToRequestQueue(request);
+        }
+
+        //final request, update view
+        initCrypto += Double.parseDouble(crypto.get(crypto.size() - 1).get("price").toString());
+        String complete = url + crypto.get(crypto.size() - 1).get("stock");
+        Log.d("IND_PORT", complete);
+        final String name = crypto.get(crypto.size() - 1).get("stock").toString();
+        final double quantity = Double.parseDouble(crypto.get(crypto.size() - 1).get("quantity").toString());
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, complete,
+                null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                Double[] price = new Double[9];
+                for (int j = 0; j < response.length(); j++) {
+                    try {
+                        price[j] = Double.parseDouble(response.get(j).toString());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (name.equals("BTC-USD")) {
+                    CryptoStorage.setBitcoin(price);
+                    Log.d("TAG", "Run1.1: " + Arrays.toString(CryptoStorage.getBitcoin()));
+                } else if (name.equals("ETH-USD")) {
+                    CryptoStorage.setEthereum(price);
+                    Log.d("TAG", "Run2.1: " + Arrays.toString(CryptoStorage.getEthereum()));
+                } else {
+                    CryptoStorage.setDogecoin(price);
+                    Log.d("TAG", "Run3.1: " + Arrays.toString(CryptoStorage.getDogecoin()));
+                }
+                try {
+                    double cryptoPrice = Double
+                            .parseDouble(response.get(response.length() - 1).toString())
+                            * quantity;
+                    if (cryptoPrice > perf1Price) {
+                        perf1Price = cryptoPrice;
+                        firstPerf.setText(name);
+                    }
+                    else if (cryptoPrice > perf2Price) {
+                        perf2Price = cryptoPrice;
+                        secPerf.setText(name);
+                    }
+                    totalCrypto += cryptoPrice;
+
+                    double calcReturn = totalCrypto - initCrypto;
+                    cryptoInitAUM.setText(cryptoInitAUM.getText() + " " + initCrypto);
+                    cryptoCurrAUM.setText(cryptoCurrAUM.getText() + " " + totalCrypto);
+                    cryptoReturn.setText(cryptoReturn.getText() + " " + calcReturn);
+                    cryptoBench.setText(cryptoBench.getText() + " " + (initCrypto * 1.1));
+
+                    totalAUM += totalCrypto;
+                    finalReturn += calcReturn;
+                    aum.setText("AUM " + totalAUM);
+                    totalReturn.setText("Return: " + finalReturn);
+                    totalBench.setText("Benchmark Return: " + (finalReturn * 1.1));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(), "Error!", Toast.LENGTH_SHORT).show();
+            }
+        });
+        RequestSingleton.getInstance(getContext()).addToRequestQueue(request);
+    }
     /*
     private class stockPriceTask1 extends AsyncTask<String, String, String> {
         String data = "";

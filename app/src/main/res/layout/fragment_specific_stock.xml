@@ -27,9 +27,12 @@
         android:id="@+id/scrollView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/stock_name"
+        android:layout_marginBottom="60dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/stock_name"
         tools:ignore="SpeakableTextPresentCheck">
 
         <LinearLayout
@@ -51,9 +54,9 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
                     android:layout_weight="1"
+                    android:fontFamily="@font/montserrat_bold"
                     android:text="TextView"
                     android:textColor="@color/green"
-                    android:fontFamily="@font/montserrat_bold"
                     android:textSize="20dp" />
 
                 <TextView
@@ -64,8 +67,8 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
                     android:layout_weight="1"
-                    android:text="TextView"
                     android:fontFamily="@font/montserrat_bold"
+                    android:text="TextView"
                     android:textColor="@color/green"
                     android:textSize="20dp" />
 
@@ -77,8 +80,8 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
                     android:layout_weight="1"
-                    android:text="TextView"
                     android:fontFamily="@font/montserrat_bold"
+                    android:text="TextView"
                     android:textColor="@color/green"
                     android:textSize="20dp" />
 
@@ -88,43 +91,43 @@
                 android:id="@+id/lineGraph"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:layout_margin="15dp"
-                android:layout_centerInParent="true" />
+                android:layout_centerInParent="true"
+                android:layout_margin="15dp" />
 
             <TextView
                 android:id="@+id/stocksOwned"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:layout_marginLeft="15dp"
+                android:layout_marginTop="20dp"
                 android:layout_weight="1"
+                android:fontFamily="@font/montserrat_regular"
                 android:text="Shares Owned :"
                 android:textColor="@color/black"
-                android:fontFamily="@font/montserrat_regular"
                 android:textSize="15dp" />
 
             <TextView
                 android:id="@+id/buyingPrice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
                 android:layout_marginTop="10dp"
                 android:layout_weight="1"
-                android:text="Buying Price :"
-                android:layout_marginLeft="15dp"
-                android:textColor="@color/black"
                 android:fontFamily="@font/montserrat_regular"
+                android:text="Buying Price :"
+                android:textColor="@color/black"
                 android:textSize="15dp" />
 
             <TextView
                 android:id="@+id/returnPercent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
                 android:layout_marginTop="10dp"
                 android:layout_weight="1"
-                android:layout_marginLeft="15dp"
+                android:fontFamily="@font/montserrat_regular"
                 android:text="Return :"
                 android:textColor="@color/black"
-                android:fontFamily="@font/montserrat_regular"
                 android:textSize="15dp" />
 
             <View
@@ -139,15 +142,14 @@
                 android:id="@+id/analysis"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:layout_weight="1"
+                android:fontFamily="@font/montserrat_bold"
                 android:text="Analysis"
                 android:textColor="@color/black"
-                android:fontFamily="@font/montserrat_bold"
-                android:textSize="20dp"
-               />
+                android:textSize="20dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -159,14 +161,13 @@
                     android:id="@+id/ratio"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="80dp"
                     android:layout_marginLeft="15dp"
+                    android:layout_marginRight="80dp"
                     android:layout_weight="1"
-                    android:text="Ratio Type"
-                    android:textSize="15dp"
                     android:fontFamily="@font/montserrat_bold"
+                    android:text="Ratio Type"
                     android:textColor="@color/black"
-                    />
+                    android:textSize="15dp" />
 
                 <TextView
                     android:id="@+id/ratioValue"
@@ -174,11 +175,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="85dp"
                     android:layout_weight="1"
-                    android:text="Value"
-                    android:textSize="15dp"
-                    android:textColor="@color/black"
                     android:fontFamily="@font/montserrat_bold"
-                    />
+                    android:text="Value"
+                    android:textColor="@color/black"
+                    android:textSize="15dp" />
 
             </LinearLayout>
 
@@ -192,12 +192,12 @@
                     android:id="@+id/ratio1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:layout_marginLeft="15dp"
+                    android:layout_marginTop="10dp"
                     android:layout_weight="1"
+                    android:fontFamily="@font/montserrat_regular"
                     android:text="p/e"
                     android:textColor="@color/black"
-                    android:fontFamily="@font/montserrat_regular"
                     android:textSize="15dp" />
 
                 <TextView
@@ -207,9 +207,9 @@
                     android:layout_marginLeft="80dp"
                     android:layout_marginTop="10dp"
                     android:layout_weight="1"
+                    android:fontFamily="@font/montserrat_regular"
                     android:text="TextView"
                     android:textColor="@color/black"
-                    android:fontFamily="@font/montserrat_regular"
                     android:textSize="15dp" />
 
             </LinearLayout>
@@ -234,9 +234,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:layout_weight="1"
+                    android:fontFamily="@font/montserrat_regular"
                     android:text="p/b"
                     android:textColor="@color/black"
-                    android:fontFamily="@font/montserrat_regular"
                     android:textSize="15dp" />
 
                 <TextView
@@ -245,9 +245,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="80dp"
                     android:layout_weight="1"
+                    android:fontFamily="@font/montserrat_regular"
                     android:text="TextView"
                     android:textColor="@color/black"
-                    android:fontFamily="@font/montserrat_regular"
                     android:textSize="15dp" />
 
             </LinearLayout>
@@ -270,11 +270,11 @@
                     android:id="@+id/ratio3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="roe"
-                    android:fontFamily="@font/montserrat_regular"
-                    android:textColor="@color/black"
                     android:layout_marginLeft="15dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:text="roe"
+                    android:textColor="@color/black"
                     android:textSize="15dp" />
 
                 <TextView
@@ -283,8 +283,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="80dp"
                     android:layout_weight="1"
-                    android:text="TextView"
                     android:fontFamily="@font/montserrat_regular"
+                    android:text="TextView"
                     android:textColor="@color/black"
                     android:textSize="15dp" />
 
@@ -308,11 +308,11 @@
                     android:id="@+id/ratio4"
                     android:layout_width="105dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Recommendation"
                     android:layout_marginLeft="15dp"
-                    android:textColor="@color/black"
+                    android:layout_weight="1"
                     android:fontFamily="@font/montserrat_regular"
+                    android:text="Recommendation"
+                    android:textColor="@color/black"
                     android:textSize="15dp" />
 
                 <TextView
@@ -320,14 +320,35 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="@font/montserrat_regular"
                     android:text="TextView"
                     android:textColor="@color/black"
-                    android:fontFamily="@font/montserrat_regular"
                     android:textSize="15dp" />
             </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
+
+    <Button
+        android:id="@+id/sout"
+        android:layout_width="143dp"
+        android:layout_height="49dp"
+        android:backgroundTint="#FFFFFF"
+        android:fontFamily="@font/montserrat_regular"
+        android:text="SIGN OUT"
+        android:textAllCaps="false"
+        android:textColor="#000000"
+        android:textSize="16dp"
+        app:cornerRadius="0dp"
+        app:iconTint="#610C0C"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:strokeColor="#000000"
+        app:strokeWidth="1dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

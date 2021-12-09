@@ -273,6 +273,24 @@ public class crypto_portfolio extends Fragment {
 
 
         View root = view;
+        crypto1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //add fragment to bottomnav.xml so this can be written
+                NavDirections navDirections = crypto_portfolioDirections.actionCryptoPortfolioToSpecificCrypto((String) getArguments().get("clientID"), (String) getArguments().get("ifaID"), (String) t.get(0).get("stock"));
+                Navigation.findNavController(root).navigate(navDirections);
+            }
+        });
+
+        crypto2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //add fragment to bottomnav.xml so this can be written
+                NavDirections navDirections = crypto_portfolioDirections.actionCryptoPortfolioToSpecificCrypto((String) getArguments().get("clientID"), (String) getArguments().get("ifaID"), (String) t.get(1).get("stock"));
+                Navigation.findNavController(root).navigate(navDirections);
+            }
+        });
+
         crypto3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
