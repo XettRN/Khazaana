@@ -330,6 +330,24 @@ public class individualClientPortfolio extends Fragment {
                     null, new Response.Listener<JSONArray>() {
                 @Override
                 public void onResponse(JSONArray response) {
+                    Double[] price = new Double[9];
+                    for (int j = 0; j < response.length(); j++) {
+                        try {
+                            price[j] = Double.parseDouble(response.get(j).toString());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    if (name.equals("BTC-USD")) {
+                        CryptoStorage.setBitcoin(price);
+                        Log.d("TAG", "Run1.1: " + Arrays.toString(CryptoStorage.getBitcoin()));
+                    } else if (name.equals("ETH-USD")) {
+                        CryptoStorage.setEthereum(price);
+                        Log.d("TAG", "Run2.1: " + Arrays.toString(CryptoStorage.getEthereum()));
+                    } else {
+                        CryptoStorage.setDogecoin(price);
+                        Log.d("TAG", "Run3.1: " + Arrays.toString(CryptoStorage.getDogecoin()));
+                    }
                     try {
                         double cryptoPrice = Double
                                 .parseDouble(response.get(response.length() - 1).toString())
@@ -366,6 +384,24 @@ public class individualClientPortfolio extends Fragment {
                 null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
+                Double[] price = new Double[9];
+                for (int j = 0; j < response.length(); j++) {
+                    try {
+                        price[j] = Double.parseDouble(response.get(j).toString());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (name.equals("BTC-USD")) {
+                    CryptoStorage.setBitcoin(price);
+                    Log.d("TAG", "Run1.1: " + Arrays.toString(CryptoStorage.getBitcoin()));
+                } else if (name.equals("ETH-USD")) {
+                    CryptoStorage.setEthereum(price);
+                    Log.d("TAG", "Run2.1: " + Arrays.toString(CryptoStorage.getEthereum()));
+                } else {
+                    CryptoStorage.setDogecoin(price);
+                    Log.d("TAG", "Run3.1: " + Arrays.toString(CryptoStorage.getDogecoin()));
+                }
                 try {
                     double cryptoPrice = Double
                             .parseDouble(response.get(response.length() - 1).toString())
