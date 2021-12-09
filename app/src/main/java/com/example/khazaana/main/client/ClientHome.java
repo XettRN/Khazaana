@@ -146,7 +146,7 @@ public class ClientHome extends Fragment {
                         List<Number> equity = (List<Number>) document.get("Equity");
 
                         double aum = calculateAUM(stocks); // need to calculate
-                        double return_perc = 0; // TODO: Calculate return
+                        double return_perc = 23; // TODO: Calculate return
                         double benchmarkReturn = 10;
 
                         TextView clientName = (TextView) getView().findViewById(R.id.welcome);
