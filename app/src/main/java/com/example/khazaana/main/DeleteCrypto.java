@@ -95,16 +95,23 @@ public class DeleteCrypto extends Fragment {
                             if (doc.exists()) {
                                 List<Map> crypto = (List<Map>) doc.get("Crypto");
                                 assert crypto != null;
+                                boolean found = false;
                                 for (int i = 0; i < crypto.size(); i++) {
                                     if (auto.getText().toString().equals(crypto.get(i).get("stock").toString())) {
-                                        cliRef.update("Stocks",
+                                        cliRef.update("Crypto",
                                                 FieldValue.arrayRemove(crypto.get(i)));
                                         NavDirections action = DeleteCryptoDirections
                                                 .actionDeleteCryptoToCryptoPortfolio(clientID, ifaID);
                                         Navigation.findNavController(view).navigate(action);
                                     }
+                                    found = true;
                                 }
-                                Toast.makeText(getContext(), "No such currency", Toast.LENGTH_SHORT).show();
+                                if (found) {
+                                    Toast.makeText(getContext(), "Deleted currency", Toast.LENGTH_SHORT).show();
+                                }
+                                else {
+                                    Toast.makeText(getContext(), "No such currency", Toast.LENGTH_SHORT).show();
+                                }
                             }
                             else {
                                 Log.d("DEL_CRYPTO", "Document doesn't exist");

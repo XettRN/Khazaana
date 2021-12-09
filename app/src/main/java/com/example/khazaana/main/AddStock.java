@@ -52,7 +52,7 @@ public class AddStock extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        String clientID = AddStockArgs.fromBundle(getArguments()).getClient();
+        String clientID = AddStockArgs.fromBundle(getArguments()).getClientID();
 
         String user = FirebaseAuth.getInstance().getUid();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -105,6 +105,9 @@ public class AddStock extends Fragment {
         //call Singleton for RequestQueue
         RequestSingleton.getInstance(getContext()).addToRequestQueue(request);
 
+        String userID = AddStockArgs.fromBundle(getArguments()).getClientID();
+        String ifaID = AddStockArgs.fromBundle(getArguments()).getIfaID();
+
         AutoCompleteTextView autoText = view.findViewById(R.id.stockAuto);
         TextInputEditText sharesText = view.findViewById(R.id.field_shares);
         TextInputEditText priceText = view.findViewById(R.id.field_stock_price);
@@ -126,9 +129,9 @@ public class AddStock extends Fragment {
                     client.update("Stocks", FieldValue.arrayUnion(entry));
 
                     NavDirections action = AddStockDirections.actionAddStockFragToStockPortfolio(
-                            getArguments().get("clientID").toString(),
-                            getArguments().get("ifaID").toString());
+                            clientID, ifaID);
                     Navigation.findNavController(view).navigate(action);
+                    Toast.makeText(getContext(), "Added stock", Toast.LENGTH_SHORT).show();
                 }
             }
         });

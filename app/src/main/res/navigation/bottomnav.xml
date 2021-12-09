@@ -39,10 +39,13 @@
         android:name="com.example.khazaana.main.AddStock"
         android:label="fragment_add_stock"
         tools:layout="@layout/fragment_add_stock">
-        <argument android:name="client" />
+        <argument android:name="clientID"
+            app:argType="string" />
         <action
             android:id="@+id/action_add_stock_frag_to_stockPortfolio"
             app:destination="@id/stockPortfolio" />
+        <argument android:name="ifaID"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/stockPortfolio"
@@ -142,6 +145,9 @@
         <argument
             android:name="clientID"
             app:argType="string" />
+        <argument
+            android:name="ifaID"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/specific_crypto"
@@ -213,6 +219,9 @@
             app:destination="@id/stockPortfolio" />
         <argument android:name="clientID"
             app:argType="string" />
+        <argument
+            android:name="ifaID"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/deleteCrypto"
@@ -224,6 +233,9 @@
             app:destination="@id/cryptoPortfolio" />
         <argument
             android:name="clientID"
+            app:argType="string" />
+        <argument
+            android:name="ifaID"
             app:argType="string" />
     </fragment>
 </navigation>

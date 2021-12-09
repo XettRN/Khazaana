@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.khazaana.main.NavView;
 import com.example.khazaana.main.client.userDetails;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -54,7 +55,7 @@ public class LoginScreen extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             Toast.makeText(LoginScreen.this,"Login Successful", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(), userDetails.class));
+                            startActivity(new Intent(getApplicationContext(), NavView.class));
                         } else {
                             Toast.makeText(LoginScreen.this,"Error!!! "+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }

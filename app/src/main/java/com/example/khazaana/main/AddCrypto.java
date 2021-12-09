@@ -35,8 +35,8 @@ public class AddCrypto extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        String clientID = getArguments().get("clientID").toString();
-        String ifaID = getArguments().get("ifaID").toString();
+        String clientID = AddCryptoArgs.fromBundle(getArguments()).getClientID();
+        String ifaID = AddCryptoArgs.fromBundle(getArguments()).getIfaID();
 
         String user = FirebaseAuth.getInstance().getUid();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
