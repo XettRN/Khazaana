@@ -57,33 +57,6 @@ import java.util.Objects;
 
 public class individualClientPortfolio extends Fragment {
 
-    /*
-    PieChart pieChart = null;
-    TextView perform1 = null;
-    TextView perform2 = null;
-    TextView current_aum1 = null;
-    TextView return1 = null;
-    TextView current_aum2 = null;
-    TextView return2 = null;
-    String stock1, stock2, stock3 = null;
-    double price1, price2, price3 = 0;
-
-    String crypto1, crypto2, crypto3 = null;
-    double cprice1, cprice2, cprice3 = 0;
-
-    double stocks_total = 0;
-    double crypto_total = 0;
-    List<Map> stocks = null;
-    List<Map> crypto = null;
-    TextView initial_aum1 = null;
-    TextView initial_aum2 = null;
-    List<Number> equity = null;
-    double total1, total2;
-    TextView aum = null;
-    TextView returnP = null;
-    DecimalFormat d = new DecimalFormat("#.####");
-    List<Number> a = null;
-    */
     double initStock;
     double totalStock;
     double returnStock;
@@ -114,6 +87,10 @@ public class individualClientPortfolio extends Fragment {
     TextView cryptoCurrAUM;
     TextView cryptoReturnText;
     TextView cryptoBench;
+
+    List<Number> graph = null;
+    List<Map> list = null;
+    PieChart pieChart = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -154,6 +131,8 @@ public class individualClientPortfolio extends Fragment {
         cryptoCurrAUM = view.findViewById(R.id.current_aum2);
         cryptoReturnText = view.findViewById(R.id.crypto_return);
         cryptoBench = view.findViewById(R.id.crypto_return_bench);
+        pieChart = view.findViewById(R.id.pieChart3);
+        graph = new ArrayList<>();
 
         //fetch client document from database
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -226,6 +205,10 @@ public class individualClientPortfolio extends Fragment {
                                         aum.setText("AUM " + totalAUM);
                                         totalReturn.setText("Return: " + finalReturn);
                                         totalBench.setText("Benchmark Return: " + (0.1 * initAUM));
+                                        graph.add((totalStock/totalAUM)*100);
+                                        Log.d("Pie chart", "Pie chart data: "+graph);
+                                        pieChart.setData(getPieData(graph));
+                                        pieChart.invalidate();
                                     }
                                 });
                             }
@@ -307,7 +290,7 @@ public class individualClientPortfolio extends Fragment {
             @Override
             public void onClick(View view) {
                 //add fragment to bottomnav.xml so this can be written
-                NavDirections navDirections = individualClientPortfolioDirections
+                NavDirections navDirections = (NavDirections) individualClientPortfolioDirections
                         .actionIndividualClientPortfolioToStockPortfolio((String) getArguments().get("clientID"), (String) getArguments().get("ifaID"));
                 Navigation.findNavController(root).navigate(navDirections);
             }
@@ -317,12 +300,12 @@ public class individualClientPortfolio extends Fragment {
             @Override
             public void onClick(View view) {
                 //add fragment to bottomnav.xml so this can be written
-                NavDirections navDirections = individualClientPortfolioDirections.actionIndividualClientPortfolioToCryptoPortfolio((String) getArguments().get("clientID"), (String) getArguments().get("ifaID"));
+                NavDirections navDirections = (NavDirections) individualClientPortfolioDirections.actionIndividualClientPortfolioToCryptoPortfolio((String) getArguments().get("clientID"), (String) getArguments().get("ifaID"));
                 Navigation.findNavController(root).navigate(navDirections);
             }
         });
     }
-
+    /*
     private void calcStocks(List<Map> stocks) {
         String url = "https://finnhub-backend.herokuapp.com/stock/price?symbol=";
         initStock = 0;
@@ -533,7 +516,7 @@ public class individualClientPortfolio extends Fragment {
         });
         RequestSingleton.getInstance(getContext()).addToRequestQueue(request);
     }
-    /*
+
     private class stockPriceTask1 extends AsyncTask<String, String, String> {
         String data = "";
 
@@ -1039,17 +1022,24 @@ public class individualClientPortfolio extends Fragment {
         }
     }
 
-    private PieData getPieData(List<Number> list) {
+     */
+    private PieData getPieData(List<Number> l) {
         ArrayList<PieEntry> entries = new ArrayList<>();
-        entries.add(new PieEntry(list.get(0).floatValue(), "Stocks"));
-        entries.add(new PieEntry(list.get(1).floatValue(), "Crypto"));
+        Log.d("Data", "data: "+list);
+        if (l.size() == 1) {
+            entries.add(new PieEntry(l.get(0).floatValue(), "Stocks"));
+        } else {
+            entries.add(new PieEntry(l.get(0).floatValue(), "Stocks"));
+            entries.add(new PieEntry(l.get(1).floatValue(), "Crypto"));
+        }
 
-        PieDataSet pieDataSet = new PieDataSet(entries, "");
+
+        PieDataSet pieDataSet = new PieDataSet(entries , "");
         pieChart.setEntryLabelColor(getResources().getColor(R.color.black));
         pieDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
         pieDataSet.setDrawValues(false);
 
         return new PieData(pieDataSet);
     }
-    */
+
 }
