@@ -250,7 +250,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.769"
         app:strokeColor="#000000"
-        app:strokeWidth="1dp" />tVertical_bias="0.808" />
+        app:strokeWidth="1dp" />
 
     <View
         android:id="@+id/divider12"

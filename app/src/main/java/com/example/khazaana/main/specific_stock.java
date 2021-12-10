@@ -1,23 +1,25 @@
 package com.example.khazaana.main;
 
+import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.khazaana.LoadScreen;
 import com.example.khazaana.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -38,7 +40,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -56,6 +57,7 @@ public class specific_stock extends Fragment {
     TextView roe = null;
     TextView recommend = null;
     TextView sName = null;
+    Button sout = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -79,7 +81,7 @@ public class specific_stock extends Fragment {
         roe = view.findViewById(R.id.value3);
         recommend = view.findViewById(R.id.value4);
         sName = view.findViewById(R.id.stock_name);
-
+        sout = view.findViewById(R.id.sout);
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference ifas = db.collection("Authorized IFAs");
@@ -117,6 +119,13 @@ public class specific_stock extends Fragment {
             }
         });
 
+        sout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(getContext(), LoadScreen.class));
+            }
+        });
 
 
     }

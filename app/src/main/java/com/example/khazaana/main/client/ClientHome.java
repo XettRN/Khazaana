@@ -6,9 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.khazaana.R;
@@ -20,16 +18,12 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -37,8 +31,6 @@ import java.util.Map;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavDirections;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -112,7 +104,7 @@ public class ClientHome extends Fragment {
             Button stock;
             public ViewHolder(View itemView) {
                 super(itemView);
-                stock = itemView.findViewById(R.id.stock_name);
+                stock = itemView.findViewById(R.id.crypto_name);
             }
         }
     }
@@ -154,7 +146,7 @@ public class ClientHome extends Fragment {
                         List<Number> equity = (List<Number>) document.get("Equity");
 
                         double aum = calculateAUM(stocks); // need to calculate
-                        double return_perc = 0; // TODO: Calculate return
+                        double return_perc = 23; // TODO: Calculate return
                         double benchmarkReturn = 10;
 
                         TextView clientName = (TextView) getView().findViewById(R.id.welcome);

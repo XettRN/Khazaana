@@ -1,6 +1,7 @@
 package com.example.khazaana.main;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,11 +15,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.khazaana.LoadScreen;
 import com.example.khazaana.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -45,6 +49,7 @@ import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class specific_crypto extends Fragment {
 
@@ -56,6 +61,7 @@ public class specific_crypto extends Fragment {
     double boughtPrice = 0;
     DecimalFormat d = new DecimalFormat("#.###");
     TextView cName = null;
+    Button sout = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -74,14 +80,14 @@ public class specific_crypto extends Fragment {
         TextView cryptoOwned = view.findViewById(R.id.cryptoOwned);
         TextView buyingPrice = view.findViewById(R.id.cbuyingPrice);
         returnP = view.findViewById(R.id.creturnPercent);
-        cName = view.findViewById(R.id.crypto_name);
+        cName = view.findViewById(R.id.cryp_name);
+        sout = view.findViewById(R.id.sout2);
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference ifas = db.collection("Authorized IFAs");
         DocumentReference ifa = ifas.document((String) getArguments().get("ifaID"));
         CollectionReference clients = ifa.collection("Clients");
         DocumentReference client = clients.document((String) getArguments().get("clientID"));
-        cName.setText((String) getArguments().get("cryptoName"));
         Log.d("TAG", "Crypto Name" + getArguments().get("crypto_name"));
 
         client.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -92,10 +98,13 @@ public class specific_crypto extends Fragment {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         List<Map> t = (List<Map>) document.get("Crypto");
-                        String cryptoName = (String) getArguments().get("cryptoName");
+                        String cryptoName = (String) getArguments().get("crypto_name");
                         for (int i = 0; i < t.size(); i++) {
                             Log.d("TAG", "Current Crypto" + t.get(i).get("stock"));
-                            if (t.get(i).get("stock") == cryptoName) {
+                            if (Objects.requireNonNull(t.get(i).get("stock")).toString().equals(cryptoName)) {
+                                cName.setText(""+getArguments().get("crypto_name"));
+                                Log.d("TAG", "Current Crypto from firebase" + t.get(i).get("stock"));
+                                Log.d("TAG", "Current Crypto from previous screen" + cryptoName);
                                 cryptoOwned.setText("Crypto Owned: " + t.get(i).get("quantity"));
                                 buyingPrice.setText("Buying Price: " + t.get(i).get("price"));
                                 boughtPrice = Double.parseDouble(t.get(i).get("price").toString());
@@ -109,9 +118,9 @@ public class specific_crypto extends Fragment {
 
 
                         Double[] cryptoTicker;
-                        if (cryptoName == "ETH-USD") {
+                        if (cryptoName.equals("ETH-USD")) {
                             cryptoTicker = CryptoStorage.getEthereum();
-                        } else if (cryptoName == "BTC-USD") {
+                        } else if (cryptoName.equals("BTC-USD")) {
                             cryptoTicker = CryptoStorage.getBitcoin();
                         } else {
                             cryptoTicker = CryptoStorage.getDogecoin();
@@ -160,6 +169,14 @@ public class specific_crypto extends Fragment {
                 } else {
                     Log.d("TAG", "get failed with ", task.getException());
                 }
+            }
+        });
+
+        sout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(getContext(), LoadScreen.class));
             }
         });
     }

@@ -1,6 +1,6 @@
 package com.example.khazaana.main;
 
-import android.os.AsyncTask;
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,6 +9,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,40 +18,25 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.khazaana.CallAPI;
 import com.example.khazaana.R;
 import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 
 public class crypto_portfolio extends Fragment {
 
+    /*
     List<Map> t = null;
     List<Number> crypto = null;
     PieChart pieChart = null;
@@ -68,6 +55,9 @@ public class crypto_portfolio extends Fragment {
     double q1 = 0;
     double q2 = 0;
     double q3 = 0;
+    */
+    RecyclerView recyclerView;
+    PieChart pieChart = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -80,7 +70,49 @@ public class crypto_portfolio extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        TextView textView = view.findViewById(R.id.name);
+        String clientID = crypto_portfolioArgs.fromBundle(getArguments()).getClientID();
+        String ifaID = crypto_portfolioArgs.fromBundle(getArguments()).getIfaID();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference client = db.collection("Authorized IFAs")
+                .document(ifaID)
+                .collection("Clients")
+                .document(clientID);
+
+        client.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot doc = task.getResult();
+                    if (doc.exists()) {
+                        TextView name = view.findViewById(R.id.crypto_client_name);
+                        name.setText(doc.get("First Name") + " " + doc.get("Last Name"));
+
+                        List<Map> list = (List<Map>) doc.get("Crypto");
+                        ArrayList<AssetEntry> entries = new ArrayList<>();
+                        for (int i = 0; i < list.size(); i++) {
+                            AssetEntry a = new AssetEntry();
+                            a.setStock(list.get(i).get("stock").toString());
+                            a.setPrice(Float.parseFloat(list.get(i).get("price").toString()));
+                            a.setQuantity(Float.parseFloat(list.get(i).get("quantity").toString()));
+                            entries.add(a);
+                        }
+
+                        recyclerView = view.findViewById(R.id.cryptoRecycler);
+                        recyclerView.setAdapter(new crypto_portfolio.CryptoAdapter(entries, getContext()));
+                        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                    }
+                    else {
+                        Log.d("STOCKS", "Document doesn't exist");
+                    }
+                }
+                else {
+                    Log.d("STOCKS", "Get failed with", task.getException());
+                }
+            }
+        });
+
+        /*
+        TextView textView = view.findViewById(R.id.stock_client_name);
         TextView crypto1 = view.findViewById(R.id.crypto1);
         TextView boughtPrice1 = view.findViewById(R.id.cboughtPrice1);
         TextView cryptoOwned1 = view.findViewById(R.id.cryptoOwned1);
@@ -104,12 +136,6 @@ public class crypto_portfolio extends Fragment {
         pieChart.setHoleRadius(0f);
         pieChart.setTransparentCircleRadius(0f);
         pieChart.getLegend().setEnabled(false);
-
-        /*FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference ifas = db.collection("Authorized IFAs");
-        DocumentReference ifa = ifas.document("A5WkIbLiaub1V1bQ9CRwzLdXBSo2");
-        CollectionReference clients = ifa.collection("Clients");
-        DocumentReference client = clients.document("24pLjJbK43clJtggGDLPk9ALQfZ2");*/
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference ifas = db.collection("Authorized IFAs");
@@ -247,6 +273,24 @@ public class crypto_portfolio extends Fragment {
 
 
         View root = view;
+        crypto1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //add fragment to bottomnav.xml so this can be written
+                NavDirections navDirections = crypto_portfolioDirections.actionCryptoPortfolioToSpecificCrypto((String) getArguments().get("clientID"), (String) getArguments().get("ifaID"), (String) t.get(0).get("stock"));
+                Navigation.findNavController(root).navigate(navDirections);
+            }
+        });
+
+        crypto2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //add fragment to bottomnav.xml so this can be written
+                NavDirections navDirections = crypto_portfolioDirections.actionCryptoPortfolioToSpecificCrypto((String) getArguments().get("clientID"), (String) getArguments().get("ifaID"), (String) t.get(1).get("stock"));
+                Navigation.findNavController(root).navigate(navDirections);
+            }
+        });
+
         crypto3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -255,16 +299,14 @@ public class crypto_portfolio extends Fragment {
                 Navigation.findNavController(root).navigate(navDirections);
             }
         });
-      
-        //navigation will have to pass in the client from previous location
-        //(from home or client list screen)
-        String passedInClientID = "EJCyh9saTPZ9YzHvdtdN";
 
         String user = FirebaseAuth.getInstance().getUid();
         DocumentReference clientID = db.collection("Authorized IFAs")
                 .document(user)
                 .collection("Clients")
                 .document(passedInClientID);
+
+         */
 
         Toolbar cryptoBar = view.findViewById(R.id.cryptoBar);
         cryptoBar.inflateMenu(R.menu.asset_toolbar);
@@ -274,7 +316,13 @@ public class crypto_portfolio extends Fragment {
                 int i = item.getItemId();
                 if (i == R.id.add_asset_button) {
                     NavDirections navDirections = crypto_portfolioDirections
-                            .actionCryptoPortfolioToAddCrypto(clientID.getId());
+                            .actionCryptoPortfolioToAddCrypto(clientID, ifaID);
+                    Navigation.findNavController(view).navigate(navDirections);
+                    return true;
+                }
+                if (i == R.id.delete_asset_button) {
+                    NavDirections navDirections = crypto_portfolioDirections
+                            .actionCryptoPortfolioToDeleteCrypto(clientID, ifaID);
                     Navigation.findNavController(view).navigate(navDirections);
                     return true;
                 }
@@ -283,6 +331,71 @@ public class crypto_portfolio extends Fragment {
         });
     }
 
+    private class CryptoAdapter extends RecyclerView.Adapter<crypto_portfolio.CryptoAdapter.ViewHolder> {
+        private final ArrayList<AssetEntry> crypto;
+        private final Context context;
+
+        public CryptoAdapter(ArrayList<AssetEntry> list, Context ct) {
+            crypto = list;
+            context = ct;
+        }
+
+        @NonNull
+        @Override
+        public crypto_portfolio.CryptoAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(context)
+                    .inflate(R.layout.asset_item, parent, false);
+
+            return new crypto_portfolio.CryptoAdapter.ViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull crypto_portfolio.CryptoAdapter.ViewHolder holder, int position) {
+            AssetEntry entry = crypto.get(position);
+
+            CallAPI call = new CallAPI();
+            call.calcCrypto(getContext(), entry, new CallAPI.CryptoListener() {
+                @Override
+                public void OnError(String message) {
+                    Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void OnResponse(String name, double cryptoPrice, double cryptoReturn) {
+                    holder.currPrice.setText(holder.currPrice.getText() + " " + cryptoPrice);
+                    holder.assetReturn.setText(holder.assetReturn.getText() + " " + cryptoReturn);
+                }
+            });
+            holder.asset.setText(entry.getStock());
+            holder.boughtPrice.setText(holder.boughtPrice.getText() + " " + entry.getPrice());
+            holder.owned.setText("Amount: " + entry.getQuantity());
+        }
+
+        @Override
+        public int getItemCount() {
+            return crypto.size();
+        }
+
+        private class ViewHolder extends RecyclerView.ViewHolder {
+            public TextView asset;
+            public TextView boughtPrice;
+            public TextView currPrice;
+            public TextView owned;
+            public TextView assetReturn;
+
+            public ViewHolder(@NonNull View itemView) {
+                super(itemView);
+
+                asset = itemView.findViewById(R.id.item_name);
+                boughtPrice = itemView.findViewById(R.id.last_bought_price);
+                currPrice = itemView.findViewById(R.id.asset_price);
+                owned = itemView.findViewById(R.id.assets_owned);
+                assetReturn = itemView.findViewById(R.id.asset_return);
+            }
+        }
+    }
+
+    /*
     private class priceTask1 extends AsyncTask<String, String, String> {
         String data = "";
 
@@ -505,5 +618,7 @@ public class crypto_portfolio extends Fragment {
 
         return new PieData(pieDataSet);
     }
+
+     */
 
 }

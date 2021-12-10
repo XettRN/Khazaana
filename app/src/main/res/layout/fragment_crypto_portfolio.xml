@@ -10,9 +10,11 @@
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="12dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cryptoBar" >
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cryptoBar">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -28,7 +30,7 @@
                 android:theme="?attr/actionBarTheme" />
 
             <TextView
-                android:id="@+id/name"
+                android:id="@+id/crypto_client_name"
                 android:layout_width="379dp"
                 android:layout_height="37dp"
                 android:text="  Name Here"
@@ -50,125 +52,10 @@
                 android:textColor="#FFFFFF"
                 android:textSize="45sp" />
 
-            <TextView
-                android:id="@+id/crypto1"
-                android:layout_width="160dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="Crypto"
-                android:textColor="#000000" />
-
-            <TextView
-                android:id="@+id/cboughtPrice1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="Last Bought Price: " />
-
-            <TextView
-                android:id="@+id/ccurrentPrice1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="Current Price: " />
-
-            <TextView
-                android:id="@+id/cryptoOwned1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="Shares Owned: " />
-
-            <TextView
-                android:id="@+id/creturn1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="Return:" />
-
-            <View
-                android:id="@+id/divider3"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/cryptoRecycler"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="?android:attr/listDivider" />
-
-            <TextView
-                android:id="@+id/crypto2"
-                android:layout_width="160dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="Crypto"
-                android:textColor="#000000" />
-
-            <TextView
-                android:id="@+id/cboughtPrice2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="Last Bought Price: " />
-
-            <TextView
-                android:id="@+id/ccurrentPrice2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="Current Price: " />
-
-            <TextView
-                android:id="@+id/cryptoOwned2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="Shares Owned: " />
-
-            <TextView
-                android:id="@+id/creturn2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="Return:" />
-
-            <View
-                android:id="@+id/divider4"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="?android:attr/listDivider" />
-
-            <TextView
-                android:id="@+id/crypto3"
-                android:layout_width="160dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="Crypto"
-                android:textColor="#000000" />
-
-            <TextView
-                android:id="@+id/cboughtPrice3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="Last Bought Price: " />
-
-            <TextView
-                android:id="@+id/ccurrentPrice3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="Current Price: " />
-
-            <TextView
-                android:id="@+id/cryptoOwned3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="Shares Owned: " />
-
-            <TextView
-                android:id="@+id/creturn3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="Return:" />
+                android:layout_height="match_parent" />
 
         </LinearLayout>
     </ScrollView>
