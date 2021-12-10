@@ -238,4 +238,9 @@
             android:name="ifaID"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/userProfile"
+        android:name="com.example.khazaana.UserProfile"
+        android:label="fragment_user_profile"
+        tools:layout="@layout/fragment_user_profile" />
 </navigation>
