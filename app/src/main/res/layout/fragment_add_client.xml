@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="150dp"
         android:layout_marginEnd="32dp"
         android:hint="First Name"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,9 +23,35 @@
             android:id="@+id/field_first_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/input_states"
+            android:background="#FFFFFF"
             android:inputType="textPersonName" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="400dp"
+        android:layout_height="2dp"
+        android:background="#DCD7D7"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.119" />
+
+    <TextView
+        android:id="@+id/clientCrypto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_medium"
+        android:text="Add Client"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.042" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout"
@@ -43,16 +69,42 @@
             android:id="@+id/field_last_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#FFFFFF"
             android:inputType="textPersonName" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/submit_new_client"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="Button"
+        android:layout_width="135dp"
+        android:layout_height="56dp"
+        android:backgroundTint="@color/white"
+        android:fontFamily="@font/montserrat_regular"
+        android:text="New Client"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        app:cornerRadius="1dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+        app:strokeColor="#000000"
+        app:strokeWidth="1dp"
+        tools:layout_editor_absoluteY="406dp" />
+
+    <Button
+        android:id="@+id/back_add_client"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:backgroundTint="#FFFFFF"
+        android:foreground="@drawable/ic_baseline_arrow_back_ios_24"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        app:iconTint="#610C0C"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.044"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.042"
+        app:strokeColor="@color/white"
+        tools:ignore="SpeakableTextPresentCheck" />
 </androidx.constraintlayout.widget.ConstraintLayout>
