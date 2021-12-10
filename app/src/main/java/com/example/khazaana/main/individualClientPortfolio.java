@@ -388,7 +388,7 @@ public class individualClientPortfolio extends Fragment {
                     double calcReturn = totalStock - initStock;
                     stockInitAUM.setText(stockInitAUM.getText() + " " + initStock);
                     stockCurrAUM.setText(stockCurrAUM.getText() + " " + totalStock);
-                    stockReturn.setText(stockReturn.getText() + " " + calcReturn);
+                    stockReturnText.setText(stockReturnText.getText() + " " + calcReturn);
                     stockBench.setText(stockBench.getText() + " " + (initStock * 1.1));
 
                     totalAUM += totalStock;
@@ -513,7 +513,7 @@ public class individualClientPortfolio extends Fragment {
                     double calcReturn = totalCrypto - initCrypto;
                     cryptoInitAUM.setText(cryptoInitAUM.getText() + " " + initCrypto);
                     cryptoCurrAUM.setText(cryptoCurrAUM.getText() + " " + totalCrypto);
-                    cryptoReturn.setText(cryptoReturn.getText() + " " + calcReturn);
+                    cryptoReturnText.setText(cryptoReturnText.getText() + " " + calcReturn);
                     cryptoBench.setText(cryptoBench.getText() + " " + (initCrypto * 1.1));
 
                     totalAUM += totalCrypto;
