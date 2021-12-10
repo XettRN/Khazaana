@@ -49,8 +49,10 @@
                 android:layout_height="50dp"
                 android:background="#000000"
                 android:text="Crypto Portfolio"
+                android:textAlignment="center"
+                android:fontFamily="@font/montserrat_bold"
                 android:textColor="#FFFFFF"
-                android:textSize="45sp" />
+                android:textSize="30sp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/cryptoRecycler"
