@@ -9,7 +9,7 @@
         android:title="Clients"
         android:icon="@drawable/ic_baseline_people_24"/>
     <item
-        android:id="@+id/profile_frag"
+        android:id="@+id/userProfile"
         android:title="Profile"
         android:icon="@drawable/ic_baseline_person_24"/>
 </menu>
