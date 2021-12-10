@@ -63,19 +63,7 @@ public class Home extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         displayPortfolios();
-//        Button next = view.findViewById(R.id.button18);
-//
-//        View root = view;
-//
-//        next.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                //add fragment to bottomnav.xml so this can be written
-//                NavDirections navDirections = HomeDirections.
-//                        actionHomeFragToIndividualClientPortfolio("0XrVoWLAJKemkzYxw2fVdh6bLWm1", FirebaseAuth.getInstance().getCurrentUser().getUid());
-//                Navigation.findNavController(root).navigate(navDirections);
-//            }
-//        });
+
     }
     double initStock = 0;
     double totalStock = 0;

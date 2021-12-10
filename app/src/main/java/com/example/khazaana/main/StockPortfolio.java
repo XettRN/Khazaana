@@ -29,7 +29,6 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -201,15 +200,8 @@ public class StockPortfolio extends Fragment {
     private PieData getPieData(List<Number> l) {
         ArrayList<PieEntry> entries = new ArrayList<>();
         Log.d("Data", "data: "+list);
-        if (l.size() == 1) {
-            entries.add(new PieEntry(l.get(0).floatValue(), "" + list.get(0).get("stock")));
-        } else if (l.size() == 2) {
-            entries.add(new PieEntry(l.get(0).floatValue(), "" + list.get(0).get("stock")));
-            entries.add(new PieEntry(l.get(1).floatValue(), "" + list.get(1).get("stock")));
-        } else {
-            entries.add(new PieEntry(l.get(0).floatValue(), "" + list.get(0).get("stock")));
-            entries.add(new PieEntry(l.get(1).floatValue(), "" + list.get(1).get("stock")));
-            entries.add(new PieEntry(l.get(2).floatValue(), "" + list.get(2).get("stock")));
+        for (int i = 0; i < l.size(); i++) {
+            entries.add(new PieEntry(l.get(i).floatValue(), "" + list.get(i).get("stock")));
         }
 
 
