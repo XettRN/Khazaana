@@ -46,10 +46,11 @@
                 android:layout_width="408dp"
                 android:layout_height="50dp"
                 android:background="#000000"
+                android:fontFamily="@font/montserrat_bold"
                 android:text="Stocks Portfolio"
                 android:textAlignment="center"
                 android:textColor="#FFFFFF"
-                android:textSize="45sp" />
+                android:textSize="30sp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/stockRecycler"

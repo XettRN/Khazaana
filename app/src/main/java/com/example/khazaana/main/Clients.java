@@ -1,8 +1,11 @@
 package com.example.khazaana.main;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
@@ -63,9 +66,7 @@ public class Clients extends Fragment {
 
         LinearLayout layout = view.findViewById(R.id.client_list);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-
-        //String[] clients = getResources().getStringArray(R.array.clients);
+                LinearLayout.LayoutParams.MATCH_PARENT, 150);
 
         String user = FirebaseAuth.getInstance().getUid();
         assert user != null;
@@ -98,6 +99,12 @@ public class Clients extends Fragment {
         View root = view;
         TextView textView = new TextView(getContext());
         textView.setText(client);
+
+        Typeface typeface = Typeface.createFromAsset(getResources().getAssets(),
+                "fonts/Montserrat-Medium.otf");
+        textView.setTypeface(typeface);
+        textView.setTextSize(24);
+
         textView.setLayoutParams(params);
         textView.setOnClickListener(new View.OnClickListener() {
             @Override

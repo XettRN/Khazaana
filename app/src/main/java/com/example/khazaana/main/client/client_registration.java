@@ -47,8 +47,9 @@ public class client_registration extends AppCompatActivity {
         fStore = FirebaseFirestore.getInstance();
 
         if(fAuthorization.getCurrentUser() != null) {
-            startActivity(new Intent(getApplicationContext(), userDetails.class));
-            finish();
+            fAuthorization.signOut();
+            //startActivity(new Intent(getApplicationContext(), userDetails.class));
+            //finish();
         }
 
 

@@ -196,7 +196,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_weight="1"
                     android:fontFamily="@font/montserrat_regular"
-                    android:text="p/e"
+                    android:text="P/E"
                     android:textColor="@color/black"
                     android:textSize="15dp" />
 
@@ -235,7 +235,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_weight="1"
                     android:fontFamily="@font/montserrat_regular"
-                    android:text="p/b"
+                    android:text="P/B"
                     android:textColor="@color/black"
                     android:textSize="15dp" />
 
@@ -273,7 +273,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_weight="1"
                     android:fontFamily="@font/montserrat_regular"
-                    android:text="roe"
+                    android:text="ROE"
                     android:textColor="@color/black"
                     android:textSize="15dp" />
 

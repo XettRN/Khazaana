@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Khazaana">
         <activity
+            android:name=".main.ClientBasic"
+            android:exported="false" />
+        <activity
             android:name=".main.ifa.RiskProfiling_SpecificClient"
             android:exported="true" />
         <activity
