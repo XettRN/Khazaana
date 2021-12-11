@@ -211,7 +211,7 @@ public class ClientBasic extends AppCompatActivity {
                                     }
 
                                     @Override
-                                    public void OnResponse(String name, double cryptoPrice, double cryptoReturn) {
+                                    public void OnResponse(String name, double cryptoPrice, double cryptoReturn, Double[] prices) {
                                         if (cryptoPrice > perf1Price) {
                                             perf1Price = cryptoPrice;
                                             firstPerf.setText(name);

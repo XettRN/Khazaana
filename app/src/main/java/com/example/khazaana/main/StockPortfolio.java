@@ -33,6 +33,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -42,6 +43,7 @@ public class StockPortfolio extends Fragment {
     List<Number> graph = null;
     RecyclerView recyclerView;
     PieChart pieChart = null;
+    DecimalFormat d = new DecimalFormat("#.###");
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -61,6 +63,7 @@ public class StockPortfolio extends Fragment {
                 .document(ifaID)
                 .collection("Clients")
                 .document(clientID);
+
 
         client.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -151,8 +154,8 @@ public class StockPortfolio extends Fragment {
 
                 @Override
                 public void OnResponse(String name, double stockPrice, double stockReturn) {
-                    holder.currPrice.setText(holder.currPrice.getText() + " " + stockPrice);
-                    holder.assetReturn.setText(holder.assetReturn.getText() + " " + stockReturn);
+                    holder.currPrice.setText(holder.currPrice.getText() + " " + d.format(stockPrice));
+                    holder.assetReturn.setText(holder.assetReturn.getText() + " " + d.format(stockReturn));
                     double quantity = 0;
                     for (int i = 0; i < list.size(); i++) {
                         if (list.get(i).get("stock").equals(name)) {

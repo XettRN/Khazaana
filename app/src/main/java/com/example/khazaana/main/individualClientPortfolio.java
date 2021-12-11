@@ -114,7 +114,7 @@ public class individualClientPortfolio extends Fragment {
         cryptoBench = view.findViewById(R.id.crypto_return_bench);
         pieChart = view.findViewById(R.id.pieChart3);
         graph = new ArrayList<>();
-        DecimalFormat d = new DecimalFormat("#.##");
+        DecimalFormat d = new DecimalFormat("#.###");
 
         //fetch client document from database
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -180,14 +180,14 @@ public class individualClientPortfolio extends Fragment {
                                         returnStock += (stockReturn * a.getQuantity());
                                         finalReturn += (stockReturn * a.getQuantity());
 
-                                        stockInitAUM.setText("Initial AUM: " + initStock);
-                                        stockCurrAUM.setText("Current AUM: " + totalStock);
-                                        stockReturnText.setText("Return: " + returnStock);
-                                        stockBench.setText("Benchmark Return: " + (0.1 * initStock));
+                                        stockInitAUM.setText("Initial AUM: " + d.format(initStock));
+                                        stockCurrAUM.setText("Current AUM: " + d.format(totalStock));
+                                        stockReturnText.setText("Return: " + d.format(returnStock));
+                                        stockBench.setText("Benchmark Return: " + d.format(0.1 * initStock));
 
-                                        aum.setText("AUM " + totalAUM);
-                                        totalReturn.setText("Return: " + finalReturn);
-                                        totalBench.setText("Benchmark Return: " + (0.1 * initAUM));
+                                        aum.setText("AUM " + d.format(totalAUM));
+                                        totalReturn.setText("Return: " + d.format(finalReturn));
+                                        totalBench.setText("Benchmark Return: " + d.format(0.1 * initAUM));
                                         if (finalI == stocks.size() - 1) {
                                             graph.add((totalStock / totalAUM) * 100);
                                             Log.d("Pie chart", "Pie chart data: " + graph);
@@ -238,14 +238,14 @@ public class individualClientPortfolio extends Fragment {
                                         finalReturn += (cryptoReturn * a.getQuantity());
 
 
-                                        cryptoInitAUM.setText("Initial AUM: " + initCrypto);
-                                        cryptoCurrAUM.setText("Current AUM: " + totalCrypto);
-                                        cryptoReturnText.setText("Return: " + returnCrypto);
-                                        cryptoBench.setText("Benchmark Return: " + (0.1 * initCrypto));
+                                        cryptoInitAUM.setText("Initial AUM: " + d.format(initCrypto));
+                                        cryptoCurrAUM.setText("Current AUM: " + d.format(totalCrypto));
+                                        cryptoReturnText.setText("Return: " + d.format(returnCrypto));
+                                        cryptoBench.setText("Benchmark Return: " + d.format(0.1 * initCrypto));
 
-                                        aum.setText("AUM " + totalAUM);
-                                        totalReturn.setText("Return: " + finalReturn);
-                                        totalBench.setText("Benchmark Return: " + (0.1 * initAUM));
+                                        aum.setText("AUM " + d.format(totalAUM));
+                                        totalReturn.setText("Return: " + d.format(finalReturn));
+                                        totalBench.setText("Benchmark Return: " + d.format(0.1 * initAUM));
 
                                         if (finalI == crypto.size() - 1) {
                                             graph.add((totalCrypto / totalAUM) * 100);

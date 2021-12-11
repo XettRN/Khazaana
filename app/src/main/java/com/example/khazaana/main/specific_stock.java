@@ -40,6 +40,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -58,6 +59,7 @@ public class specific_stock extends Fragment {
     TextView recommend = null;
     TextView sName = null;
     Button sout = null;
+    DecimalFormat d = new DecimalFormat("#.###");
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -170,7 +172,7 @@ public class specific_stock extends Fragment {
                                 priceC.setText("$" + j.get("previous price"));
                                 percentC.setText("" + j.get("change percentage") + "%");
                                 double returnPrice = (((Double) j.get("current price") - boughtPrice)/boughtPrice)*100;
-                                returnP.setText("Return: "+returnPrice+"%");
+                                returnP.setText("Return: "+d.format(returnPrice)+"%");
                                 if ((Double) j.get("current price") > (Double) j.get("previous price")) {
                                     currentP.setTextColor(getResources().getColor(R.color.green));
                                     priceC.setTextColor(getResources().getColor(R.color.green));
