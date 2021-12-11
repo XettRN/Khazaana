@@ -151,10 +151,18 @@ public class crypto_portfolio extends Fragment {
                 }
 
                 @Override
-                public void OnResponse(String name, double cryptoPrice, double cryptoReturn) {
+                public void OnResponse(String name, double cryptoPrice, double cryptoReturn, Double[] prices) {
                     holder.currPrice.setText(holder.currPrice.getText() + " " + cryptoPrice);
                     holder.assetReturn.setText(holder.assetReturn.getText() + " " + cryptoReturn);
-                    graph.add(cryptoPrice);
+                    double quantity = 0;
+                    for (int i = 0; i < list.size(); i++) {
+                        if (list.get(i).get("stock").equals(name)) {
+                            quantity = Double.parseDouble(list.get(i).get("quantity").toString());
+
+                            break;
+                        }
+                    }
+                    graph.add(cryptoPrice*quantity);
                     Log.d("Pie chart", "Pie chart data: "+graph);
                     pieChart.setData(getPieData(graph));
                     pieChart.invalidate();
@@ -201,14 +209,13 @@ public class crypto_portfolio extends Fragment {
 
     private PieData getPieData(List<Number> l) {
         ArrayList<PieEntry> entries = new ArrayList<>();
-        Log.d("Data", "data: "+list);
+        Log.d("Pie Data", "Pie data: "+l);
         for (int i = 0; i < l.size(); i++) {
             entries.add(new PieEntry(l.get(i).floatValue(), "" + list.get(i).get("stock")));
         }
 
 
         PieDataSet pieDataSet = new PieDataSet(entries , "");
-        pieChart.setEntryLabelColor(getResources().getColor(R.color.black));
         pieDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
         pieDataSet.setDrawValues(false);
 

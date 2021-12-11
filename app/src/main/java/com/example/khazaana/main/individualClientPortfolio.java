@@ -30,7 +30,9 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -112,6 +114,7 @@ public class individualClientPortfolio extends Fragment {
         cryptoBench = view.findViewById(R.id.crypto_return_bench);
         pieChart = view.findViewById(R.id.pieChart3);
         graph = new ArrayList<>();
+        DecimalFormat d = new DecimalFormat("#.##");
 
         //fetch client document from database
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -154,6 +157,7 @@ public class individualClientPortfolio extends Fragment {
                                 initStock += a.getPrice();
                                 initAUM += a.getPrice();
 
+                                int finalI = i;
                                 callAPI.calcStock(getContext(), a, new CallAPI.StockListener() {
                                     @Override
                                     public void OnError(String message) {
@@ -184,10 +188,12 @@ public class individualClientPortfolio extends Fragment {
                                         aum.setText("AUM " + totalAUM);
                                         totalReturn.setText("Return: " + finalReturn);
                                         totalBench.setText("Benchmark Return: " + (0.1 * initAUM));
-                                        graph.add((totalStock/totalAUM)*100);
-                                        Log.d("Pie chart", "Pie chart data: "+graph);
-                                        pieChart.setData(getPieData(graph));
-                                        pieChart.invalidate();
+                                        if (finalI == stocks.size() - 1) {
+                                            graph.add((totalStock / totalAUM) * 100);
+                                            Log.d("Pie chart", "Pie chart data: " + graph);
+                                            pieChart.setData(getPieData(graph));
+                                            pieChart.invalidate();
+                                        }
                                     }
                                 });
                             }
@@ -208,6 +214,7 @@ public class individualClientPortfolio extends Fragment {
                                 initCrypto += a.getPrice();
                                 initAUM += a.getPrice();
 
+                                int finalI = i;
                                 callAPI.calcCrypto(getContext(), a, new CallAPI.CryptoListener() {
                                     @Override
                                     public void OnError(String message) {
@@ -215,7 +222,7 @@ public class individualClientPortfolio extends Fragment {
                                     }
 
                                     @Override
-                                    public void OnResponse(String name, double cryptoPrice, double cryptoReturn) {
+                                    public void OnResponse(String name, double cryptoPrice, double cryptoReturn, Double[] prices) {
                                         if (cryptoPrice > perf1Price) {
                                             perf1Price = cryptoPrice;
                                             firstPerf.setText(name);
@@ -230,6 +237,7 @@ public class individualClientPortfolio extends Fragment {
                                         returnCrypto += (cryptoReturn * a.getQuantity());
                                         finalReturn += (cryptoReturn * a.getQuantity());
 
+
                                         cryptoInitAUM.setText("Initial AUM: " + initCrypto);
                                         cryptoCurrAUM.setText("Current AUM: " + totalCrypto);
                                         cryptoReturnText.setText("Return: " + returnCrypto);
@@ -238,6 +246,25 @@ public class individualClientPortfolio extends Fragment {
                                         aum.setText("AUM " + totalAUM);
                                         totalReturn.setText("Return: " + finalReturn);
                                         totalBench.setText("Benchmark Return: " + (0.1 * initAUM));
+
+                                        if (finalI == crypto.size() - 1) {
+                                            graph.add((totalCrypto / totalAUM) * 100);
+                                            Log.d("Pie chart", "Pie chart data: " + graph);
+                                            pieChart.setData(getPieData(graph));
+                                            pieChart.invalidate();
+                                        }
+
+                                        if (name.equals("ETH-USD")) {
+                                            CryptoStorage.setEthereum(prices);
+                                            Log.d("TAG", "Ethereum prices: "+ Arrays.toString(CryptoStorage.getEthereum()));
+                                        } else if (name.equals("DOGE-USD")) {
+                                            CryptoStorage.setDogecoin(prices);
+                                            Log.d("TAG", "Doge prices: "+ Arrays.toString(CryptoStorage.getDogecoin()));
+                                        } else {
+                                            CryptoStorage.setBitcoin(prices);
+                                            Log.d("TAG", "Bitcoin prices: "+ Arrays.toString(CryptoStorage.getBitcoin()));
+                                        }
+
                                     }
                                 });
                             }
@@ -253,6 +280,27 @@ public class individualClientPortfolio extends Fragment {
                             totalReturn.setText("Return: 0");
                             totalBench.setText("Benchmark Return: 0");
                         }
+                        double total = 0;
+                        double a = 0;
+                        for(int i = 0; i < crypto.size(); i++) {
+                            total = total + Double.parseDouble(stocks.get(i).get("price").toString());
+                            a = a + Double.parseDouble(stocks.get(i).get("price").toString()) * Double.parseDouble(stocks.get(i).get("quantity").toString());
+                        }
+                        /*
+                        cryptoInitAUM.setText("Initial AUM: " + total);
+                        cryptoCurrAUM.setText("Current AUM: " + (total + 45000));
+                        double return_val = (45000/total)*100;
+                        cryptoReturnText.setText("Return: " + return_val);
+                        cryptoBench.setText("Benchmark Return: " + (0.1 * return_val));
+
+                        aum.setText("AUM " + a);
+                        totalReturn.setText("Return: " + 45);
+                        totalBench.setText("Benchmark Return: " + (0.1 * 90));
+                        graph.add((total/a)*100);
+                        Log.d("Pie chart", "Pie chart data: "+graph);
+                        pieChart.setData(getPieData(graph));
+                        pieChart.invalidate();*/
+
                     }
                     else {
                         Log.d("IND_PORT", "Document doesn't exist");
@@ -263,6 +311,7 @@ public class individualClientPortfolio extends Fragment {
                 }
             }
         });
+
 
         View root = view;
         stockTitle.setOnClickListener(new View.OnClickListener() {
@@ -290,8 +339,8 @@ public class individualClientPortfolio extends Fragment {
         if (l.size() == 1) {
             entries.add(new PieEntry(l.get(0).floatValue(), "Stocks"));
         } else {
-            entries.add(new PieEntry(l.get(0).floatValue(), "Stocks"));
-            entries.add(new PieEntry(l.get(1).floatValue(), "Crypto"));
+            entries.add(new PieEntry(l.get(l.size() - 2).floatValue(), "Stocks"));
+            entries.add(new PieEntry(l.get(l.size() - 1).floatValue(), "Crypto"));
         }
 
 

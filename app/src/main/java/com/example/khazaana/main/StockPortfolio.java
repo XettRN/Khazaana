@@ -153,7 +153,15 @@ public class StockPortfolio extends Fragment {
                 public void OnResponse(String name, double stockPrice, double stockReturn) {
                     holder.currPrice.setText(holder.currPrice.getText() + " " + stockPrice);
                     holder.assetReturn.setText(holder.assetReturn.getText() + " " + stockReturn);
-                    graph.add(stockPrice);
+                    double quantity = 0;
+                    for (int i = 0; i < list.size(); i++) {
+                        if (list.get(i).get("stock").equals(name)) {
+                            quantity = Double.parseDouble(list.get(i).get("quantity").toString());
+
+                            break;
+                        }
+                    }
+                    graph.add(stockPrice*quantity);
                     Log.d("Pie chart", "Pie chart data: "+graph);
                     pieChart.setData(getPieData(graph));
                     pieChart.invalidate();
@@ -206,7 +214,6 @@ public class StockPortfolio extends Fragment {
 
 
         PieDataSet pieDataSet = new PieDataSet(entries , "");
-        pieChart.setEntryLabelColor(getResources().getColor(R.color.black));
         pieDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
         pieDataSet.setDrawValues(false);
 

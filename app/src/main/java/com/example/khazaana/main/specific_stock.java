@@ -109,6 +109,11 @@ public class specific_stock extends Fragment {
                         new priceTask().execute("https://finnhub-backend.herokuapp.com/stock/price?symbol="+stock);
                         new tickerTask().execute("https://finnhub-backend.herokuapp.com/stock/ticker?symbol="+stock);
                         new ratiosTask().execute("https://finnhub-backend.herokuapp.com/stock/ratios?symbol="+stock);
+                        /*
+                        pe.setText("31.09");
+                        pb.setText("45.45");
+                        roe.setText("147.4%");
+                        recommend.setText("buy");*/
 
                     } else {
                         Log.d("TAG", "No such document");
