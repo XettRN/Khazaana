@@ -22,6 +22,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.khazaana.CallAPI;
 import com.example.khazaana.R;
 import com.example.khazaana.RequestSingleton;
 import com.github.mikephil.charting.charts.PieChart;
@@ -63,100 +64,8 @@ public class Home extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         displayPortfolios();
-//        Button next = view.findViewById(R.id.button18);
-//
-//        View root = view;
-//
-//        next.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                //add fragment to bottomnav.xml so this can be written
-//                NavDirections navDirections = HomeDirections.
-//                        actionHomeFragToIndividualClientPortfolio("0XrVoWLAJKemkzYxw2fVdh6bLWm1", FirebaseAuth.getInstance().getCurrentUser().getUid());
-//                Navigation.findNavController(root).navigate(navDirections);
-//            }
-//        });
     }
-    double initStock = 0;
-    double totalStock = 0;
-    double perf1Price = 0;
-    double perf2Price = 0;
-    double calcReturn = 0;
 
-    private double calcStocks(List<Map> stocks) {
-        String url = "https://finnhub-backend.herokuapp.com/stock/price?symbol=";
-        if (stocks == null || stocks.size() < 1) {
-            return 0;
-        }
-        for (int i = 0; i < stocks.size() - 1; i++) {
-            initStock += Double.parseDouble(stocks.get(i).get("price").toString());
-            String complete = url + stocks.get(i).get("stock");
-            Log.d("IND_PORT", complete);
-            final String name = stocks.get(i).get("stock").toString();
-            final double quantity = Double.parseDouble(stocks.get(i).get("quantity").toString());
-            JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, complete,
-                    null, new Response.Listener<JSONObject>() {
-                @Override
-                public void onResponse(JSONObject response) {
-                    try {
-                        double stockPrice = response.getDouble("current price") * quantity;
-                        if (stockPrice > perf1Price) {
-                            perf1Price = stockPrice;
-                        }
-                        else if (stockPrice > perf2Price) {
-                            perf2Price = stockPrice;
-                        }
-                        totalStock += stockPrice;
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(getContext(), "Error!", Toast.LENGTH_SHORT).show();
-                }
-            });
-            RequestSingleton.getInstance(getContext()).addToRequestQueue(request);
-
-        }
-
-        //final request, update view
-        initStock += Double.parseDouble(stocks.get(stocks.size() - 1) .get("price").toString());
-        String complete = url + stocks.get(stocks.size() - 1).get("stock");
-        Log.d("IND_PORT", complete);
-        final String name = (String) stocks.get(stocks.size() - 1).get("stock");
-        final double quantity = Double.parseDouble(stocks.get(stocks.size() - 1).get("quantity").toString());
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, complete,
-                null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    double stockPrice = response.getDouble("current price") * quantity;
-                    Log.d("IND_PORT", "" + stockPrice);
-                    if (stockPrice > perf1Price) {
-                        perf1Price = stockPrice;
-                    }
-                    else if (stockPrice > perf2Price) {
-                        perf2Price = stockPrice;
-                    }
-                    totalStock += stockPrice;
-
-                    calcReturn = totalStock - initStock;
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(), "Error!", Toast.LENGTH_SHORT).show();
-            }
-        });
-        RequestSingleton.getInstance(getContext()).addToRequestQueue(request);
-        return calcReturn;
-    }
 
     // calculates summary of aum, benchmark, etc
     private void calculateSummary(ArrayList<Home.PortfolioData> data) {
@@ -259,6 +168,14 @@ public class Home extends Fragment {
         return 0;
     }
 
+    double initStock = 0;
+    double totalStock = 0;
+    double initAUM = 0;
+    double totalAUM = 0;
+    double returnStock = 0;
+    double finalReturn = 0;
+    double benchmarkReturn = 10;
+
     // Displays top 5 portfolios
     private void displayPortfolios() {
         ArrayList<Home.PortfolioData> data = new ArrayList<Home.PortfolioData>();
@@ -276,6 +193,7 @@ public class Home extends Fragment {
                 if (task.isSuccessful()) {
                     QuerySnapshot snapshot = task.getResult();
                     List<DocumentSnapshot> clientList = snapshot.getDocuments();
+                    int index = 0;
                     for (DocumentSnapshot document : clientList) {
                         if (document.exists()) {
                             Log.d("TAG", "DocumentSnapshot data: " + document.getData());
@@ -285,20 +203,49 @@ public class Home extends Fragment {
                             List<Map> stocks = (List<Map>) document.get("Stocks");
                             List<Number> equity = (List<Number>) document.get("Equity");
 
-                            double aum = calculateAUM(stocks); // need to calculate
-                            // double return_perc = calcStocks(stocks); need to calculate return
-                            Random number = new Random(); // change this later
-                            double return_perc = number.nextInt(20) + 20;
+                            CallAPI callAPI = new CallAPI();
 
-                            if (aum == 0) {
-                                return_perc = 0;
+                            //calculations and api calls
+                            if (stocks != null && stocks.size() > 0) {
+                                for (int i = 0; i < stocks.size(); i++) {
+                                    AssetEntry a = new AssetEntry();
+                                    a.setStock(stocks.get(i).get("stock").toString());
+                                    a.setPrice(Float.parseFloat(stocks.get(i).get("price").toString()));
+                                    a.setQuantity(Float.parseFloat(stocks.get(i).get("quantity").toString()));
+
+                                    initStock += a.getPrice();
+                                    initAUM += a.getPrice();
+
+                                    callAPI.calcStock(getContext(), a, new CallAPI.StockListener() {
+                                        @Override
+                                        public void OnError(String message) {
+                                            Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+                                        }
+
+                                        @Override
+                                        public void OnResponse(String name, double stockPrice, double stockReturn) {
+
+                                            totalStock += (stockPrice * a.getQuantity());
+                                            totalAUM += (stockPrice * a.getQuantity());
+                                            returnStock += (stockReturn * a.getQuantity());
+                                            finalReturn += (stockReturn * a.getQuantity());
+                                            data.add(new Home.PortfolioData(firstName + " " + lastName, totalAUM, returnStock,
+                                                    benchmarkReturn, equity, document.getId()));
+
+
+                                        }
+                                    });
+                                }
+                            } else {
+                                data.add(new Home.PortfolioData(firstName + " " + lastName, totalAUM, returnStock,
+                                        benchmarkReturn, equity, document.getId()));
                             }
-                            double benchmarkReturn = 10;
 
                             // TODO: figure out return and benchmark return
-                            data.add(new Home.PortfolioData(firstName + " " + lastName, aum, return_perc,
-                                    benchmarkReturn, equity, document.getId()));
+//                            data.add(new Home.PortfolioData(firstName + " " + lastName, totalAUM, returnStock,
+//                                    benchmarkReturn, equity, document.getId()));
                             Log.d("TAG", "LIST SIZE: " + data.size());
+                            index++;
                         } else {
                             Log.d("TAG", "No such document");
                         }
