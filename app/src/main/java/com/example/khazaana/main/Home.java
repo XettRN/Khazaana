@@ -64,6 +64,10 @@ public class Home extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         displayPortfolios();
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0981b64263018d42ffe6761933080ef015b6e1c5
     }
 
 

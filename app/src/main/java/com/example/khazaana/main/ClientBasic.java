@@ -1,18 +1,14 @@
 package com.example.khazaana.main;
 
-
-import android.os.Bundle;
-
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,15 +24,14 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 
-
-import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-public class individualClientPortfolio extends Fragment {
+public class ClientBasic extends AppCompatActivity {
 
     double initStock;
     double totalStock;
@@ -74,15 +69,11 @@ public class individualClientPortfolio extends Fragment {
     PieChart pieChart = null;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_individual_client_portfolio, container, false);
-    }
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_client_basic);
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+
 
         perf1Name = "";
         perf2Name = "";
@@ -96,41 +87,43 @@ public class individualClientPortfolio extends Fragment {
         finalReturn = 0;
 
         //get view elements
-        TextView name = view.findViewById(R.id.clientName);
-        TextView stockTitle = view.findViewById(R.id.stocks);
-        TextView cryptoTitle = view.findViewById(R.id.cryptoTitle);
-        aum = view.findViewById(R.id.aum);
-        totalReturn = view.findViewById(R.id.returnP);
-        totalBench = view.findViewById(R.id.bench_return);
-        firstPerf = view.findViewById(R.id.performer1);
-        secPerf = view.findViewById(R.id.performer2);
-        stockInitAUM = view.findViewById(R.id.initial_aum1);
-        stockCurrAUM = view.findViewById(R.id.current_aum1);
-        stockReturnText = view.findViewById(R.id.stock_return);
-        stockBench = view.findViewById(R.id.stock_return_bench);
-        cryptoInitAUM = view.findViewById(R.id.initial_aum2);
-        cryptoCurrAUM = view.findViewById(R.id.current_aum2);
-        cryptoReturnText = view.findViewById(R.id.crypto_return);
-        cryptoBench = view.findViewById(R.id.crypto_return_bench);
-        pieChart = view.findViewById(R.id.pieChart3);
+        TextView name = findViewById(R.id.clientName);
+        TextView stockTitle = findViewById(R.id.stocks);
+        TextView cryptoTitle = findViewById(R.id.cryptoTitle);
+        aum = findViewById(R.id.aum);
+        totalReturn = findViewById(R.id.returnP);
+        totalBench = findViewById(R.id.bench_return);
+        firstPerf = findViewById(R.id.performer1);
+        secPerf = findViewById(R.id.performer2);
+        stockInitAUM = findViewById(R.id.initial_aum1);
+        stockCurrAUM = findViewById(R.id.current_aum1);
+        stockReturnText = findViewById(R.id.stock_return);
+        stockBench = findViewById(R.id.stock_return_bench);
+        cryptoInitAUM = findViewById(R.id.initial_aum2);
+        cryptoCurrAUM = findViewById(R.id.current_aum2);
+        cryptoReturnText = findViewById(R.id.crypto_return);
+        cryptoBench = findViewById(R.id.crypto_return_bench);
+        pieChart = findViewById(R.id.pieChart3);
         graph = new ArrayList<>();
-        DecimalFormat d = new DecimalFormat("#.###");
 
         //fetch client document from database
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        String ifaID = individualClientPortfolioArgs.fromBundle(getArguments()).getIfaID();
-        String clientID = individualClientPortfolioArgs.fromBundle(getArguments()).getClientID();
-        DocumentReference client = db.collection("Authorized IFAs")
+        Intent intent = getIntent();
+        String ifaID = intent.getStringExtra("IFA");
+        String first = intent.getStringExtra("First");
+        String last = intent.getStringExtra("Last");
+        Query client = db.collection("Authorized IFAs")
                 .document(ifaID)
                 .collection("Clients")
-                .document(clientID);
+                .whereEqualTo("First Name", first)
+                .whereEqualTo("Last Name", last);
 
         //update layout with data
-        client.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        client.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
-                    DocumentSnapshot doc = task.getResult();
+                    DocumentSnapshot doc = task.getResult().getDocuments().get(0);
                     if (doc.exists()) {
                         //set client name
                         String firstName = (String) doc.get("First Name");
@@ -157,11 +150,10 @@ public class individualClientPortfolio extends Fragment {
                                 initStock += a.getPrice();
                                 initAUM += a.getPrice();
 
-                                int finalI = i;
-                                callAPI.calcStock(getContext(), a, new CallAPI.StockListener() {
+                                callAPI.calcStock(getApplicationContext(), a, new CallAPI.StockListener() {
                                     @Override
                                     public void OnError(String message) {
-                                        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
                                     }
 
                                     @Override
@@ -180,20 +172,18 @@ public class individualClientPortfolio extends Fragment {
                                         returnStock += (stockReturn * a.getQuantity());
                                         finalReturn += (stockReturn * a.getQuantity());
 
-                                        stockInitAUM.setText("Initial AUM: " + d.format(initStock));
-                                        stockCurrAUM.setText("Current AUM: " + d.format(totalStock));
-                                        stockReturnText.setText("Return: " + d.format(returnStock));
-                                        stockBench.setText("Benchmark Return: " + d.format(0.1 * initStock));
+                                        stockInitAUM.setText("Initial AUM: " + initStock);
+                                        stockCurrAUM.setText("Current AUM: " + totalStock);
+                                        stockReturnText.setText("Return: " + returnStock);
+                                        stockBench.setText("Benchmark Return: " + (0.1 * initStock));
 
-                                        aum.setText("AUM " + d.format(totalAUM));
-                                        totalReturn.setText("Return: " + d.format(finalReturn));
-                                        totalBench.setText("Benchmark Return: " + d.format(0.1 * initAUM));
-                                        if (finalI == stocks.size() - 1) {
-                                            graph.add((totalStock / totalAUM) * 100);
-                                            Log.d("Pie chart", "Pie chart data: " + graph);
-                                            pieChart.setData(getPieData(graph));
-                                            pieChart.invalidate();
-                                        }
+                                        aum.setText("AUM " + totalAUM);
+                                        totalReturn.setText("Return: " + finalReturn);
+                                        totalBench.setText("Benchmark Return: " + (0.1 * initAUM));
+                                        graph.add((totalStock/totalAUM)*100);
+                                        Log.d("Pie chart", "Pie chart data: "+graph);
+                                        pieChart.setData(getPieData(graph));
+                                        pieChart.invalidate();
                                     }
                                 });
                             }
@@ -214,11 +204,10 @@ public class individualClientPortfolio extends Fragment {
                                 initCrypto += a.getPrice();
                                 initAUM += a.getPrice();
 
-                                int finalI = i;
-                                callAPI.calcCrypto(getContext(), a, new CallAPI.CryptoListener() {
+                                callAPI.calcCrypto(getApplicationContext(), a, new CallAPI.CryptoListener() {
                                     @Override
                                     public void OnError(String message) {
-                                        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
                                     }
 
                                     @Override
@@ -237,34 +226,14 @@ public class individualClientPortfolio extends Fragment {
                                         returnCrypto += (cryptoReturn * a.getQuantity());
                                         finalReturn += (cryptoReturn * a.getQuantity());
 
+                                        cryptoInitAUM.setText("Initial AUM: " + initCrypto);
+                                        cryptoCurrAUM.setText("Current AUM: " + totalCrypto);
+                                        cryptoReturnText.setText("Return: " + returnCrypto);
+                                        cryptoBench.setText("Benchmark Return: " + (0.1 * initCrypto));
 
-                                        cryptoInitAUM.setText("Initial AUM: " + d.format(initCrypto));
-                                        cryptoCurrAUM.setText("Current AUM: " + d.format(totalCrypto));
-                                        cryptoReturnText.setText("Return: " + d.format(returnCrypto));
-                                        cryptoBench.setText("Benchmark Return: " + d.format(0.1 * initCrypto));
-
-                                        aum.setText("AUM " + d.format(totalAUM));
-                                        totalReturn.setText("Return: " + d.format(finalReturn));
-                                        totalBench.setText("Benchmark Return: " + d.format(0.1 * initAUM));
-
-                                        if (finalI == crypto.size() - 1) {
-                                            graph.add((totalCrypto / totalAUM) * 100);
-                                            Log.d("Pie chart", "Pie chart data: " + graph);
-                                            pieChart.setData(getPieData(graph));
-                                            pieChart.invalidate();
-                                        }
-
-                                        if (name.equals("ETH-USD")) {
-                                            CryptoStorage.setEthereum(prices);
-                                            Log.d("TAG", "Ethereum prices: "+ Arrays.toString(CryptoStorage.getEthereum()));
-                                        } else if (name.equals("DOGE-USD")) {
-                                            CryptoStorage.setDogecoin(prices);
-                                            Log.d("TAG", "Doge prices: "+ Arrays.toString(CryptoStorage.getDogecoin()));
-                                        } else {
-                                            CryptoStorage.setBitcoin(prices);
-                                            Log.d("TAG", "Bitcoin prices: "+ Arrays.toString(CryptoStorage.getBitcoin()));
-                                        }
-
+                                        aum.setText("AUM " + totalAUM);
+                                        totalReturn.setText("Return: " + finalReturn);
+                                        totalBench.setText("Benchmark Return: " + (0.1 * initAUM));
                                     }
                                 });
                             }
@@ -280,27 +249,6 @@ public class individualClientPortfolio extends Fragment {
                             totalReturn.setText("Return: 0");
                             totalBench.setText("Benchmark Return: 0");
                         }
-                        double total = 0;
-                        double a = 0;
-                        for(int i = 0; i < crypto.size(); i++) {
-                            total = total + Double.parseDouble(stocks.get(i).get("price").toString());
-                            a = a + Double.parseDouble(stocks.get(i).get("price").toString()) * Double.parseDouble(stocks.get(i).get("quantity").toString());
-                        }
-                        /*
-                        cryptoInitAUM.setText("Initial AUM: " + total);
-                        cryptoCurrAUM.setText("Current AUM: " + (total + 45000));
-                        double return_val = (45000/total)*100;
-                        cryptoReturnText.setText("Return: " + return_val);
-                        cryptoBench.setText("Benchmark Return: " + (0.1 * return_val));
-
-                        aum.setText("AUM " + a);
-                        totalReturn.setText("Return: " + 45);
-                        totalBench.setText("Benchmark Return: " + (0.1 * 90));
-                        graph.add((total/a)*100);
-                        Log.d("Pie chart", "Pie chart data: "+graph);
-                        pieChart.setData(getPieData(graph));
-                        pieChart.invalidate();*/
-
                     }
                     else {
                         Log.d("IND_PORT", "Document doesn't exist");
@@ -311,36 +259,16 @@ public class individualClientPortfolio extends Fragment {
                 }
             }
         });
-
-
-        View root = view;
-        stockTitle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //add fragment to bottomnav.xml so this can be written
-                NavDirections navDirections = (NavDirections) individualClientPortfolioDirections
-                        .actionIndividualClientPortfolioToStockPortfolio((String) getArguments().get("clientID"), (String) getArguments().get("ifaID"));
-                Navigation.findNavController(root).navigate(navDirections);
-            }
-        });
-
-        cryptoTitle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //add fragment to bottomnav.xml so this can be written
-                NavDirections navDirections = (NavDirections) individualClientPortfolioDirections.actionIndividualClientPortfolioToCryptoPortfolio((String) getArguments().get("clientID"), (String) getArguments().get("ifaID"));
-                Navigation.findNavController(root).navigate(navDirections);
-            }
-        });
     }
+
     private PieData getPieData(List<Number> l) {
         ArrayList<PieEntry> entries = new ArrayList<>();
         Log.d("Data", "data: "+list);
         if (l.size() == 1) {
             entries.add(new PieEntry(l.get(0).floatValue(), "Stocks"));
         } else {
-            entries.add(new PieEntry(l.get(l.size() - 2).floatValue(), "Stocks"));
-            entries.add(new PieEntry(l.get(l.size() - 1).floatValue(), "Crypto"));
+            entries.add(new PieEntry(l.get(0).floatValue(), "Stocks"));
+            entries.add(new PieEntry(l.get(1).floatValue(), "Crypto"));
         }
 
 

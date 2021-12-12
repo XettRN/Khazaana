@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Khazaana">
         <activity
+            android:name=".main.ClientBasic"
+            android:exported="false" />
+        <activity
             android:name=".main.ifa.RiskProfiling_SpecificClient"
             android:exported="true" />
         <activity
@@ -82,9 +85,6 @@
             android:name=".main.ifa.ClientList"
             android:exported="false" />
         <activity
-            android:name=".main.client.client_signup_options"
-            android:exported="true" />
-        <activity
             android:name=".main.client.client_registration"
             android:exported="true" />
         <activity
@@ -107,9 +107,6 @@
             android:exported="true" />
         <activity
             android:name=".SignUpGeneral"
-            android:exported="true" />
-        <activity
-            android:name=".sign_up_options"
             android:exported="true" />
         <activity
             android:name=".main.ifa.IFARegistration"

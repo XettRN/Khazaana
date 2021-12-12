@@ -1,8 +1,6 @@
 package com.example.khazaana;
 
 import android.content.Context;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -49,7 +47,7 @@ public class CallAPI {
 
     public interface CryptoListener {
         void OnError(String message);
-        void OnResponse(String name, double cryptoPrice, double cryptoReturn);
+        void OnResponse(String name, double cryptoPrice, double cryptoReturn, Double[] prices);
     }
 
     public void calcCrypto(Context context, AssetEntry crypto, CryptoListener listener) {
@@ -64,8 +62,12 @@ public class CallAPI {
                     double cryptoPrice = Double
                             .parseDouble(response.get(response.length() - 1).toString());
                     double cryptoReturn = cryptoPrice - crypto.getPrice();
+                    Double [] prices = new Double[response.length()];
+                    for (int i = 0; i < prices.length; i++) {
+                        prices[i] = Double.parseDouble(response.get(i).toString());
+                    }
 
-                    listener.OnResponse(crypto.getStock(), cryptoPrice, cryptoReturn);
+                    listener.OnResponse(crypto.getStock(), cryptoPrice, cryptoReturn, prices);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -73,7 +75,7 @@ public class CallAPI {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                listener.OnError("Error getting crypto price");
+                //listener.OnError("Error getting crypto price");
             }
         });
         RequestSingleton.getInstance(context).addToRequestQueue(request);

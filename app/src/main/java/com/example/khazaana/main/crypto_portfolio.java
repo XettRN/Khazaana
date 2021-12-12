@@ -23,12 +23,17 @@ import android.widget.Toast;
 import com.example.khazaana.CallAPI;
 import com.example.khazaana.R;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -36,28 +41,11 @@ import java.util.Map;
 
 public class crypto_portfolio extends Fragment {
 
-    /*
-    List<Map> t = null;
-    List<Number> crypto = null;
-    PieChart pieChart = null;
-    TextView currentP1 = null;
-    TextView currentP2 = null;
-    TextView currentP3 = null;
-    TextView return1 = null;
-    TextView return2 = null;
-    TextView return3 = null;
-    double buyingPrice1 = 0;
-    double buyingPrice2 = 0;
-    double buyingPrice3 = 0;
-    double cp1 = 0;
-    double cp2 = 0;
-    double cp3 = 0;
-    double q1 = 0;
-    double q2 = 0;
-    double q3 = 0;
-    */
     RecyclerView recyclerView;
     PieChart pieChart = null;
+    List<Number> graph = null;
+    List<Map> list = null;
+    DecimalFormat d = new DecimalFormat("#.###");
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -69,7 +57,8 @@ public class crypto_portfolio extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        pieChart = view.findViewById(R.id.pieChart2);
+        graph = new ArrayList<>();
         String clientID = crypto_portfolioArgs.fromBundle(getArguments()).getClientID();
         String ifaID = crypto_portfolioArgs.fromBundle(getArguments()).getIfaID();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -77,6 +66,7 @@ public class crypto_portfolio extends Fragment {
                 .document(ifaID)
                 .collection("Clients")
                 .document(clientID);
+
 
         client.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -87,7 +77,7 @@ public class crypto_portfolio extends Fragment {
                         TextView name = view.findViewById(R.id.crypto_client_name);
                         name.setText(doc.get("First Name") + " " + doc.get("Last Name"));
 
-                        List<Map> list = (List<Map>) doc.get("Crypto");
+                        list = (List<Map>) doc.get("Crypto");
                         ArrayList<AssetEntry> entries = new ArrayList<>();
                         for (int i = 0; i < list.size(); i++) {
                             AssetEntry a = new AssetEntry();
@@ -110,203 +100,6 @@ public class crypto_portfolio extends Fragment {
                 }
             }
         });
-
-        /*
-        TextView textView = view.findViewById(R.id.stock_client_name);
-        TextView crypto1 = view.findViewById(R.id.crypto1);
-        TextView boughtPrice1 = view.findViewById(R.id.cboughtPrice1);
-        TextView cryptoOwned1 = view.findViewById(R.id.cryptoOwned1);
-        currentP1 = view.findViewById(R.id.ccurrentPrice1);
-        return1 = view.findViewById(R.id.creturn1);
-
-        TextView crypto2 = view.findViewById(R.id.crypto2);
-        TextView boughtPrice2 = view.findViewById(R.id.cboughtPrice2);
-        TextView cryptoOwned2 = view.findViewById(R.id.cryptoOwned2);
-        currentP2 = view.findViewById(R.id.ccurrentPrice2);
-        return2 = view.findViewById(R.id.creturn2);
-
-        TextView crypto3 = view.findViewById(R.id.crypto3);
-        TextView boughtPrice3 = view.findViewById(R.id.cboughtPrice3);
-        TextView cryptoOwned3 = view.findViewById(R.id.cryptoOwned3);
-        currentP3 = view.findViewById(R.id.ccurrentPrice3);
-        return3 = view.findViewById(R.id.creturn3);
-
-        pieChart = view.findViewById(R.id.pieChart2);
-        pieChart.getDescription().setEnabled(false);
-        pieChart.setHoleRadius(0f);
-        pieChart.setTransparentCircleRadius(0f);
-        pieChart.getLegend().setEnabled(false);
-
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference ifas = db.collection("Authorized IFAs");
-        DocumentReference ifa = ifas.document((String) getArguments().get("ifaID"));
-        CollectionReference clients = ifa.collection("Clients");
-        DocumentReference client = clients.document((String) getArguments().get("clientID"));
-
-        client.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        Log.d("TAG", "DocumentSnapshot data: " + document.getData());
-
-                        String firstName = (String) document.get("First Name");
-                        String lastName = (String) document.get("Last Name");
-                        textView.setText(" " +firstName + " " + lastName);
-
-
-                        t = (List<Map>) document.get("Crypto");
-                        crypto1.setText("Crypto: " + t.get(0).get("stock"));
-                        boughtPrice1.setText("Bought Price: " + t.get(0).get("price"));
-                        cryptoOwned1.setText("Crypto Owned: " + t.get(0).get("quantity"));
-                        buyingPrice1 = Double.parseDouble(t.get(0).get("price").toString());
-                        q1 = Double.parseDouble(t.get(0).get("quantity").toString());
-
-                        crypto2.setText("Crypto: " + t.get(1).get("stock"));
-                        boughtPrice2.setText("Bought Price: " + t.get(1).get("price"));
-                        cryptoOwned2.setText("Crypto Owned: " + t.get(1).get("quantity"));
-                        buyingPrice2 = Double.parseDouble(t.get(1).get("price").toString());
-                        q2 = Double.parseDouble(t.get(1).get("quantity").toString());
-
-                        crypto3.setText("Crypto: " + t.get(2).get("stock"));
-                        boughtPrice3.setText("Bought Price: " + t.get(2).get("price"));
-                        cryptoOwned3.setText("Crypto Owned: " + t.get(2).get("quantity"));
-                        buyingPrice3 = Double.parseDouble(t.get(2).get("price").toString());
-                        q3 = Double.parseDouble(t.get(2).get("quantity").toString());
-
-//                        new priceTask1().execute("https://finnhub-backend.herokuapp.com/crypto/ticker?symbol="+t.get(0).get("stock"));
-//                        new priceTask2().execute("https://finnhub-backend.herokuapp.com/crypto/ticker?symbol="+t.get(1).get("stock"));
-//                        new priceTask3().execute("https://finnhub-backend.herokuapp.com/crypto/ticker?symbol="+t.get(2).get("stock"));
-
-                        String cryptoName1 = (String) t.get(0).get("stock");
-                        Double[] cryptoTicker1;
-                        if (Objects.equals(cryptoName1, "DOGE-USD")) {
-                            cryptoTicker1 = CryptoStorage.getDogecoin();
-                        } else if (Objects.equals(cryptoName1, "BTC-USD")) {
-                            cryptoTicker1 = CryptoStorage.getBitcoin();
-                        } else {
-                            cryptoTicker1 = CryptoStorage.getEthereum();
-                        }
-                        Log.d("TAG", "Crypto1: " + cryptoName1);
-                        Log.d("TAG", "CryptoTicker1: " + Arrays.toString(cryptoTicker1));
-
-                        currentP1.setText("Current Price: $" + cryptoTicker1[cryptoTicker1.length - 1]);
-                        cp1 = cryptoTicker1[cryptoTicker1.length - 1];
-                        double returnS1 = ((cp1 - buyingPrice1)/buyingPrice1)*100;
-                        Log.d("TAG", "CurrentPrice: " + cp1);
-                        Log.d("TAG", "BuyingPrice: " + buyingPrice1);
-                        Log.d("TAG", "Return: " + returnS1);
-                        return1.setText("Return: "+returnS1+"%");
-
-
-
-
-                        String cryptoName2 = (String) t.get(1).get("stock");
-                        Double[] cryptoTicker2;
-                        if (Objects.equals(cryptoName2, "BTC-USD")) {
-                            cryptoTicker2 = CryptoStorage.getBitcoin();
-                        } else if (Objects.equals(cryptoName2, "ETH-USD")) {
-                            cryptoTicker2 = CryptoStorage.getEthereum();
-                        } else {
-                            cryptoTicker2 = CryptoStorage.getDogecoin();
-                        }
-                        Log.d("TAG", "Crypto2: " + cryptoName2);
-                        Log.d("TAG", "CryptoTicker2: " + Arrays.toString(cryptoTicker2));
-
-                        currentP2.setText("Current Price: $" + cryptoTicker2[cryptoTicker2.length - 1]);
-                        cp2 = cryptoTicker2[cryptoTicker2.length - 1];
-                        double returnS2 = ((cp2 - buyingPrice2)/buyingPrice2)*100;
-                        Log.d("TAG", "CurrentPrice: " + cp2);
-                        Log.d("TAG", "BuyingPrice: " + buyingPrice2);
-                        Log.d("TAG", "Return: " + returnS2);
-                        return2.setText("Return: "+returnS2+"%");
-
-
-
-
-                        String cryptoName3 = (String) t.get(2).get("stock");
-                        Double[] cryptoTicker3;
-                        if (Objects.equals(cryptoName3, "ETH-USD")) {
-                            cryptoTicker3 = CryptoStorage.getEthereum();
-                        } else if (Objects.equals(cryptoName3, "BTC-USD")) {
-                            cryptoTicker3 = CryptoStorage.getBitcoin();
-                        } else {
-                            cryptoTicker3 = CryptoStorage.getDogecoin();
-                        }
-                        Log.d("TAG", "Crypto3: " + cryptoName3);
-                        Log.d("TAG", "CryptoTicker3: " + Arrays.toString(cryptoTicker3));
-
-                        currentP3.setText("Current Price: $" + cryptoTicker3[cryptoTicker3.length - 1]);
-                        cp3 = cryptoTicker3[cryptoTicker3.length - 1];
-                        double returnS3 = ((cp3 - buyingPrice3)/buyingPrice3)*100;
-                        Log.d("TAG", "CurrentPrice: " + cp3);
-                        Log.d("TAG", "BuyingPrice: " + buyingPrice3);
-                        Log.d("TAG", "Return: " + returnS3);
-                        return3.setText("Return: "+returnS3+"%");
-
-                        double total = cp1*q1 + cp2*q2 + cp3*q3;
-                        double invst1 = cp1*q1 / total;
-                        double invst2 = cp2*q2 / total;
-                        double invst3 = cp3*q3 / total;
-                        Log.d("TAG", "Invst1: " + invst1);
-                        Log.d("TAG", "Invst2: " + invst2);
-                        Log.d("TAG", "Invst3: " + invst3);
-
-                        crypto = new ArrayList<>();
-                        crypto.add(invst1);
-                        crypto.add(invst2);
-                        crypto.add(invst3);
-                        pieChart.setData(getPieData(crypto));
-                        pieChart.invalidate();
-
-
-                    } else {
-                        Log.d("TAG", "No such document");
-                    }
-                } else {
-                    Log.d("TAG", "get failed with ", task.getException());
-                }
-            }
-        });
-      
-
-
-        View root = view;
-        crypto1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //add fragment to bottomnav.xml so this can be written
-                NavDirections navDirections = crypto_portfolioDirections.actionCryptoPortfolioToSpecificCrypto((String) getArguments().get("clientID"), (String) getArguments().get("ifaID"), (String) t.get(0).get("stock"));
-                Navigation.findNavController(root).navigate(navDirections);
-            }
-        });
-
-        crypto2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //add fragment to bottomnav.xml so this can be written
-                NavDirections navDirections = crypto_portfolioDirections.actionCryptoPortfolioToSpecificCrypto((String) getArguments().get("clientID"), (String) getArguments().get("ifaID"), (String) t.get(1).get("stock"));
-                Navigation.findNavController(root).navigate(navDirections);
-            }
-        });
-
-        crypto3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //add fragment to bottomnav.xml so this can be written
-                NavDirections navDirections = crypto_portfolioDirections.actionCryptoPortfolioToSpecificCrypto((String) getArguments().get("clientID"), (String) getArguments().get("ifaID"), (String) t.get(2).get("stock"));
-                Navigation.findNavController(root).navigate(navDirections);
-            }
-        });
-
-        String user = FirebaseAuth.getInstance().getUid();
-        DocumentReference clientID = db.collection("Authorized IFAs")
-                .document(user)
-                .collection("Clients")
-                .document(passedInClientID);
-
-         */
 
         Toolbar cryptoBar = view.findViewById(R.id.cryptoBar);
         cryptoBar.inflateMenu(R.menu.asset_toolbar);
@@ -361,14 +154,35 @@ public class crypto_portfolio extends Fragment {
                 }
 
                 @Override
-                public void OnResponse(String name, double cryptoPrice, double cryptoReturn) {
-                    holder.currPrice.setText(holder.currPrice.getText() + " " + cryptoPrice);
-                    holder.assetReturn.setText(holder.assetReturn.getText() + " " + cryptoReturn);
+                public void OnResponse(String name, double cryptoPrice, double cryptoReturn, Double[] prices) {
+                    holder.currPrice.setText(holder.currPrice.getText() + " " + d.format(cryptoPrice));
+                    holder.assetReturn.setText(holder.assetReturn.getText() + " " + d.format(cryptoReturn));
+                    double quantity = 0;
+                    for (int i = 0; i < list.size(); i++) {
+                        if (list.get(i).get("stock").equals(name)) {
+                            quantity = Double.parseDouble(list.get(i).get("quantity").toString());
+
+                            break;
+                        }
+                    }
+                    graph.add(cryptoPrice*quantity);
+                    Log.d("Pie chart", "Pie chart data: "+graph);
+                    pieChart.setData(getPieData(graph));
+                    pieChart.invalidate();
                 }
             });
             holder.asset.setText(entry.getStock());
             holder.boughtPrice.setText(holder.boughtPrice.getText() + " " + entry.getPrice());
             holder.owned.setText("Amount: " + entry.getQuantity());
+            View root = holder.asset.getRootView();
+            holder.asset.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //add fragment to bottomnav.xml so this can be written
+                    NavDirections navDirections = crypto_portfolioDirections.actionCryptoPortfolioToSpecificCrypto((String) getArguments().get("clientID"), (String) getArguments().get("ifaID"), holder.asset.getText().toString());
+                    Navigation.findNavController(root).navigate(navDirections);
+                }
+            });
         }
 
         @Override
@@ -395,230 +209,22 @@ public class crypto_portfolio extends Fragment {
         }
     }
 
-    /*
-    private class priceTask1 extends AsyncTask<String, String, String> {
-        String data = "";
 
-        protected String doInBackground(String... params) {
-
-
-            HttpURLConnection connection = null;
-            BufferedReader reader = null;
-
-            try {
-                URL url = new URL(params[0]);
-                connection = (HttpURLConnection) url.openConnection();
-                connection.connect();
-
-
-                InputStream stream = connection.getInputStream();
-
-                reader = new BufferedReader(new InputStreamReader(stream));
-
-                String line = "";
-
-                while (line != null) {
-                    line = reader.readLine();
-                    data = data + line;
-                }
-                try {
-                    JSONArray j = new JSONArray(data);
-                    getActivity().runOnUiThread(new Runnable() { //add getActivity. before this method
-                        @Override
-                        public void run() {
-                            try {
-                                currentP1.setText("Current Price: $" + j.get(j.length() - 1));
-                                cp1 = Double.parseDouble(j.get(j.length() - 1).toString());
-                                double returnS1 = ((cp1 - buyingPrice1)/buyingPrice1)*100;
-                                return1.setText("Return: "+returnS1+"%");
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    });
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                if (connection != null) {
-                    connection.disconnect();
-                }
-                try {
-                    if (reader != null) {
-                        reader.close();
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            return null;
-        }
-    }
-
-    private class priceTask2 extends AsyncTask<String, String, String> {
-        String data = "";
-
-        protected String doInBackground(String... params) {
-
-
-            HttpURLConnection connection = null;
-            BufferedReader reader = null;
-
-            try {
-                URL url = new URL(params[0]);
-                connection = (HttpURLConnection) url.openConnection();
-                connection.connect();
-
-
-                InputStream stream = connection.getInputStream();
-
-                reader = new BufferedReader(new InputStreamReader(stream));
-
-                String line = "";
-
-                while (line != null) {
-                    line = reader.readLine();
-                    data = data + line;
-                }
-                try {
-                    JSONArray j = new JSONArray(data);
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                currentP2.setText("Current Price: $" + j.get(j.length() - 1));
-                                cp2 = Double.parseDouble(j.get(j.length() - 1).toString());
-                                double returnS2 = ((cp2 - buyingPrice2)/buyingPrice2)*100;
-                                return2.setText("Return: "+returnS2+"%");
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    });
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                if (connection != null) {
-                    connection.disconnect();
-                }
-                try {
-                    if (reader != null) {
-                        reader.close();
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            return null;
-        }
-    }
-
-    private class priceTask3 extends AsyncTask<String, String, String> {
-        String data = "";
-
-        protected String doInBackground(String... params) {
-
-
-            HttpURLConnection connection = null;
-            BufferedReader reader = null;
-
-            try {
-                URL url = new URL(params[0]);
-                connection = (HttpURLConnection) url.openConnection();
-                connection.connect();
-
-
-                InputStream stream = connection.getInputStream();
-
-                reader = new BufferedReader(new InputStreamReader(stream));
-
-                String line = "";
-
-                while (line != null) {
-                    line = reader.readLine();
-                    data = data + line;
-                }
-                try {
-                    JSONArray j = new JSONArray(data);
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                currentP3.setText("Current Price: $" + j.get(j.length() - 1));
-                                cp3 = Double.parseDouble(j.get(j.length() - 1).toString());
-                                double returnS3 = ((cp3 - buyingPrice3)/buyingPrice3)*100;
-                                return3.setText("Return: "+returnS3+"%");
-
-
-                                double total = cp1*q1 + cp2*q2 + cp3*q3;
-                                double invst1 = cp1*q1 / total;
-                                double invst2 = cp2*q2 / total;
-                                double invst3 = cp3*q3 / total;
-                                Log.d("TAG", "Invst1: " + invst1);
-                                Log.d("TAG", "Invst1: " + invst2);
-                                Log.d("TAG", "Invst1: " + invst3);
-
-                                crypto = new ArrayList<>();
-                                crypto.add(invst1);
-                                crypto.add(invst2);
-                                crypto.add(invst3);
-                                pieChart.setData(getPieData(crypto));
-                                pieChart.invalidate();
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    });
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                if (connection != null) {
-                    connection.disconnect();
-                }
-                try {
-                    if (reader != null) {
-                        reader.close();
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            return null;
-        }
-    }
-
-
-    private PieData getPieData(List<Number> list) {
+    private PieData getPieData(List<Number> l) {
         ArrayList<PieEntry> entries = new ArrayList<>();
-        entries.add(new PieEntry(list.get(0).floatValue(), ""+t.get(0).get("stock")));
-        entries.add(new PieEntry(list.get(1).floatValue(), ""+t.get(1).get("stock")));
-        entries.add(new PieEntry(list.get(2).floatValue(), ""+t.get(2).get("stock")));
+        Log.d("Pie Data", "Pie data: "+l);
+        for (int i = 0; i < l.size(); i++) {
+            entries.add(new PieEntry(l.get(i).floatValue(), "" + list.get(i).get("stock")));
+        }
+
 
         PieDataSet pieDataSet = new PieDataSet(entries , "");
         pieDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
-        pieChart.setEntryLabelColor(getResources().getColor(R.color.black));
         pieDataSet.setDrawValues(false);
 
         return new PieData(pieDataSet);
     }
 
-     */
+
 
 }

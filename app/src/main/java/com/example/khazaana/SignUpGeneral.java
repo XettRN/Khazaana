@@ -9,7 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.khazaana.main.client.client_signup_options;
+import com.example.khazaana.main.client.client_registration;
+import com.example.khazaana.main.ifa.IFARegistration;
 
 public class SignUpGeneral extends AppCompatActivity {
 
@@ -38,7 +39,8 @@ public class SignUpGeneral extends AppCompatActivity {
         ifa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SignUpGeneral.this, sign_up_options.class);
+                Intent intent = new Intent(SignUpGeneral.this,
+                        IFARegistration.class);
                 startActivity(intent);
             }
         });
@@ -46,7 +48,7 @@ public class SignUpGeneral extends AppCompatActivity {
         client.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SignUpGeneral.this, client_signup_options.class);
+                Intent intent = new Intent(SignUpGeneral.this, client_registration.class);
                 startActivity(intent);
             }
         });
