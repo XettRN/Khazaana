@@ -58,7 +58,6 @@ public class specific_stock extends Fragment {
     TextView roe = null;
     TextView recommend = null;
     TextView sName = null;
-    Button sout = null;
     DecimalFormat d = new DecimalFormat("#.###");
 
     @Override
@@ -83,7 +82,6 @@ public class specific_stock extends Fragment {
         roe = view.findViewById(R.id.value3);
         recommend = view.findViewById(R.id.value4);
         sName = view.findViewById(R.id.stock_name);
-        sout = view.findViewById(R.id.sout);
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference ifas = db.collection("Authorized IFAs");
@@ -123,14 +121,6 @@ public class specific_stock extends Fragment {
                 } else {
                     Log.d("TAG", "get failed with ", task.getException());
                 }
-            }
-        });
-
-        sout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(getContext(), LoadScreen.class));
             }
         });
 

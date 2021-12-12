@@ -335,22 +335,6 @@
                     android:textSize="15dp" />
             </LinearLayout>
 
-            <Button
-                android:id="@+id/sout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:backgroundTint="#FFFFFF"
-                android:fontFamily="@font/montserrat_regular"
-                android:text="Sign Out"
-                android:textAllCaps="false"
-                android:textColor="#000000"
-                android:textSize="12dp"
-                app:cornerRadius="0dp"
-                app:iconTint="#610C0C"
-                app:strokeColor="#000000"
-                app:strokeWidth="1dp" />
-
         </LinearLayout>
     </ScrollView>
 

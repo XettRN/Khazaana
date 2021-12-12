@@ -44,7 +44,6 @@ public class specific_crypto extends Fragment {
     double boughtPrice = 0;
     DecimalFormat d = new DecimalFormat("#.###");
     TextView cName = null;
-    Button sout = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -63,7 +62,6 @@ public class specific_crypto extends Fragment {
         TextView buyingPrice = view.findViewById(R.id.cbuyingPrice);
         returnP = view.findViewById(R.id.creturnPercent);
         cName = view.findViewById(R.id.cryp_name);
-        sout = view.findViewById(R.id.sout2);
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference ifas = db.collection("Authorized IFAs");
@@ -154,12 +152,5 @@ public class specific_crypto extends Fragment {
             }
         });
 
-        sout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(getContext(), LoadScreen.class));
-            }
-        });
     }
 }
