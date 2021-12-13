@@ -64,10 +64,6 @@ public class Home extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         displayPortfolios();
-<<<<<<< HEAD
-=======
-
->>>>>>> 0981b64263018d42ffe6761933080ef015b6e1c5
     }
 
 
@@ -210,46 +206,33 @@ public class Home extends Fragment {
                             CallAPI callAPI = new CallAPI();
 
                             //calculations and api calls
-                            if (stocks != null && stocks.size() > 0) {
-                                for (int i = 0; i < stocks.size(); i++) {
-                                    AssetEntry a = new AssetEntry();
-                                    a.setStock(stocks.get(i).get("stock").toString());
-                                    a.setPrice(Float.parseFloat(stocks.get(i).get("price").toString()));
-                                    a.setQuantity(Float.parseFloat(stocks.get(i).get("quantity").toString()));
-
-                                    initStock += a.getPrice();
-                                    initAUM += a.getPrice();
-
-                                    callAPI.calcStock(getContext(), a, new CallAPI.StockListener() {
-                                        @Override
-                                        public void OnError(String message) {
-                                            Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
-                                        }
-
-                                        @Override
-                                        public void OnResponse(String name, double stockPrice, double stockReturn) {
-
-                                            totalStock += (stockPrice * a.getQuantity());
-                                            totalAUM += (stockPrice * a.getQuantity());
-                                            returnStock += (stockReturn * a.getQuantity());
-                                            finalReturn += (stockReturn * a.getQuantity());
-                                            data.add(new Home.PortfolioData(firstName + " " + lastName, totalAUM, returnStock,
-                                                    benchmarkReturn, equity, document.getId()));
-
-
-                                        }
-                                    });
+                            callAPI.calcHomeAumReturn(getContext(), stocks, data, new CallAPI.AUMReturnListener() {
+                                @Override
+                                public void OnError(String message) {
+                                    Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
                                 }
-                            } else {
-                                data.add(new Home.PortfolioData(firstName + " " + lastName, totalAUM, returnStock,
-                                        benchmarkReturn, equity, document.getId()));
-                            }
+
+                                @Override
+                                public void OnResponse(AssetEntry a, String name, double stockPrice, double stockReturn, List<PortfolioData> clientData) {
+
+                                    totalStock += (stockPrice * a.getQuantity());
+                                    totalAUM += (stockPrice * a.getQuantity());
+                                    returnStock += (stockReturn * a.getQuantity());
+                                    finalReturn += (stockReturn * a.getQuantity());
+                                    clientData.add(new Home.PortfolioData(firstName + " " + lastName, totalAUM, returnStock,
+                                                    benchmarkReturn, equity, document.getId()));
+                                }
+                            });
+//                            else {
+//                                data.add(new Home.PortfolioData(firstName + " " + lastName, totalAUM, returnStock,
+//                                        benchmarkReturn, equity, document.getId()));
+//                            }
 
                             // TODO: figure out return and benchmark return
 //                            data.add(new Home.PortfolioData(firstName + " " + lastName, totalAUM, returnStock,
 //                                    benchmarkReturn, equity, document.getId()));
-                            Log.d("TAG", "LIST SIZE: " + data.size());
-                            index++;
+//                            Log.d("TAG", "LIST SIZE: " + data.size());
+//                            index++;
                         } else {
                             Log.d("TAG", "No such document");
                         }
