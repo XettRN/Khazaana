@@ -33,6 +33,7 @@ public class UserProfile extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         TextView name = view.findViewById(R.id.name);
+        TextView id = view.findViewById(R.id.ifaUserID);
 
         String ifaID = FirebaseAuth.getInstance().getUid();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -45,6 +46,7 @@ public class UserProfile extends Fragment {
                     DocumentSnapshot doc = task.getResult();
                     if (doc.exists()) {
                         name.setText("Name: " + doc.get("First Name") + " " + doc.get("Last Name"));
+                        id.setText("Key: " + ifaID);
                     }
                 }
             }

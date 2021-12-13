@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.khazaana.R;
+import com.example.khazaana.main.ClientBasic;
+import com.example.khazaana.main.NavView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -144,7 +146,7 @@ public class client_registration extends AppCompatActivity {
                             client.put("Associated IFA", ifaKey);
                             d.set(new_Client);
                             dref.set(client);
-                            startActivity(new Intent(getApplicationContext(), userDetails.class));
+                            startActivity(new Intent(getApplicationContext(), ClientBasic.class));
 
                         } else {
                             Toast.makeText(client_registration.this,task.getException().getMessage(), Toast.LENGTH_SHORT).show();

@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.khazaana.R;
+import com.example.khazaana.main.NavView;
 import com.example.khazaana.main.client.userDetails;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -46,7 +47,7 @@ public class IFARegistration extends AppCompatActivity {
         fStore = FirebaseFirestore.getInstance();
 
         if(fAuthorization.getCurrentUser() != null) {
-            startActivity(new Intent(getApplicationContext(), userDetails.class));
+            startActivity(new Intent(getApplicationContext(), NavView.class));
             finish();
         }
 
