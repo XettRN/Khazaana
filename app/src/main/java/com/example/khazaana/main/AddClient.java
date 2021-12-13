@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.khazaana.R;
@@ -46,8 +47,8 @@ public class AddClient extends Fragment {
         CollectionReference clients = db.collection("Authorized IFAs")
                 .document(user).collection("Clients");
 
-        TextInputEditText fieldFirst = view.findViewById(R.id.field_first_name);
-        TextInputEditText fieldLast = view.findViewById(R.id.field_last_name);
+        EditText fieldFirst = view.findViewById(R.id.field_first_name);
+        EditText fieldLast = view.findViewById(R.id.field_last_name);
 
         Button addClient = view.findViewById(R.id.submit_new_client);
         addClient.setOnClickListener(new View.OnClickListener() {

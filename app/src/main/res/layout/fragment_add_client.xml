@@ -7,25 +7,58 @@
     android:layout_height="match_parent"
     tools:context=".main.AddClient">
 
-    <com.google.android.material.textfield.TextInputLayout
+    <TextView
         android:id="@+id/first_name_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="150dp"
         android:layout_marginEnd="32dp"
-        android:hint="First Name"
+        android:fontFamily="@font/montserrat_regular"
+        android:text="First Name"
+        android:textColor="@color/black"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/redDot1"
+        android:layout_width="6dp"
+        android:layout_height="15dp"
+        android:text="*"
+        android:textColor="#F44336"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.319"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.216" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/field_first_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#FFFFFF"
-            android:inputType="textPersonName" />
-    </com.google.android.material.textfield.TextInputLayout>
+    <TextView
+        android:id="@+id/redDot2"
+        android:layout_width="24dp"
+        android:layout_height="16dp"
+        android:text="*"
+        android:textColor="#F44336"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.325"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.330" />
+
+    <EditText
+        android:id="@+id/field_first_name"
+        android:layout_width="342dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="37dp"
+        android:backgroundTint="@color/black"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/first_name_input" />
 
     <View
         android:id="@+id/view"
@@ -37,14 +70,14 @@
         app:layout_constraintHorizontal_bias="0.483"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.119" />
+        app:layout_constraintVertical_bias="0.122" />
 
     <TextView
         android:id="@+id/clientCrypto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/montserrat_medium"
-        android:text="Add Client"
+        android:text="Add New Client"
         android:textColor="#000000"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -53,41 +86,50 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.042" />
 
-    <com.google.android.material.textfield.TextInputLayout
+    <TextView
         android:id="@+id/textInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="230dp"
         android:layout_marginEnd="32dp"
-        android:hint="Last Name"
+        android:fontFamily="@font/montserrat_regular"
+        android:text="Last Name"
+        android:textColor="@color/black"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/first_name_input">
+        app:layout_constraintTop_toTopOf="parent"  />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/field_last_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#FFFFFF"
-            android:inputType="textPersonName" />
-    </com.google.android.material.textfield.TextInputLayout>
+    <EditText
+        android:id="@+id/field_last_name"
+        android:layout_width="342dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="37dp"
+        android:backgroundTint="@color/black"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
 
     <Button
         android:id="@+id/submit_new_client"
         android:layout_width="135dp"
         android:layout_height="56dp"
+        android:layout_marginTop="107dp"
         android:backgroundTint="@color/white"
         android:fontFamily="@font/montserrat_regular"
-        android:text="New Client"
+        android:text="Add Client"
         android:textAllCaps="false"
         android:textColor="@color/black"
         app:cornerRadius="1dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/field_last_name"
         app:strokeColor="#000000"
-        app:strokeWidth="1dp"
-        tools:layout_editor_absoluteY="406dp" />
+        app:strokeWidth="1dp" />
 
     <Button
         android:id="@+id/back_add_client"
