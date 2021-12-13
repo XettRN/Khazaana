@@ -107,7 +107,7 @@ public class IFARegistration extends AppCompatActivity {
                             authorizedUsers.put("Email Address", emailAdd);
 
                             d.set(authorizedUsers);
-                            startActivity(new Intent(getApplicationContext(), userDetails.class));
+                            startActivity(new Intent(getApplicationContext(), NavView.class));
 
                         } else {
                             Toast.makeText(IFARegistration.this,"User creation unsuccessful!!", Toast.LENGTH_SHORT).show();
